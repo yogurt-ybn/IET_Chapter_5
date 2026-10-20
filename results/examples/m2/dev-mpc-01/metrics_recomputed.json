@@ -1,0 +1,66 @@
+{
+  "implementation": "current common metrics; original result retained",
+  "metrics": {
+    "valid_samples": 1001,
+    "duration_s": 11.988255744,
+    "position_rms_m": 0.006490363123874419,
+    "position_max_m": 0.022156238555908203,
+    "axis_rms_m": [
+      0.00041431180951076945,
+      0.00027769841978537573,
+      0.006471170125402169
+    ],
+    "initial_hover_rms_m": 0.014079936671205943,
+    "transfer_rms_m": 0.005241699934290279,
+    "steady_hold_rms_m": 8.223921101364197e-05,
+    "transfer_settle_s": 0.003128064000000208,
+    "saturation_duration_s": 0.0,
+    "saturation_fraction": 0.0,
+    "allocation_residual_max": 1.7926187867238395e-15,
+    "allocation_residual_axis_max": [
+      1.7763568394002505e-15,
+      3.4466787063314186e-16,
+      2.3597660284147004e-16,
+      2.0721814021629203e-17
+    ],
+    "controller_s": {
+      "median": 6.999995093792677e-06,
+      "p95": 0.005624745041131973,
+      "max": 0.012570185004733503
+    },
+    "allocation_s": {
+      "median": 9.471096564084291e-05,
+      "p95": 0.00020781299099326134,
+      "max": 0.0035346460063010454
+    },
+    "rpc_step_s": {
+      "median": 0.01693909300956875,
+      "p95": 0.019568937015719712,
+      "max": 0.02692991402000189
+    },
+    "wall_loop_s": {
+      "median": 0.018024698016233742,
+      "p95": 0.023958736041095108,
+      "max": 0.032343566010240465
+    },
+    "wall_deadline_misses": 1001,
+    "fallback_count": 0,
+    "qp_updates": 332,
+    "fallback_activations": 0,
+    "qp_update_computation_s": {
+      "median": 0.0026455149927642196,
+      "p95": 0.007477910266607065,
+      "max": 0.012570185004733503
+    },
+    "solver_status_counts": {
+      "solved": 332
+    },
+    "collision_samples": 0,
+    "recovery_s": null,
+    "attitude_rms_rad": 0.00025087023287571387,
+    "rate_rms_rad_s": 0.0005986840599821162,
+    "mean_normalized_squared_motor_command": 0.3534847060635829,
+    "constraint_violation_samples": 0,
+    "constraint_violation_duration_s": 0.0
+  }
+}

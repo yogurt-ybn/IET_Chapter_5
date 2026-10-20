@@ -51,6 +51,11 @@ class AirSimBackend:
         self.rpc.call("enableApiControl", True, self.vehicle)
         if not self.rpc.call("armDisarm", True, self.vehicle):
             raise RuntimeError("Vehicle refused to arm")
+        self.set_initial_kinematics(position)
+        self.last_sequence = 0
+
+    def set_initial_kinematics(self, position):
+        self._require_exclusive()
         # A clearly separated setup operation. No teleportation occurs during evaluated intervals.
         x, y, z = position
         k = {"position": {"x_val": x, "y_val": -y, "z_val": -z},
@@ -60,7 +65,14 @@ class AirSimBackend:
              "linear_acceleration": {"x_val": 0., "y_val": 0., "z_val": 0.},
              "angular_acceleration": {"x_val": 0., "y_val": 0., "z_val": 0.}}
         self.rpc.call("simSetKinematics", k, True, self.vehicle)
-        self.last_sequence = 0
+
+    def paused_truth(self, timestamp_ns):
+        if not self.rpc.call("simIsPaused"):
+            raise RuntimeError("Timestamped direct truth read requires a paused simulator")
+        state = state_from_sample({"kinematics":self.rpc.call("simGetGroundTruthKinematics",self.vehicle),
+                                   "timestamp":timestamp_ns})
+        state.provenance = "AirSim paused direct ground truth at last physics timestamp"
+        return state
 
     def set_wind(self, velocity_nwu):
         self._require_exclusive()

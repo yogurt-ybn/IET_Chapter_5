@@ -31,3 +31,10 @@ Upstream components retain their own licences; this file does not relicense them
 NumPy, SciPy, MessagePack, OSQP, pytest and plotting packages are external dependencies,
 installed separately with their upstream licences. Exact resolved versions are in `uv.lock`.
 No upstream published performance is claimed to have been reproduced.
+
+The force-only observer is an original constant-mass specialization of the residual structure
+in Chen et al. (2000), DOI https://doi.org/10.1109/41.857974; no observer source code or
+article text is redistributed. Its discrete implementation and limitations are specified
+in docs/m2_acceptance.md. OSQP Python 1.0.5 is an external Apache-2.0 wrapper dependency,
+pinned at `7065b3605925f725b7fa8ac76dc4d0bdbe512c75`; solver code is unmodified.
+The MPC formulation/model/constraint assembly is original project code.

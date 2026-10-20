@@ -20,7 +20,7 @@ from .types import RunResult, WrenchCommand
 
 
 def run(local_config, controllers_config, task_config, controller_id, task_name, output,
-        *, seed=0):
+        *, seed=0, capture=False):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     c = local_config
@@ -29,13 +29,13 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
     controller = make_controller(controller_id, controllers_config[controller_id])
     task = Task(task_name, task_config)
     config = {"controller_id": controller_id, "controllers": controllers_config,
-              "task": task_name, "task_config": task_config, "seed": seed}
+              "task": task_name, "task_config": task_config, "seed": seed, "capture": capture}
     metadata = {"schema": "iet-ch5/v1", "run_id": output.name, "config": config,
                 "config_sha256": config_hash(config), "software": revision(),
                 "parameters": asdict(backend.parameters),
                 "backend_provenance": json.loads(Path("docs/airsim_source_inventory.json").read_text()),
                 "feedback": "atomic physics truth", "timing_mode": "paused simulation-time",
-                "reference_information": "p,v,a,jerk,snap,heading and derivatives; no preview at M1"}
+                "reference_information": "p,v,a,jerk,snap,heading derivatives; analytic future task available to all methods, MPC uses configured preview"}
     (output / "metadata.json").write_text(dump(metadata) + "\n")
     rows = []
     status, failure = "failed", None
@@ -43,7 +43,14 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         backend.initialize(task_config["initial_position"])
         hover = allocator.allocate(WrenchCommand(
             backend.parameters.mass * backend.parameters.gravity, np.zeros(3)))
-        state, samples, _ = backend.step(hover.pwm, task_config["control_period"])
+        for _ in range(8):
+            state, samples, _ = backend.step(hover.pwm, task_config["control_period"])
+        # Spin up outside evaluation, then restore and verify one identical initial state.
+        backend.set_initial_kinematics(task_config["initial_position"])
+        state = backend.paused_truth(state.timestamp_ns)
+        if (not np.allclose(state.p,task_config["initial_position"],atol=1e-6)
+                or np.linalg.norm(state.v)>1e-7 or np.linalg.norm(state.omega)>1e-7):
+            raise RuntimeError("Common initial state was not installed")
         controller_parameters = backend.parameters
         if task_name == "mismatch":
             controller_parameters = replace(backend.parameters,
@@ -51,6 +58,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 J=backend.parameters.J * task_config["controller_inertia_factor"])
         controller.reset(state, task.at(0), controller_parameters)
         metadata["controller_parameters"] = asdict(controller_parameters)
+        metadata["verified_initial_state"] = asdict(state)
         for name in ["A", "B", "Q", "W", "P", "K"]:
             if hasattr(controller, name):
                 metadata.setdefault("design_matrices", {})[name] = getattr(controller, name)
@@ -63,6 +71,10 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
             np.savez_compressed(output / "noise_realization.npz", noise=feedback.noise,
                                 period_s=feedback.noise_period, seed=seed)
         current_wind = np.zeros(3)
+        next_capture = 0.
+        frame_metadata = []
+        if capture:
+            (output / "frames").mkdir()
         with (output / "log.jsonl").open("w") as log, (output / "physics.jsonl").open("w") as physics:
             while (state.timestamp_ns - initial_timestamp) * 1e-9 < duration:
                 wall_start = time.perf_counter()
@@ -121,12 +133,27 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 encoded = dump(row)
                 log.write(encoded + "\n")
                 rows.append(json.loads(encoded))
+                if capture and t >= next_capture:
+                    request = {"camera_name": "0", "image_type": 0,
+                               "pixels_as_float": False, "compress": True}
+                    image = backend.rpc.call("simGetImages", [request], backend.vehicle, False)[0]
+                    raw = image["image_data_uint8"]
+                    if isinstance(raw, str):
+                        raw = raw.encode("latin1")
+                    filename = f"{len(frame_metadata):05d}.png"
+                    (output / "frames" / filename).write_bytes(bytes(raw))
+                    frame_metadata.append({"filename": filename, "run_id": output.name,
+                        "controller": controller_id, "simulation_t": t,
+                        "image_timestamp_ns": image["time_stamp"]})
+                    next_capture += .2
                 if (row["constraints"]["position_error"] > task_config["abort_position_error"]
                     or row["constraints"]["tilt_rad"] > task_config["abort_tilt_rad"]
                     or row["constraints"]["speed"] > task_config["abort_speed"]
                     or row["has_collided"]):
                     raise RuntimeError("Safety envelope/collision abort; failed samples retained")
-        metrics = compute(rows, task_config)
+        if capture:
+            (output / "frames.json").write_text(dump(frame_metadata) + "\n")
+        metrics = compute(rows, task_config, backend.parameters.gravity)
         error = metrics.get("steady_hold_rms_m") if task_name != "circle" else metrics["loop_rms_m"]
         status = "passed" if error is not None and error < task_config["hold_acceptance_rms_m"] else "failed"
         if status == "failed":
@@ -138,6 +165,6 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         backend.stop()
         backend.close()
     result = RunResult(output.name, controller_id, status, str(output / "log.jsonl"),
-                       compute(rows, task_config), failure)
+                       compute(rows, task_config, backend.parameters.gravity), failure)
     (output / "result.json").write_text(dump(result) + "\n")
     return result

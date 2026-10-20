@@ -56,6 +56,39 @@
       "input_output_conventions": "do not use Crazyflie mapping or import simulator stack",
       "modifications": "do not use Crazyflie mapping or import simulator stack",
       "validation_status": "inspected reference only; original PID/LQR numerical cores passed M1 AirSim hover/transfer"
+    },
+    {
+      "component": "Force-only DOB",
+      "upstream_url": "https://eprints.gla.ac.uk/320/1/gawthropiee474.pdf",
+      "pinned_commit": null,
+      "source_paths": [
+        "Chen et al. 2000 section II-B, equations 2-8 (structure only)"
+      ],
+      "licence_path": null,
+      "authors": "W.-H. Chen, D. J. Ballance, P. J. Gawthrop, J. O'Reilly",
+      "paper_citation": "IEEE TIE 47(4), 932-938, DOI 10.1109/41.857974",
+      "local_destination": "src/iet_ch5/controllers/dob.py",
+      "classification": "original constant-mass discrete implementation from cited observer equations; no paper/code redistribution",
+      "input_output_conventions": "NWU force estimate from momentum and applied collective estimate; force subtraction before attitude construction",
+      "modifications": "implicit-Euler momentum increment; finite force bounds; fixed geometric nominal gains; held estimate derivatives",
+      "validation_status": "unit convergence/bounds/disabled nominal equivalence; actual enabled/disabled wind runs passed"
+    },
+    {
+      "component": "OSQP Python",
+      "upstream_url": "https://github.com/osqp/osqp-python",
+      "pinned_commit": "7065b3605925f725b7fa8ac76dc4d0bdbe512c75",
+      "source_paths": [
+        "src/osqp/interface.py"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "Apache-2.0 (Python wrapper; underlying solver has its own notices)",
+      "authors": "OSQP developers",
+      "paper_citation": "Stellato et al., OSQP: an operator splitting solver for quadratic programs, Mathematical Programming Computation 2020",
+      "local_destination": "external package osqp==1.0.5 via uv.lock",
+      "classification": "external solver dependency; no source copied",
+      "input_output_conventions": "QP standard form; original model and physical-wrench constraints in controllers/mpc.py",
+      "modifications": "none to solver",
+      "validation_status": "actual MPC hover/transfer passed; solver timeout fallback exercised; constraints/infeasibility unit tested"
     }
   ]
 }

@@ -21,11 +21,13 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--dob-disabled", action="store_true")
+    parser.add_argument("--capture", action="store_true", help="Separate demo run; capture overhead is excluded from timing comparisons")
     args = parser.parse_args()
     controllers = json.loads(args.controllers.read_text())
     if args.dob_disabled:
         controllers["dob"]["enabled"] = False
     result = run(json.loads(args.local_config.read_text()), controllers,
-                 json.loads(args.tasks.read_text()), args.controller, args.task, args.output, seed=args.seed)
+                 json.loads(args.tasks.read_text()), args.controller, args.task, args.output,
+                 seed=args.seed, capture=args.capture)
     print(dump(result))
     raise SystemExit(0 if result.status == "passed" else 1)

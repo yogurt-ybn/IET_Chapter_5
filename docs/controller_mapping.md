@@ -10,8 +10,8 @@ against a typeset manuscript in this task; section mappings below do not invent 
 | §5.3 cascaded PID | `controllers/pid.py` | Position P -> bounded velocity, velocity PI + reference acceleration -> inertial force, SO(3) attitude P -> body rate, filtered rate PI -> physical moments |
 | §5.3 near-hover state feedback | `controllers/lqr.py` | Full 12-state discrete aircraft model, altitude and yaw included; extends the illustrative planar pitch model |
 | §5.3 SE(3) geometric tracking | `controllers/geometric.py`, `controllers/common.py` | Standard Lee/Leok/McClamroch moment law and FDCL direction derivatives, coupled yaw, upward thrust adaptation |
-| §5.3.4 observer compensation | Pending M2 | Must use identical geometric nominal gains in off/on ablation |
-| §5.3 constrained MPC | Pending M2 | Must solve a constrained problem with coupled rotor feasibility |
+| §5.3.4 observer compensation | `controllers/dob.py` | Identical geometric nominal gains, bounded force-only momentum residual, off/on ablation |
+| §5.3 constrained MPC | `controllers/mpc.py` | Real OSQP receding-horizon QP with coupled physical rotor feasibility |
 
 Every controller implements `reset(state,reference,parameters)` and
 `update(state,reference,dt) -> (WrenchCommand,diagnostics)`. None issues simulator flight
@@ -86,3 +86,6 @@ Force norm below 1e-7 or a degenerate heading construction triggers a recorded f
 hold the last attitude for zero force, otherwise choose the least-parallel heading basis,
 and set derivative feedforward to zero. Such fallback does not claim the original theorem's
 regularity assumptions. The common near-hover experiment avoids these singularities.
+
+Observer/MPC models, discretization, bounds, costs, preview, solver, fallback and primary
+source citations are specified in [M2 acceptance](m2_acceptance.md).

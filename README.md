@@ -6,8 +6,8 @@ AirSim implementations and reproducible case-study materials for the conventiona
 
 M0 bridge validation and M1 genuine AirSim hover/transfer acceptance passed for PID, LQR
 and standard SE(3). See [the environment report](docs/environment_report.md) and
-[M1 acceptance, evidence and limitations](docs/m1_acceptance.md). Observer/MPC and the
-fixed comparison matrix are pending. No controller ranking or real-time feasibility is claimed.
+[M1 acceptance, evidence and limitations](docs/m1_acceptance.md). [M2 observer/MPC development acceptance](docs/m2_acceptance.md) also passed; the frozen
+M3 comparison matrix is next. No controller ranking or real-time feasibility is claimed.
 
 ## Start here
 
