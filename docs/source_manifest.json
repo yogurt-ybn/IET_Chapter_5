@@ -1,0 +1,61 @@
+{
+  "components": [
+    {
+      "component": "AirSim",
+      "upstream_url": "https://github.com/microsoft/AirSim",
+      "pinned_commit": "13448700ec2b36d6aad7a4e0909bc9daf9d3d931",
+      "source_paths": [
+        "AirLib/include/vehicles/multirotor/RotorActuator.hpp",
+        "AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp",
+        "AirLib/include/vehicles/multirotor/api/MultirotorApiBase.hpp",
+        "AirLib/include/physics/FastPhysicsEngine.hpp"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "MIT",
+      "authors": "Microsoft Corporation",
+      "paper_citation": "Shah et al., AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles (2017)",
+      "local_destination": "src/iet_ch5/backends/; patches/airsim-dynamics-telemetry.patch",
+      "classification": "protocol integration and preserved pre-existing extension patch",
+      "input_output_conventions": "NED/FRD to NWU/FLU; physical wrench to linear normalized input; retained custom atomic telemetry",
+      "modifications": "NED/FRD to NWU/FLU; physical wrench to linear normalized input; retained custom atomic telemetry",
+      "validation_status": "M0 runtime passed; original binary build receipt unavailable"
+    },
+    {
+      "component": "FDCL",
+      "upstream_url": "https://github.com/fdcl-gwu/uav_geometric_control",
+      "pinned_commit": "f5fcb51c3b962152a4895a9d2e86e4a184655741",
+      "source_paths": [
+        "cpp/src/fdcl_control.cpp",
+        "cpp/src/fdcl_matrix_utils.cpp"
+      ],
+      "licence_path": "LICENSE.md",
+      "licence": "MIT",
+      "authors": "Flight Dynamics and Control Lab",
+      "paper_citation": "Lee, Leok, McClamroch, CDC 2010, pp. 5420-5425",
+      "local_destination": "planned src/iet_ch5/controllers/geometric.py",
+      "classification": "inspected reference; adaptation pending",
+      "input_output_conventions": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
+      "modifications": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
+      "validation_status": "source selection complete; implementation pending"
+    },
+    {
+      "component": "safe-control-gym",
+      "upstream_url": "https://github.com/learnsyslab/safe-control-gym",
+      "pinned_commit": "6b5391d014f36fdfa0f9d22d92c77387e5274308",
+      "source_paths": [
+        "safe_control_gym/controllers/pid/pid.py",
+        "safe_control_gym/controllers/lqr/lqr.py",
+        "safe_control_gym/controllers/mpc/linear_mpc.py"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "MIT",
+      "authors": "Dynamic Systems Lab",
+      "paper_citation": "Yuan et al., Safe-Control-Gym, RA-L 2022",
+      "local_destination": "none at M0",
+      "classification": "inspected reference only; no copied code",
+      "input_output_conventions": "do not use Crazyflie mapping or import simulator stack",
+      "modifications": "do not use Crazyflie mapping or import simulator stack",
+      "validation_status": "screened, original numerical implementations pending"
+    }
+  ]
+}

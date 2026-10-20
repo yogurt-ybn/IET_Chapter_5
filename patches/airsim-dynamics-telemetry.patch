@@ -1,0 +1,721 @@
+diff --git a/AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp b/AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp
+index 5362c940..27d3b87f 100644
+--- a/AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp
++++ b/AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp
+@@ -7,7 +7,7 @@
+ #include "common/Common.hpp"
+ #include "common/CommonStructs.hpp"
+ #include "RotorActuator.hpp"
+-#include "api/VehicleApiBase.hpp"
++#include "api/MultirotorApiBase.hpp"
+ #include "api/VehicleSimApiBase.hpp"
+ #include "MultiRotorParams.hpp"
+ #include <vector>
+@@ -21,7 +21,7 @@ namespace airlib
+     class MultiRotorPhysicsBody : public PhysicsBody
+     {
+     public:
+-        MultiRotorPhysicsBody(MultiRotorParams* params, VehicleApiBase* vehicle_api,
++        MultiRotorPhysicsBody(MultiRotorParams* params, MultirotorApiBase* vehicle_api,
+                               Kinematics* kinematics, Environment* environment)
+             : params_(params), vehicle_api_(vehicle_api)
+         {
+@@ -35,6 +35,10 @@ namespace airlib
+         {
+             //reset rotors, kinematics and environment
+             PhysicsBody::resetImplementation();
++            ++dynamics_reset_id_;
++            last_dynamics_timestamp_ = 0;
++            dynamics_parameters_published_ = false;
++            vehicle_api_->clearDynamicsStates();
+ 
+             //reset sensors last after their ground truth has been reset
+             resetSensors();
+@@ -71,6 +75,7 @@ namespace airlib
+         {
+             PhysicsBody::updateKinematics(kinematics);
+ 
++            publishDynamicsState();
+             updateSensorsAndController();
+         }
+ 
+@@ -79,6 +84,7 @@ namespace airlib
+         {
+             PhysicsBody::updateKinematics();
+ 
++            publishDynamicsState();
+             updateSensorsAndController();
+         }
+ 
+@@ -95,6 +101,70 @@ namespace airlib
+             }
+         }
+ 
++        void publishDynamicsState()
++        {
++            DynamicsState sample;
++            sample.sequence = ++dynamics_sequence_;
++            sample.reset_id = dynamics_reset_id_;
++            sample.timestamp = clock()->nowNanos();
++            sample.dt = last_dynamics_timestamp_ == 0
++                            ? 0
++                            : static_cast<real_T>(sample.timestamp - last_dynamics_timestamp_) / 1.0e9f;
++            last_dynamics_timestamp_ = sample.timestamp;
++            sample.kinematics = getKinematics();
++            sample.has_collided = getCollisionInfo().has_collided;
++            sample.grounded = isGrounded();
++            sample.rotors.reserve(rotors_.size());
++            for (const auto& rotor : rotors_) {
++                const auto output = rotor.getOutput();
++                sample.rotors.emplace_back(output.thrust, output.torque_scaler, output.speed,
++                                           output.control_signal_input, output.control_signal_filtered);
++            }
++            vehicle_api_->setDynamicsState(sample);
++            if (!dynamics_parameters_published_ && sample.dt > 0) {
++                publishDynamicsParameters(sample.dt);
++                dynamics_parameters_published_ = true;
++            }
++        }
++
++        void publishDynamicsParameters(real_T physics_dt)
++        {
++            const auto& params = params_->getParams();
++            const auto& rotor_params = params.rotor_params;
++            DynamicsParameters result;
++            result.mass = params.mass;
++            result.body_box = params.body_box;
++            result.inertia.reserve(9);
++            for (int row = 0; row < 3; ++row)
++                for (int col = 0; col < 3; ++col)
++                    result.inertia.push_back(params.inertia(row, col));
++            for (const auto& pose : params.rotor_poses) {
++                RotorPoseParameters rotor_pose;
++                rotor_pose.position = pose.position;
++                rotor_pose.normal = pose.normal;
++                rotor_pose.turning_direction = static_cast<int>(pose.direction);
++                result.rotor_poses.push_back(rotor_pose);
++            }
++            result.max_thrust = rotor_params.max_thrust;
++            result.max_torque = rotor_params.max_torque;
++            result.max_speed = rotor_params.max_speed;
++            result.max_rpm = rotor_params.max_rpm;
++            result.thrust_coefficient = rotor_params.C_T;
++            result.power_coefficient = rotor_params.C_P;
++            result.rotor_reference_air_density = rotor_params.air_density;
++            result.propeller_diameter = rotor_params.propeller_diameter;
++            result.propeller_height = rotor_params.propeller_height;
++            result.control_signal_filter_tc = rotor_params.control_signal_filter_tc;
++            result.linear_drag_coefficient = params.linear_drag_coefficient;
++            result.angular_drag_coefficient = params.angular_drag_coefficient;
++            result.restitution = params.restitution;
++            result.friction = params.friction;
++            result.air_density = getEnvironment().getState().air_density;
++            result.gravity = getEnvironment().getState().gravity;
++            result.physics_loop_period_nanos = static_cast<uint64_t>(physics_dt * 1.0e9f + 0.5f);
++            vehicle_api_->setDynamicsParameters(result);
++        }
++
+         //sensor getter
+         const SensorCollection& getSensors() const
+         {
+@@ -224,7 +294,11 @@ namespace airlib
+         vector<PhysicsBodyVertex> drag_faces_;
+ 
+         std::unique_ptr<Environment> environment_;
+-        VehicleApiBase* vehicle_api_;
++        MultirotorApiBase* vehicle_api_;
++        uint64_t dynamics_sequence_ = 0;
++        uint64_t dynamics_reset_id_ = 0;
++        uint64_t last_dynamics_timestamp_ = 0;
++        bool dynamics_parameters_published_ = false;
+     };
+ }
+ } //namespace
+diff --git a/AirLib/include/vehicles/multirotor/api/MultirotorApiBase.hpp b/AirLib/include/vehicles/multirotor/api/MultirotorApiBase.hpp
+index e8b276b2..d3e83aae 100644
+--- a/AirLib/include/vehicles/multirotor/api/MultirotorApiBase.hpp
++++ b/AirLib/include/vehicles/multirotor/api/MultirotorApiBase.hpp
+@@ -12,6 +12,7 @@
+ #include "api/VehicleApiBase.hpp"
+ 
+ #include <atomic>
++#include <deque>
+ #include <thread>
+ #include <memory>
+ 
+@@ -131,6 +132,36 @@ namespace airlib
+             return rotor_states_;
+         }
+ 
++        DynamicsStateBatch getDynamicsStateBatch(uint64_t after_sequence, uint max_samples) const
++        {
++            std::lock_guard<std::mutex> lock(dynamics_mutex_);
++            DynamicsStateBatch batch;
++            if (dynamics_states_.empty())
++                return batch;
++
++            batch.buffer_first_sequence = dynamics_states_.front().sequence;
++            batch.buffer_last_sequence = dynamics_states_.back().sequence;
++            batch.samples_dropped = after_sequence != 0 &&
++                                    batch.buffer_first_sequence > after_sequence + 1;
++
++            const uint sample_limit = std::min<uint>(max_samples == 0 ? 4096 : max_samples, 4096);
++            batch.samples.reserve(sample_limit);
++            for (const auto& sample : dynamics_states_) {
++                if (sample.sequence > after_sequence) {
++                    batch.samples.push_back(sample);
++                    if (batch.samples.size() >= sample_limit)
++                        break;
++                }
++            }
++            return batch;
++        }
++
++        DynamicsParameters getDynamicsParameters() const
++        {
++            std::lock_guard<std::mutex> lock(dynamics_mutex_);
++            return dynamics_parameters_;
++        }
++
+         MultirotorState getMultirotorState() const
+         {
+             MultirotorState state;
+@@ -157,6 +188,26 @@ namespace airlib
+             rotor_states_ = rotor_states;
+         }
+ 
++        void setDynamicsState(const DynamicsState& dynamics_state)
++        {
++            std::lock_guard<std::mutex> lock(dynamics_mutex_);
++            dynamics_states_.push_back(dynamics_state);
++            while (dynamics_states_.size() > dynamics_buffer_capacity_)
++                dynamics_states_.pop_front();
++        }
++
++        void clearDynamicsStates()
++        {
++            std::lock_guard<std::mutex> lock(dynamics_mutex_);
++            dynamics_states_.clear();
++        }
++
++        void setDynamicsParameters(const DynamicsParameters& dynamics_parameters)
++        {
++            std::lock_guard<std::mutex> lock(dynamics_mutex_);
++            dynamics_parameters_ = dynamics_parameters;
++        }
++
+     protected: //utility methods
+         typedef std::function<bool()> WaitFunction;
+ 
+@@ -365,6 +416,10 @@ namespace airlib
+         float approx_zero_vel_ = 0.05f;
+         float approx_zero_angular_vel_ = 0.01f;
+         RotorStates rotor_states_;
++        static constexpr size_t dynamics_buffer_capacity_ = 10000;
++        mutable std::mutex dynamics_mutex_;
++        std::deque<DynamicsState> dynamics_states_;
++        DynamicsParameters dynamics_parameters_;
+     };
+ }
+ } //namespace
+diff --git a/AirLib/include/vehicles/multirotor/api/MultirotorCommon.hpp b/AirLib/include/vehicles/multirotor/api/MultirotorCommon.hpp
+index fccec1ca..b839ead1 100644
+--- a/AirLib/include/vehicles/multirotor/api/MultirotorCommon.hpp
++++ b/AirLib/include/vehicles/multirotor/api/MultirotorCommon.hpp
+@@ -27,21 +27,33 @@ namespace airlib
+         real_T thrust = 0;
+         real_T torque_scaler = 0;
+         real_T speed = 0;
++        // Normalized actuator input from the flight controller. This is not a
++        // physical PWM pulse width and is not inferred from rotor speed.
++        real_T control_signal_input = 0;
++        // First-order motor response state used to compute speed/thrust/torque.
++        real_T control_signal_filtered = 0;
+ 
+         RotorParameters()
+         {
+         }
+ 
+-        RotorParameters(const real_T& thrust_val, const real_T& torque_scaler_val, const real_T& speed_val)
+-            : thrust(thrust_val), torque_scaler(torque_scaler_val), speed(speed_val)
++        RotorParameters(const real_T& thrust_val, const real_T& torque_scaler_val, const real_T& speed_val,
++                        const real_T& control_signal_input_val = 0,
++                        const real_T& control_signal_filtered_val = 0)
++            : thrust(thrust_val), torque_scaler(torque_scaler_val), speed(speed_val),
++              control_signal_input(control_signal_input_val), control_signal_filtered(control_signal_filtered_val)
+         {
+         }
+ 
+-        void update(const real_T& thrust_val, const real_T& torque_scaler_val, const real_T& speed_val)
++        void update(const real_T& thrust_val, const real_T& torque_scaler_val, const real_T& speed_val,
++                    const real_T& control_signal_input_val = 0,
++                    const real_T& control_signal_filtered_val = 0)
+         {
+             thrust = thrust_val;
+             torque_scaler = torque_scaler_val;
+             speed = speed_val;
++            control_signal_input = control_signal_input_val;
++            control_signal_filtered = control_signal_filtered_val;
+         }
+     };
+ 
+@@ -59,6 +71,63 @@ namespace airlib
+         }
+     };
+ 
++    // One atomic physics-step sample. The rotor outputs in this sample generated
++    // the transition ending at kinematics/timestamp; the controller command
++    // computed from this kinematics state is applied on the following step.
++    struct DynamicsState
++    {
++        uint64_t sequence = 0;
++        uint64_t reset_id = 0;
++        uint64_t timestamp = 0;
++        real_T dt = 0;
++        std::vector<RotorParameters> rotors;
++        Kinematics::State kinematics;
++        bool has_collided = false;
++        bool grounded = false;
++    };
++
++    struct DynamicsStateBatch
++    {
++        std::vector<DynamicsState> samples;
++        uint64_t buffer_first_sequence = 0;
++        uint64_t buffer_last_sequence = 0;
++        bool samples_dropped = false;
++    };
++
++    struct RotorPoseParameters
++    {
++        Vector3r position;
++        Vector3r normal;
++        int turning_direction = 0;
++    };
++
++    // Resolved parameters from the active vehicle instance, not nominal values
++    // copied from an unrelated airframe.
++    struct DynamicsParameters
++    {
++        real_T mass = 0;
++        std::vector<real_T> inertia;
++        Vector3r body_box;
++        std::vector<RotorPoseParameters> rotor_poses;
++        real_T max_thrust = 0;
++        real_T max_torque = 0;
++        real_T max_speed = 0;
++        real_T max_rpm = 0;
++        real_T thrust_coefficient = 0;
++        real_T power_coefficient = 0;
++        real_T rotor_reference_air_density = 0;
++        real_T propeller_diameter = 0;
++        real_T propeller_height = 0;
++        real_T control_signal_filter_tc = 0;
++        real_T linear_drag_coefficient = 0;
++        real_T angular_drag_coefficient = 0;
++        real_T restitution = 0;
++        real_T friction = 0;
++        real_T air_density = 0;
++        Vector3r gravity;
++        uint64_t physics_loop_period_nanos = 0;
++    };
++
+     //Yaw mode specifies if yaw should be set as angle or angular velocity around the center of drone
+     struct YawMode
+     {
+@@ -146,4 +215,4 @@ namespace airlib
+     };
+ }
+ } //namespace
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibAdaptors.hpp b/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibAdaptors.hpp
+index 47dcb028..5df49fd9 100644
+--- a/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibAdaptors.hpp
++++ b/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibAdaptors.hpp
+@@ -50,8 +50,10 @@ namespace airlib_rpclib
+             msr::airlib::real_T thrust;
+             msr::airlib::real_T torque_scaler;
+             msr::airlib::real_T speed;
++            msr::airlib::real_T control_signal_input;
++            msr::airlib::real_T control_signal_filtered;
+ 
+-            MSGPACK_DEFINE_MAP(thrust, torque_scaler, speed);
++            MSGPACK_DEFINE_MAP(thrust, torque_scaler, speed, control_signal_input, control_signal_filtered);
+ 
+             RotorParameters()
+             {
+@@ -62,11 +64,13 @@ namespace airlib_rpclib
+                 thrust = s.thrust;
+                 torque_scaler = s.torque_scaler;
+                 speed = s.speed;
++                control_signal_input = s.control_signal_input;
++                control_signal_filtered = s.control_signal_filtered;
+             }
+ 
+             msr::airlib::RotorParameters to() const
+             {
+-                return msr::airlib::RotorParameters(thrust, torque_scaler, speed);
++                return msr::airlib::RotorParameters(thrust, torque_scaler, speed, control_signal_input, control_signal_filtered);
+             }
+         };
+ 
+@@ -99,6 +103,187 @@ namespace airlib_rpclib
+             }
+         };
+ 
++        struct DynamicsState
++        {
++            uint64_t sequence;
++            uint64_t reset_id;
++            uint64_t timestamp;
++            msr::airlib::real_T dt;
++            std::vector<RotorParameters> rotors;
++            KinematicsState kinematics;
++            bool has_collided;
++            bool grounded;
++
++            MSGPACK_DEFINE_MAP(sequence, reset_id, timestamp, dt, rotors, kinematics, has_collided, grounded);
++
++            DynamicsState()
++            {
++            }
++
++            DynamicsState(const msr::airlib::DynamicsState& s)
++                : sequence(s.sequence), reset_id(s.reset_id), timestamp(s.timestamp), dt(s.dt),
++                  kinematics(s.kinematics), has_collided(s.has_collided), grounded(s.grounded)
++            {
++                for (const auto& r : s.rotors)
++                    rotors.push_back(RotorParameters(r));
++            }
++
++            msr::airlib::DynamicsState to() const
++            {
++                msr::airlib::DynamicsState state;
++                state.sequence = sequence;
++                state.reset_id = reset_id;
++                state.timestamp = timestamp;
++                state.dt = dt;
++                state.kinematics = kinematics.to();
++                state.has_collided = has_collided;
++                state.grounded = grounded;
++                for (const auto& r : rotors)
++                    state.rotors.push_back(r.to());
++                return state;
++            }
++        };
++
++        struct DynamicsStateBatch
++        {
++            std::vector<DynamicsState> samples;
++            uint64_t buffer_first_sequence;
++            uint64_t buffer_last_sequence;
++            bool samples_dropped;
++
++            MSGPACK_DEFINE_MAP(samples, buffer_first_sequence, buffer_last_sequence, samples_dropped);
++
++            DynamicsStateBatch()
++            {
++            }
++
++            DynamicsStateBatch(const msr::airlib::DynamicsStateBatch& s)
++                : buffer_first_sequence(s.buffer_first_sequence), buffer_last_sequence(s.buffer_last_sequence),
++                  samples_dropped(s.samples_dropped)
++            {
++                for (const auto& sample : s.samples)
++                    samples.push_back(DynamicsState(sample));
++            }
++
++            msr::airlib::DynamicsStateBatch to() const
++            {
++                msr::airlib::DynamicsStateBatch batch;
++                batch.buffer_first_sequence = buffer_first_sequence;
++                batch.buffer_last_sequence = buffer_last_sequence;
++                batch.samples_dropped = samples_dropped;
++                for (const auto& sample : samples)
++                    batch.samples.push_back(sample.to());
++                return batch;
++            }
++        };
++
++        struct RotorPoseParameters
++        {
++            Vector3r position;
++            Vector3r normal;
++            int turning_direction;
++
++            MSGPACK_DEFINE_MAP(position, normal, turning_direction);
++
++            RotorPoseParameters()
++            {
++            }
++
++            RotorPoseParameters(const msr::airlib::RotorPoseParameters& s)
++                : position(s.position), normal(s.normal), turning_direction(s.turning_direction)
++            {
++            }
++
++            msr::airlib::RotorPoseParameters to() const
++            {
++                msr::airlib::RotorPoseParameters result;
++                result.position = position.to();
++                result.normal = normal.to();
++                result.turning_direction = turning_direction;
++                return result;
++            }
++        };
++
++        struct DynamicsParameters
++        {
++            msr::airlib::real_T mass;
++            std::vector<msr::airlib::real_T> inertia;
++            Vector3r body_box;
++            std::vector<RotorPoseParameters> rotor_poses;
++            msr::airlib::real_T max_thrust;
++            msr::airlib::real_T max_torque;
++            msr::airlib::real_T max_speed;
++            msr::airlib::real_T max_rpm;
++            msr::airlib::real_T thrust_coefficient;
++            msr::airlib::real_T power_coefficient;
++            msr::airlib::real_T rotor_reference_air_density;
++            msr::airlib::real_T propeller_diameter;
++            msr::airlib::real_T propeller_height;
++            msr::airlib::real_T control_signal_filter_tc;
++            msr::airlib::real_T linear_drag_coefficient;
++            msr::airlib::real_T angular_drag_coefficient;
++            msr::airlib::real_T restitution;
++            msr::airlib::real_T friction;
++            msr::airlib::real_T air_density;
++            Vector3r gravity;
++            uint64_t physics_loop_period_nanos;
++
++            MSGPACK_DEFINE_MAP(mass, inertia, body_box, rotor_poses, max_thrust, max_torque, max_speed, max_rpm,
++                               thrust_coefficient, power_coefficient, rotor_reference_air_density,
++                               propeller_diameter, propeller_height, control_signal_filter_tc,
++                               linear_drag_coefficient, angular_drag_coefficient, restitution, friction,
++                               air_density, gravity, physics_loop_period_nanos);
++
++            DynamicsParameters()
++            {
++            }
++
++            DynamicsParameters(const msr::airlib::DynamicsParameters& s)
++                : mass(s.mass), inertia(s.inertia), body_box(s.body_box), max_thrust(s.max_thrust),
++                  max_torque(s.max_torque), max_speed(s.max_speed),
++                  max_rpm(s.max_rpm), thrust_coefficient(s.thrust_coefficient),
++                  power_coefficient(s.power_coefficient),
++                  rotor_reference_air_density(s.rotor_reference_air_density),
++                  propeller_diameter(s.propeller_diameter), propeller_height(s.propeller_height),
++                  control_signal_filter_tc(s.control_signal_filter_tc),
++                  linear_drag_coefficient(s.linear_drag_coefficient),
++                  angular_drag_coefficient(s.angular_drag_coefficient), restitution(s.restitution),
++                  friction(s.friction), air_density(s.air_density),
++                  gravity(s.gravity), physics_loop_period_nanos(s.physics_loop_period_nanos)
++            {
++                for (const auto& pose : s.rotor_poses)
++                    rotor_poses.push_back(RotorPoseParameters(pose));
++            }
++
++            msr::airlib::DynamicsParameters to() const
++            {
++                msr::airlib::DynamicsParameters result;
++                result.mass = mass;
++                result.inertia = inertia;
++                result.body_box = body_box.to();
++                for (const auto& pose : rotor_poses)
++                    result.rotor_poses.push_back(pose.to());
++                result.max_thrust = max_thrust;
++                result.max_torque = max_torque;
++                result.max_speed = max_speed;
++                result.max_rpm = max_rpm;
++                result.thrust_coefficient = thrust_coefficient;
++                result.power_coefficient = power_coefficient;
++                result.rotor_reference_air_density = rotor_reference_air_density;
++                result.propeller_diameter = propeller_diameter;
++                result.propeller_height = propeller_height;
++                result.control_signal_filter_tc = control_signal_filter_tc;
++                result.linear_drag_coefficient = linear_drag_coefficient;
++                result.angular_drag_coefficient = angular_drag_coefficient;
++                result.restitution = restitution;
++                result.friction = friction;
++                result.air_density = air_density;
++                result.gravity = gravity.to();
++                result.physics_loop_period_nanos = physics_loop_period_nanos;
++                return result;
++            }
++        };
++
+         struct MultirotorState
+         {
+             CollisionInfo collision;
+diff --git a/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibClient.hpp b/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibClient.hpp
+index 67dfbca9..5da8e476 100644
+--- a/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibClient.hpp
++++ b/AirLib/include/vehicles/multirotor/api/MultirotorRpcLibClient.hpp
+@@ -66,6 +66,8 @@ namespace airlib
+ 
+         MultirotorState getMultirotorState(const std::string& vehicle_name = "");
+         RotorStates getRotorStates(const std::string& vehicle_name = "");
++        DynamicsStateBatch getDynamicsStateBatch(uint64_t after_sequence = 0, uint max_samples = 1024, const std::string& vehicle_name = "");
++        DynamicsParameters getDynamicsParameters(const std::string& vehicle_name = "");
+ 
+         bool setSafety(SafetyEval::SafetyViolationType enable_reasons, float obs_clearance, SafetyEval::ObsAvoidanceStrategy obs_startegy,
+                        float obs_avoidance_vel, const Vector3r& origin, float xy_length, float max_z, float min_z, const std::string& vehicle_name = "");
+diff --git a/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibClient.cpp b/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibClient.cpp
+index 652d3e65..ee3d24f0 100644
+--- a/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibClient.cpp
++++ b/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibClient.cpp
+@@ -233,6 +233,14 @@ __pragma(warning(disable : 4239))
+         {
+             return static_cast<rpc::client*>(getClient())->call("getRotorStates", vehicle_name).as<MultirotorRpcLibAdaptors::RotorStates>().to();
+         }
++        DynamicsStateBatch MultirotorRpcLibClient::getDynamicsStateBatch(uint64_t after_sequence, uint max_samples, const std::string& vehicle_name)
++        {
++            return static_cast<rpc::client*>(getClient())->call("getDynamicsStateBatch", after_sequence, max_samples, vehicle_name).as<MultirotorRpcLibAdaptors::DynamicsStateBatch>().to();
++        }
++        DynamicsParameters MultirotorRpcLibClient::getDynamicsParameters(const std::string& vehicle_name)
++        {
++            return static_cast<rpc::client*>(getClient())->call("getDynamicsParameters", vehicle_name).as<MultirotorRpcLibAdaptors::DynamicsParameters>().to();
++        }
+         // Multirotor state getter
+         MultirotorState MultirotorRpcLibClient::getMultirotorState(const std::string& vehicle_name)
+         {
+diff --git a/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibServer.cpp b/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibServer.cpp
+index 90a08847..6e398041 100644
+--- a/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibServer.cpp
++++ b/AirLib/src/vehicles/multirotor/api/MultirotorRpcLibServer.cpp
+@@ -136,6 +136,12 @@ namespace airlib
+         (static_cast<rpc::server*>(getServer()))->bind("getRotorStates", [&](const std::string& vehicle_name) -> MultirotorRpcLibAdaptors::RotorStates {
+             return MultirotorRpcLibAdaptors::RotorStates(getVehicleApi(vehicle_name)->getRotorStates());
+         });
++        (static_cast<rpc::server*>(getServer()))->bind("getDynamicsStateBatch", [&](uint64_t after_sequence, uint max_samples, const std::string& vehicle_name) -> MultirotorRpcLibAdaptors::DynamicsStateBatch {
++            return MultirotorRpcLibAdaptors::DynamicsStateBatch(getVehicleApi(vehicle_name)->getDynamicsStateBatch(after_sequence, max_samples));
++        });
++        (static_cast<rpc::server*>(getServer()))->bind("getDynamicsParameters", [&](const std::string& vehicle_name) -> MultirotorRpcLibAdaptors::DynamicsParameters {
++            return MultirotorRpcLibAdaptors::DynamicsParameters(getVehicleApi(vehicle_name)->getDynamicsParameters());
++        });
+         // Multirotor state
+         (static_cast<rpc::server*>(getServer()))->bind("getMultirotorState", [&](const std::string& vehicle_name) -> MultirotorRpcLibAdaptors::MultirotorState {
+             return MultirotorRpcLibAdaptors::MultirotorState(getVehicleApi(vehicle_name)->getMultirotorState());
+diff --git a/PythonClient/airsim/client.py b/PythonClient/airsim/client.py
+index 4f139ac5..20b74037 100644
+--- a/PythonClient/airsim/client.py
++++ b/PythonClient/airsim/client.py
+@@ -1570,17 +1570,37 @@ class MultirotorClient(VehicleClient, object):
+     def getRotorStates(self, vehicle_name = ''):
+         """
+         Used to obtain the current state of all a multirotor's rotors. The state includes the speeds,
+-        thrusts and torques for all rotors.
++        thrusts, torques, normalized controller inputs and filtered actuator inputs for all rotors.
+ 
+         Args:
+             vehicle_name (str, optional): Vehicle to get the rotor state of
+ 
+         Returns:
+-            RotorStates: Containing a timestamp and the speed, thrust and torque of all rotors.
++            RotorStates: Containing a timestamp and rotor output/control fields.
+         """
+         return RotorStates.from_msgpack(self.client.call('getRotorStates', vehicle_name))
+     getRotorStates.__annotations__ = {'return': RotorStates}
+ 
++    def getDynamicsStateBatch(self, after_sequence = 0, max_samples = 1024, vehicle_name = ''):
++        """Returns atomic physics-step samples newer than after_sequence.
++
++        Each sample contains the normalized motor control inputs and filtered
++        actuator states that generated the transition ending at that sample's
++        kinematics state. A bounded server-side ring buffer prevents normal RPC
++        polling jitter from silently turning duplicate reads into fake samples.
++        """
++        return DynamicsStateBatch.from_msgpack(
++            self.client.call('getDynamicsStateBatch', after_sequence, max_samples, vehicle_name)
++        )
++    getDynamicsStateBatch.__annotations__ = {'return': DynamicsStateBatch}
++
++    def getDynamicsParameters(self, vehicle_name = ''):
++        """Returns resolved dynamics parameters from the active vehicle instance."""
++        return DynamicsParameters.from_msgpack(
++            self.client.call('getDynamicsParameters', vehicle_name)
++        )
++    getDynamicsParameters.__annotations__ = {'return': DynamicsParameters}
++
+ #----------------------------------- Car APIs ---------------------------------------------
+ class CarClient(VehicleClient, object):
+     def __init__(self, ip = "", port = 41451, timeout_value = 3600):
+@@ -1618,4 +1638,4 @@ class CarClient(VehicleClient, object):
+             CarControls:
+         """
+         controls_raw = self.client.call('getCarControls', vehicle_name)
+-        return CarControls.from_msgpack(controls_raw)
+\ No newline at end of file
++        return CarControls.from_msgpack(controls_raw)
+diff --git a/PythonClient/airsim/types.py b/PythonClient/airsim/types.py
+index 7aef0055..173d26b8 100644
+--- a/PythonClient/airsim/types.py
++++ b/PythonClient/airsim/types.py
+@@ -406,6 +406,51 @@ class RotorStates(MsgpackMixin):
+     timestamp = np.uint64(0)
+     rotors = []
+ 
++class DynamicsState(MsgpackMixin):
++    sequence = np.uint64(0)
++    reset_id = np.uint64(0)
++    timestamp = np.uint64(0)
++    dt = 0.0
++    rotors = []
++    kinematics = KinematicsState()
++    has_collided = False
++    grounded = False
++
++class DynamicsStateBatch(MsgpackMixin):
++    samples = []
++    buffer_first_sequence = np.uint64(0)
++    buffer_last_sequence = np.uint64(0)
++    samples_dropped = False
++
++    @classmethod
++    def from_msgpack(cls, encoded):
++        obj = super(DynamicsStateBatch, cls).from_msgpack(encoded)
++        obj.samples = [DynamicsState.from_msgpack(sample) for sample in obj.samples]
++        return obj
++
++class DynamicsParameters(MsgpackMixin):
++    mass = 0.0
++    inertia = []
++    body_box = Vector3r()
++    rotor_poses = []
++    max_thrust = 0.0
++    max_torque = 0.0
++    max_speed = 0.0
++    max_rpm = 0.0
++    thrust_coefficient = 0.0
++    power_coefficient = 0.0
++    rotor_reference_air_density = 0.0
++    propeller_diameter = 0.0
++    propeller_height = 0.0
++    control_signal_filter_tc = 0.0
++    linear_drag_coefficient = 0.0
++    angular_drag_coefficient = 0.0
++    restitution = 0.0
++    friction = 0.0
++    air_density = 0.0
++    gravity = Vector3r()
++    physics_loop_period_nanos = np.uint64(0)
++
+ class ProjectionMatrix(MsgpackMixin):
+     matrix = []
+ 
+diff --git a/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor/MultirotorPawnSimApi.cpp b/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor/MultirotorPawnSimApi.cpp
+index 0f270090..af9b8a71 100644
+--- a/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor/MultirotorPawnSimApi.cpp
++++ b/Unreal/Plugins/AirSim/Source/Vehicles/Multirotor/MultirotorPawnSimApi.cpp
+@@ -70,7 +70,8 @@ void MultirotorPawnSimApi::updateRenderedState(float dt)
+     for (unsigned int i = 0; i < rotor_count_; ++i) {
+         const auto& rotor_output = multirotor_physics_body_->getRotorOutput(i);
+         // update private rotor variable
+-        rotor_states_.rotors[i].update(rotor_output.thrust, rotor_output.torque_scaler, rotor_output.speed);
++        rotor_states_.rotors[i].update(rotor_output.thrust, rotor_output.torque_scaler, rotor_output.speed,
++                                        rotor_output.control_signal_input, rotor_output.control_signal_filtered);
+         RotorActuatorInfo* info = &rotor_actuator_info_[i];
+         info->rotor_speed = rotor_output.speed;
+         info->rotor_direction = static_cast<int>(rotor_output.turning_direction);
