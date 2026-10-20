@@ -45,6 +45,6 @@ if __name__ == '__main__':
     p.add_argument('--local-config', type=Path, required=True)
     p.add_argument('--exclusive-simulator', action='store_true', required=True)
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--task-config', type=Path, default=Path('configs/figure-eight-demo-task.json'))
+    p.add_argument('--task-config', type=Path, default=Path('configs/figure-eight-cruise-task.json'))
     a = p.parse_args()
     capture(a.local_config, a.output, a.task_config)

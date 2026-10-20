@@ -7,6 +7,7 @@ from ..types import Reference
 
 # Degree-nine smoothstep, derivatives 1..4 zero at both endpoints.
 SMOOTH = Polynomial([0, 0, 0, 0, 0, 126, -420, 540, -315, 70])
+SMOOTH_INTEGRAL = SMOOTH.integ()
 
 
 def blend(t, onset, duration):
@@ -28,6 +29,35 @@ def phase_harmonic(phase, frequency):
              - 6j * d[1]**2 * d[2] + d[1]**4) * z]
 
 
+def cruise_phase(t, onset, duration, ramp):
+    """One turn: smooth angular-speed ramps and a sustained constant-rate middle.
+
+    Returns angle and its first four TIME derivatives. The integral of the speed
+    smoothstep gives half a ramp's area, so omega = 2*pi/(duration-ramp).
+    Constant angular rate is not constant Cartesian speed on a figure eight.
+    """
+    if not 0 < 2 * ramp < duration:
+        raise ValueError('Cruise timing requires 0 < 2*ramp < duration')
+    elapsed = t - onset
+    if elapsed <= 0:
+        return np.zeros(5)
+    if elapsed >= duration:
+        return np.array([2*np.pi, 0., 0., 0., 0.])
+    omega = 2*np.pi / (duration - ramp)
+    if ramp <= elapsed <= duration - ramp:
+        return np.array([omega*(elapsed-ramp/2), omega, 0., 0., 0.])
+    remaining = duration - elapsed
+    u = min(elapsed, remaining) / ramp
+    result = np.array([omega*ramp*SMOOTH_INTEGRAL(u), omega*SMOOTH(u),
+                       omega/ramp*SMOOTH.deriv(1)(u),
+                       omega/ramp**2*SMOOTH.deriv(2)(u),
+                       omega/ramp**3*SMOOTH.deriv(3)(u)])
+    if elapsed > duration - ramp:
+        result[0] = 2*np.pi - result[0]
+        result[[2, 4]] *= -1
+    return result
+
+
 class Task:
     def __init__(self, name, config):
         self.name = name
@@ -45,6 +75,16 @@ class Task:
         if self.tracking_interval is not None:
             return self.c[self.name + '_total_duration']
         return self.c['duration']
+
+    def phase_at(self, t):
+        """Actual phase law shared by reference generation and visual annotations."""
+        if self.name not in ('circle', 'figure_eight'):
+            raise ValueError('A phase is defined only for closed-path tasks')
+        if self.name == 'figure_eight' and self.c.get('figure_eight_timing') == 'cruise':
+            return cruise_phase(t, self.c['figure_eight_onset'],
+                                self.c['figure_eight_duration'], self.c['figure_eight_ramp_s'])
+        return 2*np.pi * np.array(blend(t, self.c[self.name + '_onset'],
+                                       self.c[self.name + '_duration']))
 
     def at(self, t):
         c = self.c
@@ -72,8 +112,7 @@ class Task:
         if self.name == 'figure_eight':
             # Gerono figure eight: one cosine and a double-frequency sine.
             # Start/end at the right-hand tip, with two distinct centre crossings.
-            phase = np.array(blend(t, c['figure_eight_onset'],
-                                   c['figure_eight_duration'])) * 2 * np.pi
+            phase = self.phase_at(t)
             first, second = phase_harmonic(phase, 1), phase_harmonic(phase, 2)
             values = [np.array([c['figure_eight_half_width_m'] * x.real,
                                 c['figure_eight_half_height_m'] * y.imag, 0.])

@@ -89,6 +89,17 @@ def reanalyze(path, output=None):
         t = np.r_[a, inner, b]
         e = np.column_stack([np.interp(t, grid, error[:, i]) for i in range(3)])
         result[name + "_rms_m"] = time_rms(t, np.sum(e**2, axis=1))
+    if reference.tracking_interval is not None:
+        a, b = reference.tracking_interval
+        b = min(b, target_end)
+        if b > a:
+            ts = np.r_[a, grid[(grid > a) & (grid < b)], b]
+            actual_velocity = np.column_stack([np.interp(ts, grid, v[:, i]) for i in range(3)])
+            desired_velocity = np.array([reference.at(float(t)).v for t in ts])
+            for label, velocity in [('truth', actual_velocity), ('reference', desired_velocity)]:
+                speed = np.linalg.norm(velocity, axis=1)
+                result[label + '_traversal_mean_speed_m_s'] = float(np.trapezoid(speed, ts)/(b-a))
+                result[label + '_traversal_peak_speed_m_s'] = float(speed.max())
     result["transfer_settle_s"] = settle_time(
         grid,
         distance,
@@ -153,7 +164,9 @@ def reanalyze(path, output=None):
     data = {
         "t": grid,
         "truth_p": p,
+        "truth_v": v,
         "reference_p": pref,
+        "reference_v": np.array([r.v for r in refs]),
         "attitude_error_rad": aerror,
         "rate_error_rad_s": np.linalg.norm(omega - target_body, axis=1),
     }

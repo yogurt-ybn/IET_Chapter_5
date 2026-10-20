@@ -66,3 +66,6 @@ def test_exact_interval_includes_terminal_truth_and_handles_redundant_setup(tmp_
     assert metrics["attitude_rms_rad"] == pytest.approx(0.0)
     if task_name == 'figure_eight':
         assert metrics['loop_rms_m'] == pytest.approx(.2)
+        assert metrics['truth_traversal_mean_speed_m_s'] == pytest.approx(0.)
+        assert metrics['reference_traversal_peak_speed_m_s'] == pytest.approx(0.)
+        assert np.all(data['truth_v'] == 0.)

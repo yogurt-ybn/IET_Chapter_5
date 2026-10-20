@@ -17,7 +17,7 @@ from scipy.optimize import brentq
 
 from iet_ch5.evaluation.reanalyze import reanalyze
 from iet_ch5.logging import dump, revision
-from iet_ch5.references.tasks import Task, SMOOTH
+from iet_ch5.references.tasks import Task
 
 METHODS = ['pid', 'lqr', 'geometric', 'dob', 'mpc']
 NAMES = {'pid': 'Cascaded PID', 'lqr': 'LQR', 'geometric': 'Geometric SE(3)',
@@ -101,8 +101,8 @@ def publish(source, output):
     crossings = []
     if task_name == 'figure_eight':
         path_label = 'FIGURE EIGHT'
-        crossings = [onset + (end-onset) * brentq(lambda u: SMOOTH(u)-v, 0., 1.)
-                     for v in [.25, .75]]
+        crossings = [brentq(lambda t: task.phase_at(t)[0] - phase, onset, end)
+                     for phase in [np.pi/2, 3*np.pi/2]]
         extent = f"{2*cfg['figure_eight_half_width_m']:g} x {2*cfg['figure_eight_half_height_m']:g} m"
         trajectory_title = f'Same predefined figure eight ({extent})'
     else:
@@ -169,7 +169,7 @@ def publish(source, output):
                  color='white', fontsize=12)
     heading = fig.text(.025, .967, '', color='white', fontsize=19, fontweight='bold')
     fig.text(.025, .929,
-             f"ONE REFERENCE: {path_label}  |  {extent}  |  local altitude {cfg['initial_position'][2]:g} m  |  fixed heading",
+             f"ONE REFERENCE: {path_label}  |  {extent}  |  traversal {end-onset:g} s  |  local altitude {cfg['initial_position'][2]:g} m  |  fixed heading",
              color='#cbd5e1', fontsize=11)
     fig.text(.025, .02,
              'Actual AirSim frames  |  yellow: reference  |  cyan: flown trace  |  fixed external camera'
@@ -182,6 +182,10 @@ def publish(source, output):
                             macro_block_size=16) as writer:
         for video_t in video_times:
             phase = 'HOLD' if video_t < onset or video_t >= end else f'TRACK {path_label}'
+            if cfg.get('figure_eight_timing') == 'cruise' and onset <= video_t < end:
+                ramp = cfg['figure_eight_ramp_s']
+                phase = ('ACCELERATE' if video_t < onset+ramp else
+                         'DECELERATE' if video_t >= end-ramp else 'CRUISE')
             heading.set_text(f'Five controllers / one trajectory     t = {video_t:04.1f} s     {phase}')
             record = {'video_t_s': float(video_t), 'scene_frames': {}}
             for m in METHODS:
@@ -193,7 +197,9 @@ def publish(source, output):
                     raise RuntimeError('Scene/truth synchronization exceeds 150 ms')
                 images[m].set_data(imageio.imread(source / m / 'frames' / f['filename']))
                 frame_error = np.linalg.norm(np.array(f['truth_p_nwu_m']) - f['reference_p_nwu_m'])
-                captions[m].set_text(f'{NAMES[m]}\nframe {f["simulation_t"]:.2f} s  |  error {frame_error*1000:.2f} mm')
+                speed_label = (f'  |  v {np.linalg.norm(f["truth_v_nwu_m_s"]):.2f} m/s'
+                               if 'truth_v_nwu_m_s' in f else '')
+                captions[m].set_text(f'{NAMES[m]}\nframe {f["simulation_t"]:.2f} s  |  err {frame_error*1000:.2f} mm' + speed_label)
                 mask = t <= video_t
                 lines[m].set_data(t[mask], error[m][mask] * 1000)
                 record['scene_frames'][m] = {'filename': f['filename'],

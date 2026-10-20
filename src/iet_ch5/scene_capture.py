@@ -79,6 +79,7 @@ class SceneCapture:
                             'truth_timestamp_ns': state.timestamp_ns,
                             'image_timestamp_ns': image['time_stamp'],
                             'truth_p_nwu_m': state.p, 'reference_p_nwu_m': self.task.at(t).p,
+                            'truth_v_nwu_m_s': state.v, 'reference_v_nwu_m_s': self.task.at(t).v,
                             'camera_info': camera, 'sha256': hashlib.sha256(raw).hexdigest()})
         (self.output / 'frames.json').write_text(dump(self.frames) + '\n')
         (self.output / 'camera_provenance.json').write_text(dump({

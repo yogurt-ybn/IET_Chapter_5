@@ -103,8 +103,10 @@ def test_figure_eight_crossings_and_smooth_endpoints():
                                getattr(ref, derivative), atol=2e-6)
 
 
-def test_figure_eight_reference_fits_common_mpc_prediction_envelope():
-    config = json.loads(Path('configs/figure-eight-demo-task.json').read_text())
+@pytest.mark.parametrize('path', ['configs/figure-eight-demo-task.json',
+                                  'configs/figure-eight-cruise-task.json'])
+def test_figure_eight_reference_fits_common_mpc_prediction_envelope(path):
+    config = json.loads(Path(path).read_text())
     mpc = json.loads(Path('configs/controllers.json').read_text())['mpc']
     task = Task('figure_eight', config)
     refs = [task.at(t) for t in np.linspace(0, task.duration, 1001)]
@@ -113,6 +115,30 @@ def test_figure_eight_reference_fits_common_mpc_prediction_envelope():
     # The implemented QP uses conservative COMPONENT boxes, not only a norm bound.
     assert np.abs(velocity).max() < .98 * mpc['speed_limit'] / np.sqrt(3)
     assert np.abs(acceleration[:, :2]).max() / 9.81 < mpc['tilt_limit_rad'] / np.sqrt(2)
+
+
+def test_cruise_timing_derivatives_joins_and_sustained_motion():
+    config = json.loads(Path('configs/figure-eight-cruise-task.json').read_text())
+    task = Task('figure_eight', config)
+    a, b = task.tracking_interval
+    ramp = config['figure_eight_ramp_s']
+    omega = 2*np.pi / (b-a-ramp)
+    for t in [0., a, b, task.duration]:
+        ref = task.at(t)
+        assert np.allclose(ref.p, config['initial_position'], atol=1e-12)
+        for field in ['v', 'a', 'jerk', 'snap']:
+            assert np.allclose(getattr(ref, field), 0., atol=1e-12)
+    for t in np.linspace(a+ramp, b-ramp, 11):
+        assert task.phase_at(t)[1] == pytest.approx(omega)
+        assert np.linalg.norm(task.at(t).v) > .65
+    for join in [a+ramp, b-ramp]:
+        assert np.allclose(task.phase_at(join-1e-6), task.phase_at(join+1e-6), atol=2e-6)
+    h = 1e-4
+    for t in [2.3, 3.1, 3.7, 4., 7.2, 13.8, 14., 14.4, 15.7]:
+        ref, plus, minus = task.at(t), task.at(t+h), task.at(t-h)
+        for field, derivative in [('p', 'v'), ('v', 'a'), ('a', 'jerk'), ('jerk', 'snap')]:
+            assert np.allclose((getattr(plus, field)-getattr(minus, field))/(2*h),
+                               getattr(ref, derivative), atol=3e-6)
 
 
 def test_irregular_metrics_and_censored_settle():
