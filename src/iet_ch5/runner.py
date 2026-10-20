@@ -20,7 +20,7 @@ from .types import RunResult, WrenchCommand
 
 
 def run(local_config, controllers_config, task_config, controller_id, task_name, output,
-        *, seed=0, capture=False):
+        *, seed=0, capture=False, scene_capture=None):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     c = local_config
@@ -29,7 +29,8 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
     controller = make_controller(controller_id, controllers_config[controller_id])
     task = Task(task_name, task_config)
     config = {"controller_id": controller_id, "controllers": controllers_config,
-              "task": task_name, "task_config": task_config, "seed": seed, "capture": capture}
+              "task": task_name, "task_config": task_config, "seed": seed, "capture": capture,
+              "scene_capture": scene_capture.config if scene_capture else None}
     metadata = {"schema": "iet-ch5/v1", "run_id": output.name, "config": config,
                 "config_sha256": config_hash(config), "software": revision(),
                 "parameters": asdict(backend.parameters),
@@ -76,6 +77,8 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         frame_metadata = []
         if capture:
             (output / "frames").mkdir()
+        if scene_capture:
+            scene_capture.initialize(backend, task, duration, state, output)
         with (output / "log.jsonl").open("w") as log, (output / "physics.jsonl").open("w") as physics:
             while (state.timestamp_ns - initial_timestamp) * 1e-9 < duration:
                 wall_start = time.perf_counter()
@@ -135,6 +138,8 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 encoded = dump(row)
                 log.write(encoded + "\n")
                 rows.append(json.loads(encoded))
+                if scene_capture:
+                    scene_capture.update(state, initial_timestamp)
                 if capture and t >= next_capture:
                     request = {"camera_name": "0", "image_type": 0,
                                "pixels_as_float": False, "compress": True}
