@@ -14,13 +14,18 @@ if __name__ == "__main__":
     parser.add_argument("--local-config", type=Path, required=True)
     parser.add_argument("--exclusive-simulator", action="store_true", required=True)
     parser.add_argument("--controller", choices=["pid", "lqr", "geometric", "dob", "mpc"], required=True)
-    parser.add_argument("--task", default="hover_transfer", choices=["hover_transfer", "circle"])
+    parser.add_argument("--task", default="hover_transfer", choices=["hover_transfer", "circle",
+                        "disturbance", "mismatch", "noise_delay"])
     parser.add_argument("--controllers", type=Path, default=Path("configs/controllers.json"))
     parser.add_argument("--tasks", type=Path, default=Path("configs/tasks.json"))
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--dob-disabled", action="store_true")
     args = parser.parse_args()
-    result = run(json.loads(args.local_config.read_text()), json.loads(args.controllers.read_text()),
+    controllers = json.loads(args.controllers.read_text())
+    if args.dob_disabled:
+        controllers["dob"]["enabled"] = False
+    result = run(json.loads(args.local_config.read_text()), controllers,
                  json.loads(args.tasks.read_text()), args.controller, args.task, args.output, seed=args.seed)
     print(dump(result))
     raise SystemExit(0 if result.status == "passed" else 1)

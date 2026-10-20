@@ -10,6 +10,7 @@ import numpy as np
 
 from .rpc import RpcClient
 from ..frames import parameters_from_rpc, state_from_sample
+from ..frames import C
 
 
 class AirSimBackend:
@@ -46,6 +47,7 @@ class AirSimBackend:
         self._require_exclusive()
         self.rpc.call("simPause", True)
         self.rpc.call("reset")
+        self.set_wind(np.zeros(3))
         self.rpc.call("enableApiControl", True, self.vehicle)
         if not self.rpc.call("armDisarm", True, self.vehicle):
             raise RuntimeError("Vehicle refused to arm")
@@ -59,6 +61,11 @@ class AirSimBackend:
              "angular_acceleration": {"x_val": 0., "y_val": 0., "z_val": 0.}}
         self.rpc.call("simSetKinematics", k, True, self.vehicle)
         self.last_sequence = 0
+
+    def set_wind(self, velocity_nwu):
+        self._require_exclusive()
+        v = C @ np.asarray(velocity_nwu, dtype=float)
+        self.rpc.call("simSetWind", dict(zip(["x_val", "y_val", "z_val"], v.tolist())))
 
     def step(self, pwm, duration):
         self._require_exclusive()
@@ -87,6 +94,7 @@ class AirSimBackend:
     def stop(self):
         self._require_exclusive()
         self.rpc.call("simPause", True)
+        self.set_wind(np.zeros(3))
         self.rpc.call("armDisarm", False, self.vehicle)
         self.rpc.call("enableApiControl", False, self.vehicle)
 
