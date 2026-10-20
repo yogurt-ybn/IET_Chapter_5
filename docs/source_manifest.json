@@ -36,7 +36,7 @@
       "classification": "adapted normalization derivatives; original upward-frame standard SE3 implementation from cited equations",
       "input_output_conventions": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
       "modifications": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
-      "validation_status": "normalization finite-difference and equilibrium/sign/reset tests passed; genuine M1 AirSim hover/transfer passed"
+      "validation_status": "Standard SE3 actual M1 acceptance and final M3 matrix passed nominal/loop/wind/noise; mismatch failed tracking tolerance and is retained"
     },
     {
       "component": "safe-control-gym",
@@ -71,7 +71,7 @@
       "classification": "original constant-mass discrete implementation from cited observer equations; no paper/code redistribution",
       "input_output_conventions": "NWU force estimate from momentum and applied collective estimate; force subtraction before attitude construction",
       "modifications": "implicit-Euler momentum increment; finite force bounds; fixed geometric nominal gains; held estimate derivatives",
-      "validation_status": "unit convergence/bounds/disabled nominal equivalence; actual enabled/disabled wind runs passed"
+      "validation_status": "M2 convergence/bounds/off equivalence plus final M3 matched wind ablation and 10 core runs passed; force-only scope retained"
     },
     {
       "component": "OSQP Python",
@@ -88,7 +88,25 @@
       "classification": "external solver dependency; no source copied",
       "input_output_conventions": "QP standard form; original model and physical-wrench constraints in controllers/mpc.py",
       "modifications": "none to solver",
-      "validation_status": "actual MPC hover/transfer passed; solver timeout fallback exercised; constraints/infeasibility unit tested"
+      "validation_status": "Final 10 MPC runs: 9 tracking passes,1 retained mismatch failure,0 fallback activations; separate actual timeout fallback and numerical active-constraint checks passed"
+    },
+    {
+      "component": "Original PID/LQR/linear-MPC cores",
+      "upstream_url": "https://github.com/yogurt-ybn/IET_Chapter_5",
+      "pinned_commit": "2e6d9ed06c3083c17b4a3b074a1537e92bdb0880",
+      "source_paths": [
+        "src/iet_ch5/controllers/pid.py",
+        "src/iet_ch5/controllers/lqr.py",
+        "src/iet_ch5/controllers/mpc.py"
+      ],
+      "licence_path": null,
+      "authors": "Chapter 5 project contributors",
+      "paper_citation": "Chapter 5 preserved model and conventional control structures; standard discrete Riccati and receding-horizon derivations; external solver references retained separately",
+      "local_destination": "src/iet_ch5/controllers/",
+      "classification": "original numerical implementation; safe-control-gym consulted, no copied PID/LQR/MPC code",
+      "input_output_conventions": "NWU/FLU state; positive collective thrust and body moments; full coupled rotor adapter",
+      "modifications": "Full 12-state aircraft model beyond planar illustrative chapter example; actual AirSim actuator mapping, bounded integrals, explicit constraints/fallback",
+      "validation_status": "Final 51-run fixed matrix:47 tracking passes,4 retained controller-model mismatch failures; all run records published"
     }
   ]
 }

@@ -3,6 +3,11 @@
 Recorded 20 October 2026. **Motor/timing smoke acceptance passed on the dedicated
 Blocks instance. No controller benchmark has yet passed in this milestone.**
 
+This is the historical M0 report. Later long-run testing exposed wall-time stepping and
+motor-registration issues; the final measured-simulation-deadline bridge, retained failures
+and corrected ring-fill check are documented in [bridge_regression.md](bridge_regression.md).
+The completed five-controller matrix is in [case_study.md](case_study.md).
+
 ## Environment and isolation
 
 The repository was clean at `61a8ca487e616f9f992aa4c309aecf8cb7f0d4bc` on main.

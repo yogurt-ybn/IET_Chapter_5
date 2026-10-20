@@ -92,5 +92,5 @@ def compute(rows, config, gravity):
     violation = np.array([max(0.,r["constraints"]["tilt_rad"]-config.get("evaluation_tilt_limit",.3),
                         r["constraints"]["speed"]-config.get("evaluation_speed_limit",2.)) for r in rows])
     result["constraint_violation_samples"] = int(np.count_nonzero(violation>1e-6))
-    result["constraint_violation_duration_s"] = float(np.trapezoid(violation>1e-6,t))
+    result["constraint_violation_duration_s"] = float(np.trapezoid((violation>1e-6).astype(float),t))
     return result

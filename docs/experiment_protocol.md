@@ -103,3 +103,14 @@ the all-run summary/manifest are committed. The local larger archive is not clai
 external upload; external/release storage remains a documented handoff if needed.
 No failed runs are removed from summary distributions. Report sample count, median/range
 and paired repeatability separately, without unsupported statistical significance claims.
+
+### Final common-duration processing
+
+The final analysis includes the terminal physics sample and resamples independent truth
+on a common 12 ms grid plus the exact 12 s/20 s endpoint. Position/velocity/rates are
+interpolated linearly; rotations use SLERP, and recorded controller targets are held.
+The original online control-decision metrics are preserved alongside these complete-window
+metrics. A zero-time setup snapshot emitted by `simSetKinematics` is represented once
+for interpolation; raw samples are unchanged. This endpoint correction changes no gains,
+limits, task conditions or acceptance statuses. See `evaluation/reanalyze.py` and the
+per-run compact metric samples. The final manifest/source and every outcome are retained.

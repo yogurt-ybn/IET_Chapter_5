@@ -55,3 +55,11 @@ completed all 995 control updates; it failed the tracking tolerance, with no bri
 
 No gains were changed in response to either abandoned evaluation. The final matrix is
 frozen under a new source revision, with both attempts available as failure evidence.
+
+During final revalidation under analysis load, a fixed 30.1 wall-second continuation did
+not fill the 10,000-sample ring, so the old overflow test correctly recorded no overflow.
+That test's wall-duration assumption was corrected: continue in bounded increments until
+the observed sequence count exceeds 10,000, then check `samples_dropped`. The final full
+smoke test passes all seven checks, with both the short-wall attempt and sequence-based
+evidence retained. No server capability or experiment result was inferred from elapsed
+wall time alone.

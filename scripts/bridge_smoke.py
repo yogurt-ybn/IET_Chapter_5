@@ -83,9 +83,15 @@ def smoke(config, check_overflow=False):
         if check_overflow:
             b.rpc.call("armDisarm", False, b.vehicle)
             before_sequence = b.last_sequence
-            b.rpc.timeout = 50
-            b.rpc.call("simContinueForTime", 30.1)
-            batch = b.rpc.call("getDynamicsStateBatch", before_sequence, 1, b.vehicle)
+            b.rpc.timeout = 10
+            deadline = time.monotonic() + 60
+            while True:
+                b.rpc.call("simContinueForTime", 3.)
+                batch = b.rpc.call("getDynamicsStateBatch", before_sequence, 1, b.vehicle)
+                if batch["buffer_last_sequence"] - before_sequence > 10000:
+                    break
+                if time.monotonic() > deadline:
+                    raise TimeoutError("Physics ring did not reach 10001 new samples within 60 wall seconds")
             evidence["tests"]["ring_overflow"] = {
                 "passed": bool(batch["samples_dropped"]),
                 "after_sequence": before_sequence,
