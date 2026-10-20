@@ -12,6 +12,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 import numpy as np
+from iet_ch5.references.tasks import Task
 
 
 COLORS = {
@@ -100,12 +101,12 @@ def plot(run_paths, output):
             )
         axes[3].plot(t, np.linalg.norm(e, axis=1), color=COLORS[result["controller"]])
     config = json.loads((runs[0][0] / "metadata.json").read_text())["config"]["task_config"]
+    interval = Task(runs[0][1][0]['task'], config).tracking_interval
     for ax, label in zip(axes, ["North error (m)", "West error (m)", "Up error (m)", "Norm (m)"]):
         ax.set_ylabel(label)
-        if runs[0][1][0]["task"] == "circle":
+        if interval is not None:
             ax.axvspan(
-                config["circle_onset"],
-                config["circle_onset"] + config["circle_duration"],
+                *interval,
                 color="gray",
                 alpha=0.1,
             )
