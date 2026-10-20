@@ -2,8 +2,7 @@
 
 
 def make_controller(name, config):
-    from .pid import PID
-    from .lqr import LQR
-    from .geometric import Geometric
-    classes = {"pid": PID, "lqr": LQR, "geometric": Geometric}
-    return classes[name](config)
+    import importlib
+    classes = {"pid": "PID", "lqr": "LQR", "geometric": "Geometric", "dob": "DOB", "mpc": "MPC"}
+    module = importlib.import_module(f"{__name__}.{name}")
+    return getattr(module, classes[name])(config)

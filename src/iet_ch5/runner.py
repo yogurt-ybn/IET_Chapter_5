@@ -54,13 +54,18 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                     raise RuntimeError(f"Invalid control sample interval {dt}")
                 t = (state.timestamp_ns - initial_timestamp) * 1e-9
                 reference = task.at(t)
+                applied = allocator.from_telemetry(samples[-1]["rotors"])
+                if hasattr(controller, "set_applied_collective"):
+                    controller.set_applied_collective(float(np.mean([
+                        allocator.from_telemetry(s["rotors"])[0] for s in samples])))
+                if hasattr(controller, "set_reference_source"):
+                    controller.set_reference_source(task.at, t)
                 start = time.perf_counter()
                 command, diagnostics = controller.update(state, reference, dt)
                 computation = time.perf_counter() - start
                 start = time.perf_counter()
                 allocated = allocator.allocate(command)
                 allocation_time = time.perf_counter() - start
-                applied = allocator.from_telemetry(samples[-1]["rotors"])
                 if hasattr(controller, "observe_applied"):
                     controller.observe_applied(applied, allocated.residual, dt)
                 row = {"schema": "iet-ch5/v1", "run_id": output.name,
