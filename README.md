@@ -121,14 +121,34 @@ in the ignored local archive identified by [its checksum](results/examples/m3/fu
 Compact examples, all-run metric samples/configurations/results and regenerated figures
 are committed; an external upload of the larger archive is not claimed.
 
-## Actual AirSim demo
+## Shared-reference AirSim tracking demo
 
-[Scene image](results/examples/m3/demo/scene_040.png) and
-[20-second video](results/examples/m3/demo/demo.mp4) come from a separate geometric-control
-loop run, with 100 actual 640×480 AirSim frames. Capture configuration, timestamps, hashes
-and run result are stored alongside the media. The body-relative trailing camera changes
-only the selected simulator's view. This demo is excluded from comparison timing.
+[Five-controller video](results/examples/tracking_demo/comparison.mp4),
+[animated preview (2×)](results/examples/tracking_demo/comparison.gif) and
+[trajectory/error figure](results/examples/tracking_demo/trajectories_and_errors.png)
+show PID, LQR, geometric, DOB and MPC tracking the **same predefined 3 m diameter circle**.
+All five use the same initial state, plant, fixed gains and verified motor interface.
+Each holds for 2 s, completes a smooth 22 s loop at local altitude 2 m and fixed heading,
+then holds for 2 s. A fixed external camera shows the yellow reference and cyan flown
+trace; the five actual scene recordings are synchronized by simulation time beside a
+truth-based error plot. The MP4 plays 26 s at 1×; the smaller GIF plays at 2×.
+
+See [demo design, provenance and interpretation](docs/trajectory_demo.md). This separate
+nominal visualization is excluded from the frozen benchmark/timing comparison. The
+original [body-relative single-controller clip](results/examples/m3/demo/demo.mp4) remains
+as historical evidence, but does not show reference tracking clearly.
+
+Launch an exclusive simulator with the external camera settings, wait for it to load,
+then verify capabilities and capture/render into new directories:
 
 ```bash
-OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/capture_demo.py --local-config .local/environment.json --exclusive-simulator --output results/runs/my-demo
+.venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json --settings configs/airsim-demo-settings.json --local-output .local/tracking-demo-simulator
+.venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/tracking-demo-capabilities.json
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --output results/runs/my-tracking-comparison
+.venv/bin/python scripts/render_tracking_comparison.py --source results/runs/my-tracking-comparison --output results/runs/my-tracking-publication
 ```
+
+The renderer retains compact metric samples and checks identical reference arrays,
+source-image hashes, exact image/physics timestamp agreement and full video decoding.
+Full control/physics/image logs stay in ignored local storage, with an archive checksum
+in the published demo package. No real-time or physical-flight performance is claimed.

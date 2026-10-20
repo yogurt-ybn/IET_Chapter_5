@@ -99,7 +99,7 @@ def publish(source, output):
     fig = plt.figure(figsize=(16, 10.08), dpi=100, facecolor='#101923')
     grid = fig.add_gridspec(2, 3, left=.015, right=.985, bottom=.065, top=.86,
                            wspace=.06, hspace=.14)
-    image_axes = [fig.add_subplot(grid.flat[i]) for i in range(5)]
+    image_axes = [fig.add_subplot(grid[i // 3, i % 3]) for i in range(5)]
     images, captions = {}, {}
     for m, ax in zip(METHODS, image_axes):
         ax.set_axis_off()
@@ -124,7 +124,7 @@ def publish(source, output):
              color='#cbd5e1', fontsize=11)
     fig.text(.025, .02,
              'Actual AirSim frames  |  yellow: reference  |  cyan: flown trace  |  fixed external camera'
-             '  |  paused simulation; 1x simulation-time playback', color='#cbd5e1', fontsize=10)
+             '  |  paused simulation; MP4 1x / GIF 2x', color='#cbd5e1', fontsize=10)
     video_times = np.arange(0., duration, .1)
     timeline = []
     gif_frames = []
