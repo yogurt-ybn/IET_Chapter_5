@@ -13,10 +13,11 @@ Upstream components retain their own licences; this file does not relicense them
   as a whole flight stack. The small RPC transport is an original implementation of its protocol.
 * **FDCL uav_geometric_control** — Flight Dynamics and Control Lab, MIT, pinned to
   `f5fcb51c3b962152a4895a9d2e86e4a184655741`. Inspected C++ `position_control`,
-  `attitude_control`, and `deriv_unit_vector`; these are the preferred references for the
-  forthcoming standard SE(3) implementation. Its Python directory at this revision contains
+  `attitude_control`, and `deriv_unit_vector`; these are the references for the
+  standard SE(3) implementation. Its Python directory at this revision contains
   a dumbbell/spacecraft model and is not being treated as a drop-in quadrotor implementation.
-  Licence retained in `third_party/licenses/FDCL.txt`. Paper: T. Lee, M. Leok and
+  Normalization derivative algebra is adapted in `controllers/common.py`; the upward-frame
+  moment law is implemented from the cited equations. Licence retained in `third_party/licenses/FDCL.txt`. Paper: T. Lee, M. Leok and
   N. H. McClamroch, “Geometric tracking control of a quadrotor UAV on SE(3),” CDC 2010,
   pp. 5420–5425, https://arxiv.org/abs/1003.2005.
 * **safe-control-gym** — Dynamic Systems Lab, MIT, pinned to

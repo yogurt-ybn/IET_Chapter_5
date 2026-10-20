@@ -32,11 +32,11 @@
       "licence": "MIT",
       "authors": "Flight Dynamics and Control Lab",
       "paper_citation": "Lee, Leok, McClamroch, CDC 2010, pp. 5420-5425",
-      "local_destination": "planned src/iet_ch5/controllers/geometric.py",
-      "classification": "inspected reference; adaptation pending",
+      "local_destination": "src/iet_ch5/controllers/common.py; src/iet_ch5/controllers/geometric.py",
+      "classification": "adapted normalization derivatives; original upward-frame standard SE3 implementation from cited equations",
       "input_output_conventions": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
       "modifications": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
-      "validation_status": "source selection complete; implementation pending"
+      "validation_status": "normalization finite-difference and equilibrium/sign/reset tests passed; genuine M1 AirSim hover/transfer passed"
     },
     {
       "component": "safe-control-gym",
@@ -55,7 +55,7 @@
       "classification": "inspected reference only; no copied code",
       "input_output_conventions": "do not use Crazyflie mapping or import simulator stack",
       "modifications": "do not use Crazyflie mapping or import simulator stack",
-      "validation_status": "screened, original numerical implementations pending"
+      "validation_status": "inspected reference only; original PID/LQR numerical cores passed M1 AirSim hover/transfer"
     }
   ]
 }

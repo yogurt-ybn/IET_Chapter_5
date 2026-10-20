@@ -4,10 +4,10 @@ AirSim implementations and reproducible case-study materials for the conventiona
 
 ## Status
 
-M0 motor/timing smoke tests passed on the recorded dedicated AirSim Blocks instance.
-Controller implementations and benchmark comparisons are pending. No controller ranking
-or real-time feasibility is claimed. See [the environment report](docs/environment_report.md)
-and genuine [M0 evidence](results/examples/m0/bridge_smoke.json).
+M0 bridge validation and M1 genuine AirSim hover/transfer acceptance passed for PID, LQR
+and standard SE(3). See [the environment report](docs/environment_report.md) and
+[M1 acceptance, evidence and limitations](docs/m1_acceptance.md). Observer/MPC and the
+fixed comparison matrix are pending. No controller ranking or real-time feasibility is claimed.
 
 ## Start here
 
@@ -65,5 +65,19 @@ exclusive instance. It finishes paused and disarmed:
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 IET_CH5_LOCAL_CONFIG=.local/environment.json .venv/bin/pytest -q
 ```
 
-The overflow check takes about 30 s of simulation time. Full controller execution and plot
-commands will be published when tested in the corresponding milestones.
+The overflow check takes about 30 s of simulation time.
+
+## Run a baseline and regenerate figures
+
+```bash
+.venv/bin/python scripts/run_experiment.py --local-config .local/environment.json --exclusive-simulator --controller pid --output results/runs/my-pid-run
+.venv/bin/python scripts/plot_results.py results/runs/my-pid-run --output results/runs/my-pid-run/figures
+.venv/bin/python scripts/plot_results.py results/examples/m1/pid results/examples/m1/lqr results/examples/m1/geometric --output results/examples/m1/figures
+```
+
+Use `--controller lqr` or `--controller geometric` for the other accepted baselines.
+Output directories must be new, so an experiment cannot silently overwrite earlier data.
+Every run resets controller memory and records its exact configuration, source revision,
+truth/feedback, requested/estimated wrench, motor inputs/states, timing and failures.
+The `circle` task is implemented but has not yet passed simulator acceptance at M1.
+Frozen full-comparison commands will follow in M3.
