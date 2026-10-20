@@ -55,6 +55,8 @@ def publish(source, output):
         for f in frames:
             if sha(run_dir / 'frames' / f['filename']) != f['sha256']:
                 raise RuntimeError('Frame checksum mismatch')
+            if f['image_timestamp_ns'] != f['truth_timestamp_ns']:
+                raise RuntimeError('Image capture was not at the paused physics truth timestamp')
         frame_sets[method] = (frames, times)
     if not all(c == configs[0] for c in configs):
         raise RuntimeError('Controller references differ')
@@ -94,7 +96,7 @@ def publish(source, output):
     plt.close(fig)
 
     plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 10})
-    fig = plt.figure(figsize=(16, 10), dpi=100, facecolor='#101923')
+    fig = plt.figure(figsize=(16, 10.08), dpi=100, facecolor='#101923')
     grid = fig.add_gridspec(2, 3, left=.015, right=.985, bottom=.065, top=.86,
                            wspace=.06, hspace=.14)
     image_axes = [fig.add_subplot(grid.flat[i]) for i in range(5)]
@@ -162,7 +164,7 @@ def publish(source, output):
             timeline.append(record)
     plt.close(fig)
     gif_frames[0].save(output / 'comparison.gif', save_all=True, append_images=gif_frames[1:],
-                       duration=200, loop=0, optimize=True)
+                       duration=100, loop=0, optimize=True)
     (output / 'video_timeline.json').write_text(dump(timeline) + '\n')
     reader = imageio.get_reader(output / 'comparison.mp4')
     count = 0
@@ -175,6 +177,9 @@ def publish(source, output):
                   'duration_s': count / 10, 'sha256': sha(output / 'comparison.mp4'),
                   'max_scene_age_s': max(f['age_s'] for r in timeline for f in r['scene_frames'].values()),
                   'all_frame_hashes_verified': True, 'all_reference_arrays_identical': True,
+                  'all_image_timestamps_equal_paused_truth': True,
+                  'gif_preview': {'size_px': [960, 600], 'playback_speed': 2,
+                                  'frame_count': len(gif_frames)},
                   'render_software': revision(), 'capture_software': manifest['software'],
                   'metrics': 'common 12 ms grid from independent physics truth including 26 s endpoint',
                   'alignment': 'At video time t, use latest acquired scene at or before t; plot truth at t',
