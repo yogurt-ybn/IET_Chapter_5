@@ -107,6 +107,22 @@
       "input_output_conventions": "NWU/FLU state; positive collective thrust and body moments; full coupled rotor adapter",
       "modifications": "Full 12-state aircraft model beyond planar illustrative chapter example; actual AirSim actuator mapping, bounded integrals, explicit constraints/fallback",
       "validation_status": "Final 51-run fixed matrix:47 tracking passes,4 retained controller-model mismatch failures; all run records published"
+    },
+    {
+      "component": "Original figure-eight reference",
+      "upstream_url": "https://github.com/yogurt-ybn/IET_Chapter_5",
+      "pinned_commit": "3eb6692c4eab26ca1db9331c185b002620ebb7c6",
+      "source_paths": [
+        "src/iet_ch5/references/tasks.py"
+      ],
+      "licence_path": null,
+      "authors": "Chapter 5 project contributors",
+      "paper_citation": "Standard Gerono parametric curve and direct chain-rule differentiation; no external code copied",
+      "local_destination": "src/iet_ch5/references/tasks.py",
+      "classification": "original trajectory implementation",
+      "input_output_conventions": "vehicle-origin NWU reference position/velocity/acceleration/jerk/snap; fixed heading",
+      "modifications": "C4 phase ramp, common hover endpoints, component-envelope design check, figure-eight evaluation windows",
+      "validation_status": "finite-difference derivatives through snap, endpoint/crossing/envelope tests; five genuine AirSim runs complete and pass loop tracking tolerance"
     }
   ]
 }

@@ -5,9 +5,30 @@ Branch: `feat/ch5-airsim-controllers`. Review: https://github.com/yogurt-ybn/IET
 case-study text and capture tooling are anchored at `a878670`, followed by the verified
 media/handoff commit. Use Git HEAD for the final delivery revision.
 
-## Follow-up: shared-reference tracking video
+## Current demo: figure-eight tracking
 
-The primary demo is now `results/examples/tracking_demo/comparison.mp4` and its 2× GIF
+The primary demo is `results/examples/figure_eight_demo/comparison.mp4` and its compact
+2× GIF preview. Five genuine runs use the same smooth 4×2 m figure eight, with 2 s initial
+hold, 28 s traversal through two centre crossings, then 2 s final hold. All use identical
+clean source `3eb6692` and unchanged controller gains/plant/motor bridge. All five pass;
+no collision, saturation, evaluated state-constraint violation or MPC fallback occurs.
+The original 51-run matrix and previous circle media are preserved. See
+`docs/figure_eight_demo.md` for the equation, component-bound design check, retained
+planning abort, measured table and tested reproduction commands.
+
+Validation: 26 tests including read-only AirSim integration pass; lint/whitespace pass.
+All 1,605 images have exact paused-truth timestamps and common fixed camera poses. MP4:
+320 fully decoded frames, 1600×1008, 10 fps, 32 s. GIF: 160 frames, 960×600, 16 s at 2×.
+The frame-selection age is at most 0.1 s. Original source/binary hashes and the full user
+AirSim diff are unchanged. The dedicated figure-eight simulator is stopped after validation;
+the original simulator is left untouched. Raw archive remains local:
+`ch5-figure-eight-3eb6692.tar.gz`, 457,439,851 bytes, SHA256
+`f23652021aaf1c6dcc0f1e41ffd2133591dbbd4a4893213cb87350ed87bbc693`.
+Only compact evidence/media are committed; no external archive upload is claimed.
+
+## Earlier circular tracking video
+
+The circular demo is retained at `results/examples/tracking_demo/comparison.mp4` and its 2× GIF
 preview. Five additional actual AirSim runs track the same predefined 3 m diameter circle
 with fixed heading/local altitude and identical initialization. Each runs for 26 s; all
 five pass. The checked fixed external camera and native reference/flown-path markers

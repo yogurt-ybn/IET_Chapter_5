@@ -141,13 +141,21 @@ demonstrate real-time feasibility**; no unpaused deadline claim is made.
   original timestamps, source `a878670`, hashes and result are retained. The following
   camera shows the aircraft and scene; no synthetic image supplies simulator evidence.
   Image capture is excluded from comparison timing.
-* The primary visual demonstration is now the
+* The retained circular visual demonstration is the
   [five-controller shared-reference video](../results/examples/tracking_demo/comparison.mp4)
   and [animated preview](../results/examples/tracking_demo/comparison.gif). Five additional
   genuine nominal runs track the same predefined 3 m diameter circle from identical initial
   states. A checked fixed camera shows reference/flown paths beside synchronized truth-based
   errors. All five pass; these separate visual runs do not change the 51-run matrix above.
   See [design, measured results and reproduction](trajectory_demo.md).
+
+* The primary demo is the [five-controller figure-eight video](../results/examples/figure_eight_demo/comparison.mp4),
+  with [animated preview](../results/examples/figure_eight_demo/comparison.gif) and
+  [reference/error figure](../results/examples/figure_eight_demo/trajectories_and_errors.png).
+  Five additional real AirSim runs track the same 4×2 m horizontal figure eight with
+  two centre crossings, fixed heading/altitude and unchanged gains. All five pass over
+  32 s; no collision, saturation or MPC fallback occurs. The original matrix is unchanged.
+  See [equations, component-envelope check, excluded planning preview and measured results](figure_eight_demo.md).
 
 Use the tested README commands. Reproducing the exact numerical source requires the
 recorded `2e6d9ed` revision and the M0-compatible installed AirSim extension/build; the

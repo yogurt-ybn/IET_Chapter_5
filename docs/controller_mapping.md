@@ -89,3 +89,12 @@ regularity assumptions. The common near-hover experiment avoids these singularit
 
 Observer/MPC models, discretization, bounds, costs, preview, solver, fallback and primary
 source citations are specified in [M2 acceptance](m2_acceptance.md).
+
+## Additional figure-eight reference
+
+`references/tasks.py` now supplies a C4 Gerono figure eight, with analytic derivatives
+through snap from the first and second phase harmonics. The initial/final point is the
+same verified hover state. Figure-eight duration and traversal windows propagate through
+the shared runner, common-time reanalysis and plotting; it is not evaluated as a transfer
+or silently truncated to the original 12 s task duration. See [reference equations and
+validation](figure_eight_demo.md). Controller equations, gains and allocation are unchanged.

@@ -85,7 +85,8 @@ before replacing measured timestamps with a single wall-timed continuation call.
 ```
 
 Controller choices are `pid`, `lqr`, `geometric`, `dob` and `mpc`. Tasks are
-`hover_transfer`, `circle`, `disturbance`, `mismatch` and `noise_delay`.
+`hover_transfer`, `circle`, `figure_eight`, `disturbance`, `mismatch` and `noise_delay`.
+The figure-eight task uses `configs/figure-eight-demo-task.json`.
 Use `--dob-disabled` for the matched compensation-off ablation.
 Output directories must be new, so an experiment cannot silently overwrite earlier data.
 Every run resets controller memory and records its exact configuration, source revision,
@@ -121,34 +122,40 @@ in the ignored local archive identified by [its checksum](results/examples/m3/fu
 Compact examples, all-run metric samples/configurations/results and regenerated figures
 are committed; an external upload of the larger archive is not claimed.
 
-## Shared-reference AirSim tracking demo
+## Figure-eight tracking demo
 
-[Five-controller video](results/examples/tracking_demo/comparison.mp4),
-[animated preview (2×)](results/examples/tracking_demo/comparison.gif) and
-[trajectory/error figure](results/examples/tracking_demo/trajectories_and_errors.png)
-show PID, LQR, geometric, DOB and MPC tracking the **same predefined 3 m diameter circle**.
-All five use the same initial state, plant, fixed gains and verified motor interface.
-Each holds for 2 s, completes a smooth 22 s loop at local altitude 2 m and fixed heading,
-then holds for 2 s. A fixed external camera shows the yellow reference and cyan flown
-trace; the five actual scene recordings are synchronized by simulation time beside a
-truth-based error plot. The MP4 plays 26 s at 1×; the smaller GIF plays at 2×.
+[Five-controller video](results/examples/figure_eight_demo/comparison.mp4),
+[2× animated preview](results/examples/figure_eight_demo/comparison.gif) and
+[trajectory/error figure](results/examples/figure_eight_demo/trajectories_and_errors.png)
+show PID, LQR, geometric, DOB and MPC tracking the **same predefined 4×2 m figure eight**.
+Each holds for 2 s, traverses both lobes and crosses the centre twice over 28 s, then holds
+for 2 s. The total simulation interval is 32 s, with fixed local altitude 2 m and heading.
+Velocity, acceleration, jerk and snap are analytic; entry/exit derivatives vanish.
+The path fits the conservative MPC component limits with unchanged controller gains.
 
-See [demo design, provenance and interpretation](docs/trajectory_demo.md). This separate
-nominal visualization is excluded from the frozen benchmark/timing comparison. The
-original [body-relative single-controller clip](results/examples/m3/demo/demo.mp4) remains
-as historical evidence, but does not show reference tracking clearly.
+The fixed camera shows the full reference in yellow and the flown trace in cyan. Five
+actual scene recordings play side by side with a truth-based error plot, synchronized by
+simulation timestamps. The MP4 plays at 1×; the GIF preview plays at 2×. See
+[reference equations, provenance and results](docs/figure_eight_demo.md).
+
+![Fixed-camera figure-eight comparison](results/examples/figure_eight_demo/comparison_preview.png)
+
+This separate nominal demonstration leaves the original
+[51-run benchmark](docs/case_study.md) intact. The earlier
+[circle comparison](docs/trajectory_demo.md) and body-relative single-controller clip
+remain available as historical evidence.
 
 Launch an exclusive simulator with the external camera settings, wait for it to load,
 then verify capabilities and capture/render into new directories:
 
 ```bash
-.venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json --settings configs/airsim-demo-settings.json --local-output .local/tracking-demo-simulator
-.venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/tracking-demo-capabilities.json
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --output results/runs/my-tracking-comparison
-.venv/bin/python scripts/render_tracking_comparison.py --source results/runs/my-tracking-comparison --output results/runs/my-tracking-publication
+.venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json --settings configs/airsim-demo-settings.json --local-output .local/figure-eight-simulator
+.venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/figure-eight-capabilities.json
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --task-config configs/figure-eight-demo-task.json --output results/runs/my-figure-eight
+.venv/bin/python scripts/render_tracking_comparison.py --source results/runs/my-figure-eight --output results/runs/my-figure-eight-publication
 ```
 
-The renderer retains compact metric samples and checks identical reference arrays,
-source-image hashes, exact image/physics timestamp agreement and full video decoding.
-Full control/physics/image logs stay in ignored local storage, with an archive checksum
-in the published demo package. No real-time or physical-flight performance is claimed.
+The renderer checks identical reference arrays, source-image hashes, exact image/physics
+timestamp agreement and full video decoding. Compact metric samples and media are public;
+full control/physics/image logs stay in ignored local storage with an archive checksum.
+The recordings use paused simulation time; no real-time or physical-flight claim is made.

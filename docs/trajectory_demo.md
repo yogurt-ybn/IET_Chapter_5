@@ -1,4 +1,6 @@
-# Shared-reference trajectory-tracking demonstration
+# Circular trajectory-tracking demonstration
+
+The primary demo now uses the [figure-eight trajectory](figure_eight_demo.md). This page preserves the earlier circular experiment and its provenance.
 
 The original body-relative geometric-controller video did not make trajectory tracking
 visible. This replacement uses five independently recorded, genuine AirSim runs on exactly
@@ -63,7 +65,7 @@ Inspect other experiments and launch a dedicated simulator using the demo camera
 ```bash
 .venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json --settings configs/airsim-demo-settings.json --local-output .local/tracking-demo-simulator
 .venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/tracking-demo-capabilities.json
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --output results/runs/my-tracking-comparison
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --task-config configs/tracking-demo-task.json --output results/runs/my-tracking-comparison
 .venv/bin/python scripts/render_tracking_comparison.py --source results/runs/my-tracking-comparison --output results/runs/my-tracking-publication
 ```
 
