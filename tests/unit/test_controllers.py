@@ -103,6 +103,18 @@ def test_figure_eight_crossings_and_smooth_endpoints():
                                getattr(ref, derivative), atol=2e-6)
 
 
+def test_figure_eight_reference_fits_common_mpc_prediction_envelope():
+    config = json.loads(Path('configs/figure-eight-demo-task.json').read_text())
+    mpc = json.loads(Path('configs/controllers.json').read_text())['mpc']
+    task = Task('figure_eight', config)
+    refs = [task.at(t) for t in np.linspace(0, task.duration, 1001)]
+    velocity = np.array([r.v for r in refs])
+    acceleration = np.array([r.a for r in refs])
+    # The implemented QP uses conservative COMPONENT boxes, not only a norm bound.
+    assert np.abs(velocity).max() < .98 * mpc['speed_limit'] / np.sqrt(3)
+    assert np.abs(acceleration[:, :2]).max() / 9.81 < mpc['tilt_limit_rad'] / np.sqrt(2)
+
+
 def test_irregular_metrics_and_censored_settle():
     t = np.array([0., .1, .4, 1., 2.])
     assert time_rms(t, np.ones(5)*4) == pytest.approx(2)

@@ -42,10 +42,10 @@
   },
   "demo_task": "figure_eight",
   "figure_eight_onset": 2.0,
-  "figure_eight_duration": 24.0,
-  "figure_eight_total_duration": 28.0,
+  "figure_eight_duration": 28.0,
+  "figure_eight_total_duration": 32.0,
   "figure_eight_half_width_m": 2.0,
-  "figure_eight_half_height_m": 1.2,
+  "figure_eight_half_height_m": 1.0,
   "demo_camera_position_vehicle_origin_ned_m": [
     -2.0,
     -3.5,
