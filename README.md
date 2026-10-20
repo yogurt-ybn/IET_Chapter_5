@@ -120,3 +120,15 @@ original controller-run statistics are also retained. Full control/physics/noise
 in the ignored local archive identified by [its checksum](results/examples/m3/full_archive.json).
 Compact examples, all-run metric samples/configurations/results and regenerated figures
 are committed; an external upload of the larger archive is not claimed.
+
+## Actual AirSim demo
+
+[Scene image](results/examples/m3/demo/scene_040.png) and
+[20-second video](results/examples/m3/demo/demo.mp4) come from a separate geometric-control
+loop run, with 100 actual 640×480 AirSim frames. Capture configuration, timestamps, hashes
+and run result are stored alongside the media. The body-relative trailing camera changes
+only the selected simulator's view. This demo is excluded from comparison timing.
+
+```bash
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/capture_demo.py --local-config .local/environment.json --exclusive-simulator --output results/runs/my-demo
+```

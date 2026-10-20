@@ -135,8 +135,12 @@ demonstrate real-time feasibility**; no unpaused deadline claim is made.
 * Seven lossless full control-log examples cover all five nominal controllers and DOB
   wind on/off. Full original control/physics/noise files are packaged locally with a
   published checksum in `full_archive.json`; no external upload is claimed.
-* The actual M1 AirSim scene image provides visual evidence. A separate demo capture is
-  prepared outside comparison timing and will be added after frame/video verification.
+* [Actual scene image](../results/examples/m3/demo/scene_040.png) and
+  [20 s video](../results/examples/m3/demo/demo.mp4) come from a separate successful geometric
+  loop run. The video decodes to 100 actual 640×480 frames at 5 fps; relative camera pose,
+  original timestamps, source `a878670`, hashes and result are retained. The following
+  camera shows the aircraft and scene; no synthetic image supplies simulator evidence.
+  Image capture is excluded from comparison timing.
 
 Use the tested README commands. Reproducing the exact numerical source requires the
 recorded `2e6d9ed` revision and the M0-compatible installed AirSim extension/build; the
