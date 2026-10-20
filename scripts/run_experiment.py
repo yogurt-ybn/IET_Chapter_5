@@ -15,7 +15,7 @@ if __name__ == "__main__":
     parser.add_argument("--exclusive-simulator", action="store_true", required=True)
     parser.add_argument("--controller", choices=["pid", "lqr", "geometric", "dob", "mpc"], required=True)
     parser.add_argument("--task", default="hover_transfer", choices=["hover_transfer", "circle",
-                        "disturbance", "mismatch", "noise_delay"])
+                        "figure_eight", "disturbance", "mismatch", "noise_delay"])
     parser.add_argument("--controllers", type=Path, default=Path("configs/controllers.json"))
     parser.add_argument("--tasks", type=Path, default=Path("configs/tasks.json"))
     parser.add_argument("--output", type=Path, required=True)

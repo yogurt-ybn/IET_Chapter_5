@@ -2,6 +2,7 @@
 
 import numpy as np
 from scipy.spatial.transform import Rotation
+from ..references.tasks import Task
 
 
 def time_rms(t, squared_error):
@@ -38,8 +39,9 @@ def compute(rows, config, gravity):
     intervals = {"initial_hover": (0, config["transfer_onset"]),
                  "transfer": (config["transfer_onset"], config["transfer_onset"] + config["transfer_duration"]),
                  "steady_hold": (config["transfer_onset"] + config["transfer_duration"] + 1, t[-1])}
-    if rows[0]["task"] == "circle":
-        intervals = {"loop": (config["circle_onset"], config["circle_onset"] + config["circle_duration"])}
+    tracking_interval = Task(rows[0]['task'], config).tracking_interval
+    if tracking_interval is not None:
+        intervals = {'loop': tracking_interval}
     for name, (start, end) in intervals.items():
         mask = (t >= start) & (t <= end)
         result[name + "_rms_m"] = time_rms(t[mask], np.sum(e[mask]**2, axis=1))

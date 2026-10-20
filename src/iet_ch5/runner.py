@@ -67,7 +67,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         (output / "metadata.json").write_text(dump(metadata) + "\n")
         initial_timestamp = state.timestamp_ns
         previous_timestamp = initial_timestamp - int(task_config["control_period"] * 1e9)
-        duration = task_config["circle_total_duration"] if task_name == "circle" else task_config["duration"]
+        duration = task.duration
         feedback = FeedbackPipeline(task_config["feedback"], duration, seed, state) if task_name == "noise_delay" else None
         if feedback:
             np.savez_compressed(output / "noise_realization.npz", noise=feedback.noise,
@@ -161,7 +161,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         if capture:
             (output / "frames.json").write_text(dump(frame_metadata) + "\n")
         metrics = compute(rows, task_config, backend.parameters.gravity)
-        error = metrics.get("steady_hold_rms_m") if task_name != "circle" else metrics["loop_rms_m"]
+        error = metrics['loop_rms_m'] if task.tracking_interval else metrics.get('steady_hold_rms_m')
         status = "passed" if error is not None and error < task_config["hold_acceptance_rms_m"] else "failed"
         if status == "failed":
             failure = "Tracking acceptance tolerance not met"

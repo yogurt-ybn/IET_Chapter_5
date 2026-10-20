@@ -16,6 +16,7 @@ from PIL import Image
 
 from iet_ch5.evaluation.reanalyze import reanalyze
 from iet_ch5.logging import dump, revision
+from iet_ch5.references.tasks import Task
 
 METHODS = ['pid', 'lqr', 'geometric', 'dob', 'mpc']
 NAMES = {'pid': 'Cascaded PID', 'lqr': 'LQR', 'geometric': 'Geometric SE(3)',
@@ -64,7 +65,18 @@ def publish(source, output):
         if not np.array_equal(samples[method]['reference_p'], samples['pid']['reference_p']):
             raise RuntimeError('Common sampled reference differs')
     cfg = configs[0]
-    duration = cfg['circle_total_duration']
+    task_name = manifest['task']
+    task = Task(task_name, cfg)
+    duration = task.duration
+    onset, end = task.tracking_interval
+    if task_name == 'figure_eight':
+        path_label = 'FIGURE EIGHT'
+        extent = f"{2*cfg['figure_eight_half_width_m']:g} x {2*cfg['figure_eight_half_height_m']:g} m"
+        trajectory_title = f'Same predefined figure eight ({extent})'
+    else:
+        path_label = 'CIRCLE'
+        extent = f"diameter {2*cfg['circle_radius']:g} m"
+        trajectory_title = f'Same predefined circle ({extent})'
     t = samples['pid']['t']
     reference = samples['pid']['reference_p']
     error = {m: np.linalg.norm(samples[m]['truth_p'] - samples[m]['reference_p'], axis=1)
@@ -77,18 +89,17 @@ def publish(source, output):
 
     # Static book figures, with metres on trajectories and millimetres on errors.
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.5))
-    axes[0].plot(*reference[:, :2].T, 'k--', lw=2, label='Reference')
+    reference_line, = axes[0].plot(*reference[:, :2].T, 'k--', lw=2, label='Reference')
     for m in METHODS:
         p = samples[m]['truth_p']
         axes[0].plot(*p[:, :2].T, color=COLORS[m], label=NAMES[m])
         axes[1].plot(t, error[m] * 1000, color=COLORS[m], label=NAMES[m])
     axes[0].set(xlabel='North x (m)', ylabel='West y (m)', aspect='equal',
-                title='Same predefined 3 m diameter circle')
-    axes[0].legend(fontsize=8)
+                title=trajectory_title)
+    axes[0].legend(handles=[reference_line], fontsize=8, loc='upper right')
     axes[1].set(xlabel='Simulation time (s)', ylabel='Position error norm (mm)',
                 title='Independent AirSim physics truth')
-    axes[1].axvspan(cfg['circle_onset'], cfg['circle_onset'] + cfg['circle_duration'],
-                   color='gray', alpha=.12)
+    axes[1].axvspan(onset, end, color='gray', alpha=.12)
     axes[1].legend(fontsize=8)
     fig.tight_layout()
     for ext in ['png', 'pdf', 'svg']:
@@ -120,7 +131,7 @@ def publish(source, output):
     ax.set_title('Truth-based tracking error', color='white', fontsize=12)
     heading = fig.text(.025, .967, '', color='white', fontsize=19, fontweight='bold')
     fig.text(.025, .929,
-             'ONE REFERENCE  |  diameter 3 m  |  altitude 2 m in vehicle-origin NWU  |  fixed heading',
+             f"ONE REFERENCE: {path_label}  |  {extent}  |  local altitude {cfg['initial_position'][2]:g} m  |  fixed heading",
              color='#cbd5e1', fontsize=11)
     fig.text(.025, .02,
              'Actual AirSim frames  |  yellow: reference  |  cyan: flown trace  |  fixed external camera'
@@ -128,12 +139,11 @@ def publish(source, output):
     video_times = np.arange(0., duration, .1)
     timeline = []
     gif_frames = []
-    poster_time = 14.
+    poster_time = round((onset + end) / 2, 1)
     with imageio.get_writer(output / 'comparison.mp4', fps=10, codec='libx264', quality=8,
                             macro_block_size=16) as writer:
         for video_t in video_times:
-            phase = ('HOLD' if video_t < cfg['circle_onset'] or
-                     video_t >= cfg['circle_onset'] + cfg['circle_duration'] else 'TRACK CIRCLE')
+            phase = 'HOLD' if video_t < onset or video_t >= end else f'TRACK {path_label}'
             heading.set_text(f'Five controllers / one trajectory     t = {video_t:04.1f} s     {phase}')
             record = {'video_t_s': float(video_t), 'scene_frames': {}}
             for m in METHODS:
@@ -181,7 +191,7 @@ def publish(source, output):
                   'gif_preview': {'size_px': [960, 600], 'playback_speed': 2,
                                   'frame_count': len(gif_frames)},
                   'render_software': revision(), 'capture_software': manifest['software'],
-                  'metrics': 'common 12 ms grid from independent physics truth including 26 s endpoint',
+                  'metrics': f'common {cfg["control_period"]:g} s grid from independent physics truth including {duration:g} s endpoint',
                   'alignment': 'At video time t, use latest acquired scene at or before t; plot truth at t',
                   'source': 'scripts/render_tracking_comparison.py', 'book_font': font}
     if count != len(video_times) or len(sizes) != 1:

@@ -21,7 +21,8 @@ def reanalyze(path, output=None):
     task = meta["config"]["task"]
     start = meta["verified_initial_state"]
     stamp = start["timestamp_ns"]
-    duration = c["circle_total_duration"] if task == "circle" else c["duration"]
+    reference = Task(task, c)
+    duration = reference.duration
     if not physical or not control:
         return {"valid_samples": 0, "complete_common_interval": False}, None
     # simSetKinematics emits a setup snapshot at the same paused timestamp as verified_initial_state.
@@ -55,7 +56,6 @@ def reanalyze(path, output=None):
         a = r["kinematics"]["orientation"]
         q.append([a["x_val"], -a["y_val"], -a["z_val"], a["w_val"]])
     R = Slerp(time, Rotation.from_quat(q))(grid).as_matrix()
-    reference = Task(task, c)
     refs = [reference.at(float(t)) for t in grid]
     pref = np.array([r.p for r in refs])
     error = pref - p
@@ -77,8 +77,8 @@ def reanalyze(path, output=None):
         "transfer": (c["transfer_onset"], c["transfer_onset"] + c["transfer_duration"]),
         "steady_hold": (c["transfer_onset"] + c["transfer_duration"] + 1, target_end),
     }
-    if task == "circle":
-        intervals = {"loop": (c["circle_onset"], c["circle_onset"] + c["circle_duration"])}
+    if reference.tracking_interval is not None:
+        intervals = {'loop': reference.tracking_interval}
     for name, (a, b) in intervals.items():
         # Include interpolated exact interval endpoints instead of choosing a different grid boundary.
         if b <= a or target_end < a:

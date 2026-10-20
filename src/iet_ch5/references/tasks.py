@@ -1,4 +1,4 @@
-"""C4 transfer and smooth-entry horizontal loop, with analytic derivatives through snap."""
+"""C4 transfers, circles and figure eights, with analytic derivatives through snap."""
 
 import numpy as np
 from numpy.polynomial import Polynomial
@@ -18,10 +18,33 @@ def blend(t, onset, duration):
     return [SMOOTH.deriv(i)(u) / duration**i for i in range(5)]
 
 
+def phase_harmonic(phase, frequency):
+    """Time derivatives 0..4 of exp(i * frequency * phase(t))."""
+    d = frequency * np.asarray(phase)
+    z = np.exp(1j * d[0])
+    return [z, 1j * d[1] * z, (1j * d[2] - d[1]**2) * z,
+            (1j * d[3] - 3 * d[1] * d[2] - 1j * d[1]**3) * z,
+            (1j * d[4] - 4 * d[1] * d[3] - 3 * d[2]**2
+             - 6j * d[1]**2 * d[2] + d[1]**4) * z]
+
+
 class Task:
     def __init__(self, name, config):
         self.name = name
         self.c = config
+
+    @property
+    def tracking_interval(self):
+        if self.name in ('circle', 'figure_eight'):
+            return (self.c[self.name + '_onset'],
+                    self.c[self.name + '_onset'] + self.c[self.name + '_duration'])
+        return None
+
+    @property
+    def duration(self):
+        if self.tracking_interval is not None:
+            return self.c[self.name + '_total_duration']
+        return self.c['duration']
 
     def at(self, t):
         c = self.c
@@ -45,5 +68,16 @@ class Task:
             values = [c["circle_radius"] * np.array([x.real, x.imag, 0.])
                       for x in [z - 1, dz, ddz, dddz, ddddz]]
             values[0] += origin
+            return Reference(*values)
+        if self.name == 'figure_eight':
+            # Gerono figure eight: one cosine and a double-frequency sine.
+            # Start/end at the right-hand tip, with two distinct centre crossings.
+            phase = np.array(blend(t, c['figure_eight_onset'],
+                                   c['figure_eight_duration'])) * 2 * np.pi
+            first, second = phase_harmonic(phase, 1), phase_harmonic(phase, 2)
+            values = [np.array([c['figure_eight_half_width_m'] * x.real,
+                                c['figure_eight_half_height_m'] * y.imag, 0.])
+                      for x, y in zip(first, second)]
+            values[0] += origin - np.array([c['figure_eight_half_width_m'], 0., 0.])
             return Reference(*values)
         raise ValueError(f"Unknown task {self.name}")

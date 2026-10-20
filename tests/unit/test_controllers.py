@@ -65,14 +65,42 @@ def test_normalized_derivatives_and_singularities():
         assert np.allclose(R.T @ R, np.eye(3)) and np.linalg.det(R) > .999
 
 
-@pytest.mark.parametrize("name", ["hover_transfer", "circle"])
+@pytest.mark.parametrize("name", ["hover_transfer", "circle", "figure_eight"])
 def test_reference_derivative_consistency(name):
-    task = Task(name, json.loads(Path("configs/tasks.json").read_text()))
+    config = 'configs/figure-eight-demo-task.json' if name == 'figure_eight' else 'configs/tasks.json'
+    task = Task(name, json.loads(Path(config).read_text()))
     t, h = 4.1, 1e-4
     ref, plus, minus = task.at(t), task.at(t+h), task.at(t-h)
     for field, derivative in [("p", "v"), ("v", "a"), ("a", "jerk"), ("jerk", "snap")]:
         assert np.allclose((getattr(plus, field)-getattr(minus, field))/(2*h),
                            getattr(ref, derivative), atol=1e-6)
+
+
+def test_figure_eight_crossings_and_smooth_endpoints():
+    from scipy.optimize import brentq
+    from iet_ch5.references.tasks import SMOOTH
+
+    config = json.loads(Path('configs/figure-eight-demo-task.json').read_text())
+    task = Task('figure_eight', config)
+    a, b = task.tracking_interval
+    for t in [0., a, b, task.duration]:
+        ref = task.at(t)
+        assert np.allclose(ref.p, config['initial_position'], atol=1e-12)
+        for field in ['v', 'a', 'jerk', 'snap']:
+            assert np.allclose(getattr(ref, field), 0., atol=1e-12)
+    crossings = []
+    for progress in [.25, .75]:
+        u = brentq(lambda u: SMOOTH(u) - progress, 0., 1.)
+        ref = task.at(a + u * (b - a))
+        assert np.allclose(ref.p, [-2., 0., 2.], atol=1e-10)
+        crossings.append(ref.v)
+    assert abs(np.cross(*crossings)[2]) > .5  # Distinct crossing tangents, not a retraced loop.
+    h = 1e-4
+    for t in [6.7, 11.3, 16.8, 21.4]:
+        ref, plus, minus = task.at(t), task.at(t + h), task.at(t - h)
+        for field, derivative in [('p', 'v'), ('v', 'a'), ('a', 'jerk'), ('jerk', 'snap')]:
+            assert np.allclose((getattr(plus, field) - getattr(minus, field)) / (2*h),
+                               getattr(ref, derivative), atol=2e-6)
 
 
 def test_irregular_metrics_and_censored_settle():

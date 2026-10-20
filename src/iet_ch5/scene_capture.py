@@ -14,9 +14,10 @@ def ned_points(points, origin):
 
 
 class SceneCapture:
-    def __init__(self, camera='tracking_overview', period=.1):
+    def __init__(self, camera='tracking_overview', period=.1, position=None):
         self.config = {'camera': camera, 'external': True, 'period_s': period,
-                       'camera_position_vehicle_origin_ned_m': [2., -4., -6.],
+                       'camera_position_vehicle_origin_ned_m': (
+                           [2., -4., -6.] if position is None else list(position)),
                        'reference_color': 'yellow', 'actual_trace_color': 'cyan',
                        'timing': 'capture excluded from controller/loop timing'}
         self.frames = []

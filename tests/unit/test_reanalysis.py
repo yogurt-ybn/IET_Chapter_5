@@ -6,11 +6,16 @@ import pytest
 from iet_ch5.evaluation.reanalyze import reanalyze
 
 
-def test_exact_interval_includes_terminal_truth_and_handles_redundant_setup(tmp_path):
+@pytest.mark.parametrize('task_name', ['hover_transfer', 'figure_eight'])
+def test_exact_interval_includes_terminal_truth_and_handles_redundant_setup(tmp_path, task_name):
     from pathlib import Path
 
     config = json.loads(Path("configs/tasks.json").read_text())
     config.update(duration=0.024, transfer_displacement=[0.0, 0.0, 0.0])
+    if task_name == 'figure_eight':
+        config.update(duration=12., figure_eight_onset=.003, figure_eight_duration=.012,
+                      figure_eight_total_duration=.024, figure_eight_half_width_m=0.,
+                      figure_eight_half_height_m=0.)
     state = {
         "timestamp_ns": 0,
         "p": [0.2, 0.0, 2.0],
@@ -19,7 +24,7 @@ def test_exact_interval_includes_terminal_truth_and_handles_redundant_setup(tmp_
         "omega": [0.0, 0.0, 0.0],
     }
     metadata = {
-        "config": {"task_config": config, "task": "hover_transfer"},
+        "config": {"task_config": config, "task": task_name},
         "verified_initial_state": state,
         "parameters": {"gravity": 9.81},
     }
@@ -59,3 +64,5 @@ def test_exact_interval_includes_terminal_truth_and_handles_redundant_setup(tmp_
     assert metrics["redundant_setup_snapshot"]
     assert metrics["position_rms_m"] == pytest.approx(0.2)
     assert metrics["attitude_rms_rad"] == pytest.approx(0.0)
+    if task_name == 'figure_eight':
+        assert metrics['loop_rms_m'] == pytest.approx(.2)
