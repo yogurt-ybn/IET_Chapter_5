@@ -34,6 +34,10 @@ class RpcClient:
         while True:
             for response in self.unpacker:
                 kind, sequence, error, result = response
+                if kind == 1 and sequence < request:
+                    # A prior interrupted call can leave a complete reply unread. It must
+                    # not prevent bounded cleanup (pause/disarm) on this same connection.
+                    continue
                 if kind != 1 or sequence != request:
                     raise RpcError(f"Unexpected RPC response {kind=}, {sequence=}; wanted {request}")
                 if error is not None:

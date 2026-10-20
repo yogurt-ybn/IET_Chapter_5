@@ -39,6 +39,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
     (output / "metadata.json").write_text(dump(metadata) + "\n")
     rows = []
     status, failure = "failed", None
+    interrupted = False
     try:
         backend.initialize(task_config["initial_position"])
         hover = allocator.allocate(WrenchCommand(
@@ -130,6 +131,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 for sample in samples:
                     physics.write(dump(sample) + "\n")
                 row["timing"].update(rpc_step_s=rpc_time, wall_loop_s=time.perf_counter() - wall_start)
+                row["timing"].update(backend.last_timing)
                 encoded = dump(row)
                 log.write(encoded + "\n")
                 rows.append(json.loads(encoded))
@@ -158,7 +160,8 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         status = "passed" if error is not None and error < task_config["hold_acceptance_rms_m"] else "failed"
         if status == "failed":
             failure = "Tracking acceptance tolerance not met"
-    except Exception as error:
+    except (Exception, KeyboardInterrupt) as error:
+        interrupted = isinstance(error,KeyboardInterrupt)
         failure = f"{type(error).__name__}: {error}"
         (output / "failure.txt").write_text(traceback.format_exc())
     finally:
@@ -167,4 +170,6 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
     result = RunResult(output.name, controller_id, status, str(output / "log.jsonl"),
                        compute(rows, task_config, backend.parameters.gravity), failure)
     (output / "result.json").write_text(dump(result) + "\n")
+    if interrupted:
+        raise KeyboardInterrupt("Interrupted run retained and simulator cleaned up")
     return result

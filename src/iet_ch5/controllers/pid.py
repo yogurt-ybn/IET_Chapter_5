@@ -63,5 +63,6 @@ class PID:
         tau = self.p.J @ angular_acc + np.cross(state.omega, self.p.J @ state.omega)
         return WrenchCommand(max(0., self.force @ state.R[:, 2]), tau), {
             "attitude_error": eR, "rate_error": ew, "desired_R": self.Rd,
+            "rate_target_body": rate_target,
             "velocity_integral": self.velocity_integral.copy(),
             "rate_integral": self.rate_integral.copy(), "outer_period": c["outer_period"]}

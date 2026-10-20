@@ -87,17 +87,27 @@ class AirSimBackend:
         start = time.perf_counter()
         request = self.motor.submit("moveByMotorPWMs", *pwm.tolist(), 1e-6, self.vehicle)
         self.pending_motors.add(request)
-        # Let the RPC worker install the passthrough goal before advancing physics.
-        # Measured telemetry below is the check; this scheduling delay alone is not a guarantee.
-        time.sleep(.001)
+        # The source executes commandMotorPWMs once before its duration wait. Cancellation
+        # ends that wait but preserves the installed passthrough goal (verified in M0).
+        # Wait for this acknowledgement BEFORE stepping. Repeated bounded cancellation
+        # also handles the worker not having started at the first cancellation request.
+        # Unlike joining an uncancelled future, this does not require physics to advance.
+        deadline = time.monotonic()+self.rpc.timeout
+        while request in self.pending_motors:
+            self.rpc.call("cancelLastTask",self.vehicle)
+            for response in self.motor.drain():
+                self.pending_motors.discard(response[1])
+            if time.monotonic()>deadline:
+                raise TimeoutError("Cancelled motor request did not acknowledge installed goal")
+            if request in self.pending_motors:
+                time.sleep(.0002)
+        acknowledged = time.perf_counter()
         self.rpc.call("simContinueForTime", float(duration))
-        # Its worker sleeps for a command period even when duration is shorter. With a paused
-        # simulator, a future may therefore remain pending after this step. Never join it here.
-        for response in self.motor.drain():
-            self.pending_motors.discard(response[1])
-        if len(self.pending_motors) > 20:
-            raise RuntimeError("Motor request queue stopped progressing")
+        advanced = time.perf_counter()
         state, samples = self.latest()
+        self.last_timing = {"motor_ack_s":acknowledged-start,
+                            "physics_advance_s":advanced-acknowledged,
+                            "state_rpc_s":time.perf_counter()-advanced}
         actual = np.array([r["control_signal_input"] for r in samples[-1]["rotors"]])
         if not np.allclose(actual, pwm, atol=2e-6, rtol=0):
             raise RuntimeError(f"Motor goal not applied: requested {pwm}, observed {actual}")

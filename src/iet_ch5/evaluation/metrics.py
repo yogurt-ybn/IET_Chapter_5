@@ -83,7 +83,8 @@ def compute(rows, config, gravity):
         attitude.append(Rotation.from_matrix(Rd.T@R).magnitude())
         wd = np.array(d.get("desired_rate",[-ref["jerk"][1]/gravity,
                         ref["jerk"][0]/gravity,ref["heading_rate"]]))
-        rate.append(np.linalg.norm(np.array(row["truth"]["omega"])-R.T@Rd@wd))
+        target = np.array(d["rate_target_body"]) if "rate_target_body" in d else R.T@Rd@wd
+        rate.append(np.linalg.norm(np.array(row["truth"]["omega"])-target))
     result["attitude_rms_rad"] = time_rms(t,np.square(attitude))
     result["rate_rms_rad_s"] = time_rms(t,np.square(rate))
     pwm=np.array([r["motor_pwm"] for r in rows])
