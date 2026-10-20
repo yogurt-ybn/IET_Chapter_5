@@ -1,0 +1,20 @@
+{
+  "control_period": 0.012,
+  "initial_position": [0.0, 0.0, 2.0],
+  "duration": 12.0,
+  "transfer_onset": 2.0,
+  "transfer_duration": 4.0,
+  "transfer_displacement": [0.6, 0.4, 0.3],
+  "circle_onset": 2.0,
+  "circle_duration": 14.0,
+  "circle_radius": 0.5,
+  "circle_total_duration": 20.0,
+  "disturbance_onset": 7.0,
+  "disturbance_duration": 2.0,
+  "settle_tolerance": 0.1,
+  "settle_dwell": 1.0,
+  "abort_position_error": 3.0,
+  "abort_tilt_rad": 0.7,
+  "abort_speed": 4.0,
+  "hold_acceptance_rms_m": 0.1
+}
