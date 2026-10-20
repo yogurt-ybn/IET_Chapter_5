@@ -122,40 +122,40 @@ in the ignored local archive identified by [its checksum](results/examples/m3/fu
 Compact examples, all-run metric samples/configurations/results and regenerated figures
 are committed; an external upload of the larger archive is not claimed.
 
-## Figure-eight tracking demo
+## Faster figure-eight tracking demo
 
-[Five-controller video](results/examples/figure_eight_demo/comparison.mp4),
-[2× animated preview](results/examples/figure_eight_demo/comparison.gif) and
-[trajectory/error figure](results/examples/figure_eight_demo/trajectories_and_errors.png)
-show PID, LQR, geometric, DOB and MPC tracking the **same predefined 4×2 m figure eight**.
-Each holds for 2 s, traverses both lobes and crosses the centre twice over 28 s, then holds
-for 2 s. The total simulation interval is 32 s, with fixed local altitude 2 m and heading.
-Velocity, acceleration, jerk and snap are analytic; entry/exit derivatives vanish.
-The path fits the conservative MPC component limits with unchanged controller gains.
+[Full-speed video](results/examples/figure_eight_cruise/comparison.mp4),
+[2× preview](results/examples/figure_eight_cruise/comparison.gif) and
+[speed comparison](results/examples/figure_eight_cruise/speed_comparison.png)
+show the same 4×2 m figure eight retimed from **28 s to 14 s of traversal**. The reference
+mean speed doubles from 0.436 to 0.871 m/s. Smooth 2 s phase-rate ramps bracket 10 s of
+sustained cruise, avoiding the previous long slow entry/exit. Initial/final holds remain
+2 s each, so the full run is 18 s. Controller gains and velocity/tilt limits are unchanged.
 
-The fixed camera shows the full reference in yellow and the flown trace in cyan. Five
-actual scene recordings play side by side with a truth-based error plot, synchronized by
-simulation timestamps. The MP4 plays at 1×; the GIF preview plays at 2×. See
-[reference equations, provenance and results](docs/figure_eight_demo.md).
+Each fixed-camera panel labels the actual physics speed in m/s beside its time/error.
+The MP4 plays at 1× simulation time; the compact GIF is explicitly 2×. Measured speed
+statistics are computed from independent truth velocities and compared with the earlier
+runs using the same processing. See [time law, actual results and provenance](docs/figure_eight_cruise.md).
 
-![Fixed-camera figure-eight comparison](results/examples/figure_eight_demo/comparison_preview.png)
+![Faster figure-eight comparison](results/examples/figure_eight_cruise/comparison_preview.png)
 
-This separate nominal demonstration leaves the original
-[51-run benchmark](docs/case_study.md) intact. The earlier
-[circle comparison](docs/trajectory_demo.md) and body-relative single-controller clip
-remain available as historical evidence.
+The original [28 s figure eight](docs/figure_eight_demo.md),
+[circular demo](docs/trajectory_demo.md) and [51-run case study](docs/case_study.md)
+remain available. This is a separate nominal shape-tracking comparison.
 
-Launch an exclusive simulator with the external camera settings, wait for it to load,
-then verify capabilities and capture/render into new directories:
+Launch an exclusive simulator, wait for loading, then check capabilities and record into
+new output directories:
 
 ```bash
-.venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json --settings configs/airsim-demo-settings.json --local-output .local/figure-eight-simulator
-.venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/figure-eight-capabilities.json
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --task-config configs/figure-eight-demo-task.json --output results/runs/my-figure-eight
-.venv/bin/python scripts/render_tracking_comparison.py --source results/runs/my-figure-eight --output results/runs/my-figure-eight-publication
+.venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json --settings configs/airsim-demo-settings.json --local-output .local/figure-eight-cruise-simulator
+.venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/figure-eight-cruise-capabilities.json
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --task-config configs/figure-eight-cruise-task.json --output results/runs/my-cruise-eight
+.venv/bin/python scripts/render_tracking_comparison.py --source results/runs/my-cruise-eight --output results/runs/my-cruise-eight-publication
+.venv/bin/python scripts/plot_speed_comparison.py --previous results/runs/figure-eight-feasible-20261020 --current results/runs/my-cruise-eight-publication
 ```
 
-The renderer checks identical reference arrays, source-image hashes, exact image/physics
-timestamp agreement and full video decoding. Compact metric samples and media are public;
-full control/physics/image logs stay in ignored local storage with an archive checksum.
-The recordings use paused simulation time; no real-time or physical-flight claim is made.
+The final speed-comparison command needs the retained older raw records; compact before/after
+speed samples are included in the published package. The renderer checks source-image hashes,
+exact image/physics timestamps, fixed camera poses, identical references across methods and
+complete video decoding. Raw logs/images stay in ignored archives with published checksums.
+Paused recording makes no real-time or physical-flight claim.

@@ -98,3 +98,10 @@ same verified hover state. Figure-eight duration and traversal windows propagate
 the shared runner, common-time reanalysis and plotting; it is not evaluated as a transfer
 or silently truncated to the original 12 s task duration. See [reference equations and
 validation](figure_eight_demo.md). Controller equations, gains and allocation are unchanged.
+
+The faster figure-eight configuration selects an integrated phase-rate ramp with a
+constant-rate middle. `Task.phase_at` returns the actual angle and first four time
+derivatives; reference construction and crossing annotations share this law. Frame
+provenance now includes instantaneous truth velocity, while independent common-grid
+physics velocities provide traversal speed metrics. See [retiming and measured speed
+comparison](figure_eight_cruise.md). No controller gain/limit or allocation change is used.

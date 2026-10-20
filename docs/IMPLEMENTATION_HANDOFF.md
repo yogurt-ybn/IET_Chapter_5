@@ -5,7 +5,32 @@ Branch: `feat/ch5-airsim-controllers`. Review: https://github.com/yogurt-ybn/IET
 case-study text and capture tooling are anchored at `a878670`, followed by the verified
 media/handoff commit. Use Git HEAD for the final delivery revision.
 
-## Current demo: figure-eight tracking
+## Current demo: faster figure-eight with sustained cruise
+
+The primary demo is `results/examples/figure_eight_cruise/comparison.mp4`: 14 s traversal,
+18 s total, same 4×2 m shape/gains/limits. The former whole-manoeuvre smoothstep is replaced
+by integrated 2 s phase-rate ramps and 10 s constant-rate cruise. Measured traversal mean
+speeds increase from about 0.44 to 0.87–0.91 m/s, with peaks 1.48–1.53 m/s. Each scene
+panel labels its actual physics speed. See `docs/figure_eight_cruise.md` for the piecewise
+law, old/new velocity samples, error table, source checks and reproduction commands.
+
+All five complete runs use clean source `fe88593` and pass traversal RMS acceptance.
+PID's 109.1 mm maximum error is retained; acceptance is RMS, not a maximum-error bound.
+No collision, saturation, evaluated state-bound violation or MPC fallback occurs. A client
+exit 143 interrupted the first LQR attempt; that partial run remains archived separately.
+Recovery retained PID and restarted the other controllers from identical initialization
+with unchanged code/config. The exact recovery driver and interruption evidence are public.
+
+Validation: 28 tests including read-only AirSim integration, lint and whitespace pass.
+905 actual images have exact paused-truth timestamps and common fixed camera poses. MP4:
+180 frames, 1600×1008, 10 fps, 18 s. GIF: 90 frames over 9 s at 2×. Maximum scene age 0.1 s.
+Original AirSim source/binary hashes and the full user diff are preserved. The dedicated
+cruise simulator is stopped after validation; the original simulator remains untouched.
+Local raw archive (including the interrupted attempt): `ch5-figure-eight-cruise-fe88593.tar.gz`,
+310,060,972 bytes, SHA256 `6af0e09b3f2043e047c0a579404bfeab9c47f6cc459dffc4b412e041ad2d7f53`.
+The original matrix and slower media are unchanged; no external archive upload is claimed.
+
+## Earlier 28-second figure-eight demo
 
 The primary demo is `results/examples/figure_eight_demo/comparison.mp4` and its compact
 2× GIF preview. Five genuine runs use the same smooth 4×2 m figure eight, with 2 s initial

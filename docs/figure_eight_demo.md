@@ -1,4 +1,6 @@
-# Figure-eight trajectory tracking in AirSim
+# Original 28-second figure-eight tracking
+
+The primary demonstration is now the [14-second sustained-cruise version](figure_eight_cruise.md). This page preserves the earlier slower reference and measured results.
 
 The primary demonstration now uses a horizontal figure eight. Its two lobes, two centre
 crossings and changing curvature require successive turns in opposite directions. Five

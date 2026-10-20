@@ -149,13 +149,20 @@ demonstrate real-time feasibility**; no unpaused deadline claim is made.
   errors. All five pass; these separate visual runs do not change the 51-run matrix above.
   See [design, measured results and reproduction](trajectory_demo.md).
 
-* The primary demo is the [five-controller figure-eight video](../results/examples/figure_eight_demo/comparison.mp4),
+* The retained slower demo is the [five-controller figure-eight video](../results/examples/figure_eight_demo/comparison.mp4),
   with [animated preview](../results/examples/figure_eight_demo/comparison.gif) and
   [reference/error figure](../results/examples/figure_eight_demo/trajectories_and_errors.png).
   Five additional real AirSim runs track the same 4×2 m horizontal figure eight with
   two centre crossings, fixed heading/altitude and unchanged gains. All five pass over
   32 s; no collision, saturation or MPC fallback occurs. The original matrix is unchanged.
   See [equations, component-envelope check, excluded planning preview and measured results](figure_eight_demo.md).
+
+* The current [sustained-cruise figure-eight video](../results/examples/figure_eight_cruise/comparison.mp4)
+  reduces traversal time from 28 to 14 s with unchanged gains/limits. Independent velocities
+  confirm mean speeds approximately doubling from 0.44 to 0.87–0.91 m/s; the normal-speed
+  movie lasts 18 s including holds. Five complete runs pass RMS acceptance with no collision,
+  saturation or MPC fallback; PID's larger peak error is retained. See the [measured speed
+  comparison and recovered client interruption](figure_eight_cruise.md).
 
 Use the tested README commands. Reproducing the exact numerical source requires the
 recorded `2e6d9ed` revision and the M0-compatible installed AirSim extension/build; the

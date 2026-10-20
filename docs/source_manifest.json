@@ -123,6 +123,23 @@
       "input_output_conventions": "vehicle-origin NWU reference position/velocity/acceleration/jerk/snap; fixed heading",
       "modifications": "C4 phase ramp, common hover endpoints, component-envelope design check, figure-eight evaluation windows",
       "validation_status": "finite-difference derivatives through snap, endpoint/crossing/envelope tests; five genuine AirSim runs complete and pass loop tracking tolerance"
+    },
+    {
+      "component": "Original sustained-cruise phase law",
+      "upstream_url": "https://github.com/yogurt-ybn/IET_Chapter_5",
+      "pinned_commit": "fe885932bf8124f8257ff5e695239e1732e2041c",
+      "source_paths": [
+        "src/iet_ch5/references/tasks.py",
+        "src/iet_ch5/evaluation/reanalyze.py"
+      ],
+      "licence_path": null,
+      "authors": "Chapter 5 project contributors",
+      "paper_citation": "Direct polynomial integration and chain-rule time derivatives; no external code copied",
+      "local_destination": "src/iet_ch5/references/tasks.py; src/iet_ch5/evaluation/reanalyze.py",
+      "classification": "original timing/reference and speed-metric implementation",
+      "input_output_conventions": "NWU p/v/a/jerk/snap; phase rate is not heading rate or constant Cartesian speed",
+      "modifications": "2 s phase-rate ramps, sustained cruise, unchanged controller gains/limits; independent physics speed metrics",
+      "validation_status": "Derivative/join/endpoint/envelope tests and five complete actual AirSim runs pass; interrupted client attempt retained separately"
     }
   ]
 }
