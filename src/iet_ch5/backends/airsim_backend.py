@@ -21,18 +21,21 @@ class AirSimBackend:
         self.exclusive = exclusive
         self.parameters = parameters_from_rpc(self.rpc.call("getDynamicsParameters", vehicle))
         self.last_sequence = 0
+        self.last_timestamp = None
         self.pending_motors = set()
 
     def _require_exclusive(self):
         if not self.exclusive:
             raise RuntimeError("Vehicle actions require an explicitly designated exclusive simulator")
 
-    def latest(self):
+    def latest(self, *, allow_empty=False):
         batch = self.rpc.call("getDynamicsStateBatch", self.last_sequence, 4096, self.vehicle)
         if batch["samples_dropped"]:
             raise RuntimeError("Physics samples dropped from server ring buffer")
         samples = batch["samples"]
         if not samples:
+            if allow_empty:
+                return None, []
             raise RuntimeError("No new physics samples; duplicate/stale feedback rejected")
         sequences = np.array([s["sequence"] for s in samples], dtype=np.int64)
         timestamps = np.array([s["timestamp"] for s in samples], dtype=np.int64)
@@ -41,6 +44,7 @@ class AirSimBackend:
         if self.last_sequence and sequences[0] != self.last_sequence + 1:
             raise RuntimeError("Noncontiguous physics sequence")
         self.last_sequence = int(sequences[-1])
+        self.last_timestamp = int(timestamps[-1])
         return state_from_sample(samples[-1]), samples
 
     def initialize(self, position=(0., 0., 2.)):
@@ -53,6 +57,7 @@ class AirSimBackend:
             raise RuntimeError("Vehicle refused to arm")
         self.set_initial_kinematics(position)
         self.last_sequence = 0
+        self.last_timestamp = None
 
     def set_initial_kinematics(self, position):
         self._require_exclusive()
@@ -102,14 +107,41 @@ class AirSimBackend:
             if request in self.pending_motors:
                 time.sleep(.0002)
         acknowledged = time.perf_counter()
-        self.rpc.call("simContinueForTime", float(duration))
-        advanced = time.perf_counter()
-        state, samples = self.latest()
+        # ScheduledExecutor::continueForTime measures WALL time, not SteppableClock time.
+        # Under scheduling load one call can yield fewer physics ticks than requested.
+        # Advance to a measured simulation timestamp, accumulating every intermediate sample.
+        initial_stamp = self.last_timestamp
+        if initial_stamp is None:
+            initial_stamp = self.rpc.call("getMultirotorState",self.vehicle)["timestamp"]
+        elapsed = 0.
+        samples = []
+        continuations = 0
+        advancement_rpc_s = 0.
+        state_rpc_s = 0.
+        while elapsed < duration:
+            remaining = max(duration-elapsed,2*self.parameters.physics_dt)
+            before_rpc = time.perf_counter()
+            self.rpc.call("simContinueForTime",float(remaining))
+            advancement_rpc_s += time.perf_counter()-before_rpc
+            before_rpc = time.perf_counter()
+            new_state, new_samples = self.latest(allow_empty=True)
+            state_rpc_s += time.perf_counter()-before_rpc
+            continuations += 1
+            if new_samples:
+                samples.extend(new_samples)
+                state = new_state
+                elapsed = (state.timestamp_ns-initial_stamp)*1e-9
+            if time.monotonic()>deadline:
+                raise TimeoutError("Physics did not reach requested simulation timestamp")
         self.last_timing = {"motor_ack_s":acknowledged-start,
-                            "physics_advance_s":advanced-acknowledged,
-                            "state_rpc_s":time.perf_counter()-advanced}
+                            "physics_advance_s":advancement_rpc_s,
+                            "state_rpc_s":state_rpc_s,
+                            "continuations":continuations,
+                            "requested_simulation_dt_s":duration,
+                            "measured_simulation_dt_s":elapsed}
         actual = np.array([r["control_signal_input"] for r in samples[-1]["rotors"]])
         if not np.allclose(actual, pwm, atol=2e-6, rtol=0):
+            self.failed_step_samples = samples
             raise RuntimeError(f"Motor goal not applied: requested {pwm}, observed {actual}")
         return state, samples, time.perf_counter() - start
 

@@ -164,6 +164,8 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         interrupted = isinstance(error,KeyboardInterrupt)
         failure = f"{type(error).__name__}: {error}"
         (output / "failure.txt").write_text(traceback.format_exc())
+        if hasattr(backend,"failed_step_samples"):
+            (output / "failed_step_physics.json").write_text(dump(backend.failed_step_samples)+"\n")
     finally:
         backend.stop()
         backend.close()

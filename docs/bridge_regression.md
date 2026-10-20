@@ -34,5 +34,24 @@ fallback checks. Original ring-overflow source semantics are unchanged. The tele
 source patch was independently applied to its clean upstream files and exactly reproduced
 all 10 selected modified source files; this does not claim a new Unreal build was made.
 
-No gains were changed in response to the abandoned evaluation. The replacement matrix is
-frozen under a new source revision, with the original attempt available as failure evidence.
+The acknowledgement change alone was insufficient: the next attempt at `4986c55` still
+exposed stale final motor input in two runs. Investigation of `ScheduledExecutor.hpp`
+showed that `continueForTime` stops after **wall-clock** time, not a target SteppableClock
+timestamp. Under load a requested 12 ms continuation yielded as few as 6 ms in completed
+control intervals, and a still shorter interval could end before the installed input was
+visible in telemetry. Thus the first diagnosis did not fully characterize the mechanism.
+
+The final bridge accumulates continuation calls and every intermediate physics sample
+until the actual simulator timestamp has advanced by at least the requested control period.
+Each loop is bounded by a wall timeout. Request acknowledgement and the strict unchanged
+telemetry test remain. Overshoot is retained as measured dt, never silently forced to the
+design value. Empty batches do not become duplicate feedback updates. A focused numerical
+test emulates short wall continuations, and actual bridge/stress tests verify the change.
+
+The second abandoned attempt's manifest/summary, explicit interrupted-run result and both
+registration failures are retained under `bridge_regression/second_attempt/`. It is not used
+in final aggregates. A separate 12 s mismatch loop with the corrected simulation deadline
+completed all 995 control updates; it failed the tracking tolerance, with no bridge failure.
+
+No gains were changed in response to either abandoned evaluation. The final matrix is
+frozen under a new source revision, with both attempts available as failure evidence.

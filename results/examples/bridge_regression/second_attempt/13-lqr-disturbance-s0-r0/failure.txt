@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/mnt/Dataset/simulation_platform/IET_Chapter_5/src/iet_ch5/runner.py", line 128, in run
+    state, samples, rpc_time = backend.step(allocated.pwm, task_config["control_period"])
+  File "/mnt/Dataset/simulation_platform/IET_Chapter_5/src/iet_ch5/backends/airsim_backend.py", line 113, in step
+    raise RuntimeError(f"Motor goal not applied: requested {pwm}, observed {actual}")
+RuntimeError: Motor goal not applied: requested [0.59379326 0.59378266 0.59386285 0.59382538], observed [0.59379542 0.59378576 0.59386796 0.59383088]

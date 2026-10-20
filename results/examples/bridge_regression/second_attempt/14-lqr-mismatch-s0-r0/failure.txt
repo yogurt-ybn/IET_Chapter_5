@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/mnt/Dataset/simulation_platform/IET_Chapter_5/src/iet_ch5/runner.py", line 128, in run
+    state, samples, rpc_time = backend.step(allocated.pwm, task_config["control_period"])
+  File "/mnt/Dataset/simulation_platform/IET_Chapter_5/src/iet_ch5/backends/airsim_backend.py", line 105, in step
+    self.rpc.call("simContinueForTime", float(duration))
+  File "/mnt/Dataset/simulation_platform/IET_Chapter_5/src/iet_ch5/backends/rpc.py", line 56, in call
+    return self.receive(self.submit(method, *args))
+  File "/mnt/Dataset/simulation_platform/IET_Chapter_5/src/iet_ch5/backends/rpc.py", line 50, in receive
+    data = self.socket.recv(1024 * 1024)
+KeyboardInterrupt
