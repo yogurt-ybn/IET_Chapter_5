@@ -5,6 +5,27 @@ Branch: `feat/ch5-airsim-controllers`. Review: https://github.com/yogurt-ybn/IET
 case-study text and capture tooling are anchored at `a878670`, followed by the verified
 media/handoff commit. Use Git HEAD for the final delivery revision.
 
+## Follow-up: shared-reference tracking video
+
+The primary demo is now `results/examples/tracking_demo/comparison.mp4` and its 2× GIF
+preview. Five additional actual AirSim runs track the same predefined 3 m diameter circle
+with fixed heading/local altitude and identical initialization. Each runs for 26 s; all
+five pass. The checked fixed external camera and native reference/flown-path markers
+replace the original video's visually uninformative body-relative view. See
+`docs/trajectory_demo.md` for the reference equation, measured error table, excluded
+unaligned preview attempt, commands and limitations. The original 51-run case study is
+unchanged. Source/binary hashes and the original AirSim diff were rechecked unchanged.
+
+Validation: 1,305 actual frames have exactly matching image/paused-truth timestamps and
+identical camera poses across all five runs. All five sampled reference arrays match.
+The MP4 decodes to 260 frames, 1600×1008, 10 fps, 26 s; the GIF has 130 frames over 13 s.
+Maximum selected scene age relative to the shared video clock is 0.1 s and is recorded in
+the frame-selection timeline. Unit/read-only integration suite: 22 passed. Lint and Git
+whitespace checks pass. The new raw archive is retained locally, 370,300,902 bytes,
+SHA256 `f662582f65724ecf181e69f071e42e584722678e04d95fcb71b223c941bd1f20`;
+only compact evidence/media are committed. The new chapter-owned simulator is stopped
+after validation; the original user's simulator remains untouched.
+
 ## Delivered milestones
 
 * **M0:** installed environment/source inventory, retained telemetry patch/licences,

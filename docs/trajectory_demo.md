@@ -16,6 +16,11 @@ entry and exit; it is not a constant-speed circle. The analytic reference's peak
 is approximately 1.054 m/s and peak acceleration 0.741 m/s². No disturbance, parameter
 mismatch or synthetic feedback noise is applied in this nominal demonstration.
 
+With `u = clip((t - 2)/22, 0, 1)`, the actual prescribed reference is
+`s(u) = 126u^5 - 420u^6 + 540u^7 - 315u^8 + 70u^9`, `theta = 2*pi*s(u)`,
+and `p_d(t) = [1.5*(cos(theta)-1), 1.5*sin(theta), 2]` metres in local NWU.
+Velocity, acceleration, jerk and snap are analytic derivatives of this same reference.
+
 A fixed external camera shows the entire circle. Yellow native AirSim debug markers
 show the predefined reference; cyan markers show the already flown measured path.
 The vehicle itself is the actual rendered simulator aircraft. All five scenes retain
@@ -69,3 +74,23 @@ control timing. The renderer checks common reference arrays, exact image/physics
 all image hashes, and final video decoding. Full original logs/images remain in ignored
 local storage; the public package retains metric samples, original metadata/results,
 frame provenance, video, GIF, representative images and editable-source PDF/SVG/PNG plots.
+
+## Measured delivery
+
+[Synchronized MP4](../results/examples/tracking_demo/comparison.mp4), [2× GIF preview](../results/examples/tracking_demo/comparison.gif), [trajectory/error plot](../results/examples/tracking_demo/trajectories_and_errors.png) and [machine-readable summary](../results/examples/tracking_demo/summary.json).
+
+All five runs complete the common 26 s interval and pass the loop RMS threshold of 0.1 m. No collision, actuator saturation, evaluated speed/tilt violation or MPC fallback is recorded. These are five nominal visual runs, one per controller.
+
+| Controller | Whole-run position RMS (mm) | Maximum position error (mm) |
+| --- | ---: | ---: |
+| PID | 15.272 | 32.634 |
+| LQR | 2.244 | 5.857 |
+| Geometric SE(3) | 0.867 | 2.303 |
+| Geometric + force DOB | 0.381 | 1.086 |
+| Constrained linear MPC | 2.366 | 6.177 |
+
+Capture starts at source `edd0619`; subsequent source commits during recording change only rendering/documentation. The capture runner, controllers, reference, allocation, bridge and configuration trees remain identical throughout the five recordings. Each run retains its actual Git revision/dirty-state metadata; these are not rewritten to pretend a single HEAD was used. The final media validation records the rendering revision separately.
+
+Original images and logs are retained in the local archive identified by [size and SHA256](../results/examples/tracking_demo/full_archive.json). The public package is sufficient to inspect the video, frame selection, camera invariance and common-window accuracy; regenerating the full scene video requires the retained raw frames or a fresh simulator run. No external upload of the large archive is claimed.
+
+Media validation confirms 1,305 native frames, identical fixed camera poses across all methods, and exact image/paused-truth timestamps. The MP4 decodes completely to 260 frames at 1600×1008, 10 fps, 26 s. The GIF has 130 frames over 13 s. Maximum scene age relative to the presentation clock is 0.1 s. The 22-test suite including the read-only simulator integration passes; lint and whitespace checks pass.
