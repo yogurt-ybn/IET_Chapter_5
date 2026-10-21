@@ -16,7 +16,7 @@ def render(source, output, rows, data):
     from ..references.tasks import Task
     if len({r['trajectory'] for r in rows}) != 1 or len({r['controller'] for r in rows}) != len(rows) or len(rows) > 6:
         raise ValueError('Media requires one trajectory, one run per controller, at most six controllers')
-    frame_sets, pose = {}, None
+    frame_sets, policies, pose = {}, {}, None
     config = None
     total_native_frames = 0
     for row in rows:
@@ -43,6 +43,8 @@ def render(source, output, rows, data):
             if not np.allclose(values, pose, atol=1e-5, rtol=0):
                 raise ValueError('Fixed camera differs across demo runs')
         frame_sets[key] = frames, times, run_dir
+        controls = [json.loads(line) for line in (run_dir/'log.jsonl').read_text().splitlines()]
+        policies[key] = controls, np.array([row['t'] for row in controls])
         total_native_frames += len(frames)
     task = Task(rows[0]['trajectory'], config)
     font_path = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
@@ -73,15 +75,24 @@ def render(source, output, rows, data):
                 error = np.linalg.norm(np.array(f['truth_p_nwu_m'])-f['reference_p_nwu_m'])
                 speed = np.linalg.norm(f['truth_v_nwu_m_s'])
                 stopped = not row['metrics'].get('complete_common_interval') and t > times[-1]+.12
+                policy = ''
+                controls, control_times = policies[key]
+                decision = int(np.searchsorted(control_times, f['simulation_t'], side='left')-1)
+                if decision >= 0 and method in ('mpc', 'nmpc'):
+                    diagnostic = controls[decision]['diagnostics']
+                    if diagnostic.get('fallback'):
+                        policy = diagnostic.get('fallback_controller', 'LQR')+' fallback'
+                    else:
+                        policy = 'RTI command' if method == 'nmpc' else 'QP command'
                 label = f'{method.upper()} | v={speed:.2f} m/s | e={error:.3f} m'
                 draw.text((x+8, y+5), label, font=small, fill=COLORS[method])
                 if len(rows) == 6:
                     draw.rectangle((x+5, y+369, x+470, y+390), fill='#101923')
-                    draw.text((x+10, y+371), row['status'], font=small, fill='white')
+                    draw.text((x+10, y+371), row['status']+(' | '+policy if policy else ''), font=small, fill='white')
                 if stopped:
                     draw.rectangle((x+15, y+65, x+455, y+120), fill='#991b1b')
                     draw.text((x+24, y+80), 'STOPPED - LAST REAL FRAME HELD', font=small, fill='white')
-                record['frames'][method] = {'filename': f['filename'], 'acquisition_t': f['simulation_t'], 'held_after_abort': stopped}
+                record['frames'][method] = {'filename': f['filename'], 'acquisition_t': f['simulation_t'], 'held_after_abort': stopped, 'command_policy': policy}
             if len(rows) < 6:
                 # Sixth tile: reference geometry and measured outcome, not simulated footage.
                 draw.rectangle((966, 480, 1434, 865), fill='#182536')
