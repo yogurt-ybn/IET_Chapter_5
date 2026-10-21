@@ -108,7 +108,7 @@ def reanalyze(path, output=None):
         c["settle_dwell"],
     )
     result["recovery_s"] = None
-    if task == "disturbance":
+    if c.get("condition", {}).get("kind", task) in ("disturbance", "wind"):
         a, b = c["disturbance_onset"], c["disturbance_onset"] + c["disturbance_duration"]
         mask = (grid >= a) & (grid <= b)
         result["disturbance_interval_rms_m"] = time_rms(
@@ -156,15 +156,24 @@ def reanalyze(path, output=None):
     )
     result["saturation_duration_s"] = float(np.trapezoid(sat.astype(float), grid))
     result["saturation_fraction"] = result["saturation_duration_s"] / target_end
-    violation = (np.arccos(np.clip(R[:, 2, 2], -1, 1)) > 0.3 + 1e-6) | (
-        np.linalg.norm(v, axis=1) > 2.0 + 1e-6
+    violation = (np.arccos(np.clip(R[:, 2, 2], -1, 1)) > c.get("evaluation_tilt_limit", .3) + 1e-6) | (
+        np.linalg.norm(v, axis=1) > c.get("evaluation_speed_limit", 2.) + 1e-6
     )
     result["constraint_violation_samples"] = int(violation.sum())
     result["constraint_violation_duration_s"] = float(np.trapezoid(violation.astype(float), grid))
+    result["tracking_rms_m"] = result.get("loop_rms_m")
+    result["velocity_rms_m_s"] = time_rms(grid, np.sum((np.array([r.v for r in refs])-v)**2, axis=1))
+    heading_error = np.angle(np.exp(1j*(np.array([r.heading for r in refs])-np.arctan2(R[:,1,0],R[:,0,0]))))
+    result["heading_rms_rad"] = time_rms(grid, heading_error**2)
     data = {
         "t": grid,
         "truth_p": p,
         "truth_v": v,
+        "truth_R": R, "truth_omega": omega, "heading_error_rad": heading_error,
+        "requested_wrench": np.array([r["requested_wrench"] for r in control])[index],
+        "telemetry_estimated_wrench": np.array([r["telemetry_estimated_wrench"] for r in control])[index],
+        "motor_pwm": pwm,
+        "allocation_residual": np.array([r["allocation_residual"] for r in control])[index],
         "reference_p": pref,
         "reference_v": np.array([r.v for r in refs]),
         "attitude_error_rad": aerror,

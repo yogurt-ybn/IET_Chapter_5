@@ -4,7 +4,7 @@ import numpy as np
 from scipy.linalg import expm, solve_discrete_are
 from scipy.spatial.transform import Rotation
 
-from ..types import WrenchCommand
+from ...types import WrenchCommand
 
 
 def hover_model(p, dt):

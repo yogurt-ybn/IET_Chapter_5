@@ -9,22 +9,21 @@ from pathlib import Path
 import numpy as np
 
 from .allocation import Allocator
-from .backends.airsim_backend import AirSimBackend
+from .simulation import create_backend, SimulationBackend
 from .controllers import make_controller
 from .evaluation.metrics import compute
 from .feedback import FeedbackPipeline
-from .frames import state_from_sample
 from .logging import config_hash, dump, revision
 from .references.tasks import Task
 from .types import RunResult, WrenchCommand
 
 
 def run(local_config, controllers_config, task_config, controller_id, task_name, output,
-        *, seed=0, capture=False, scene_capture=None):
+        *, seed=0, capture=False, scene_capture=None, backend: SimulationBackend | None = None):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     c = local_config
-    backend = AirSimBackend(c["host"], c["port"], c["vehicle"], exclusive=True)
+    backend = backend or create_backend(c, exclusive=True)
     allocator = Allocator(backend.parameters)
     controller = make_controller(controller_id, controllers_config[controller_id])
     task = Task(task_name, task_config)
@@ -34,13 +33,14 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
     metadata = {"schema": "iet-ch5/v1", "run_id": output.name, "config": config,
                 "config_sha256": config_hash(config), "software": revision(),
                 "parameters": asdict(backend.parameters),
-                "backend_provenance": json.loads(Path("docs/airsim_source_inventory.json").read_text()),
+                "backend_provenance": backend.provenance,
                 "feedback": "atomic physics truth", "timing_mode": "paused simulation-time",
                 "reference_information": "p,v,a,jerk,snap,heading derivatives; analytic future task available to all methods, MPC uses configured preview"}
     (output / "metadata.json").write_text(dump(metadata) + "\n")
     rows = []
     status, failure = "failed", None
     interrupted = False
+    condition = task_config.get('condition', {}).get('kind', task_name)
     try:
         backend.initialize(task_config["initial_position"])
         hover = allocator.allocate(WrenchCommand(
@@ -54,7 +54,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 or np.linalg.norm(state.v)>1e-7 or np.linalg.norm(state.omega)>1e-7):
             raise RuntimeError("Common initial state was not installed")
         controller_parameters = backend.parameters
-        if task_name == "mismatch":
+        if condition == "mismatch":
             controller_parameters = replace(backend.parameters,
                 mass=backend.parameters.mass * task_config["controller_mass_factor"],
                 J=backend.parameters.J * task_config["controller_inertia_factor"])
@@ -68,7 +68,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         initial_timestamp = state.timestamp_ns
         previous_timestamp = initial_timestamp - int(task_config["control_period"] * 1e9)
         duration = task.duration
-        feedback = FeedbackPipeline(task_config["feedback"], duration, seed, state) if task_name == "noise_delay" else None
+        feedback = FeedbackPipeline(task_config["feedback"], duration, seed, state) if condition == "noise_delay" else None
         if feedback:
             np.savez_compressed(output / "noise_realization.npz", noise=feedback.noise,
                                 period_s=feedback.noise_period, seed=seed)
@@ -88,7 +88,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 t = (state.timestamp_ns - initial_timestamp) * 1e-9
                 reference = task.at(t)
                 desired_wind = np.zeros(3)
-                if task_name == "disturbance" and (task_config["disturbance_onset"] <= t
+                if condition in ('disturbance', 'wind') and (task_config["disturbance_onset"] <= t
                         < task_config["disturbance_onset"]+task_config["disturbance_duration"]):
                     desired_wind = np.array(task_config["wind_velocity_nwu_m_s"])
                 if not np.array_equal(desired_wind, current_wind):
@@ -130,7 +130,7 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 previous_timestamp = state.timestamp_ns
                 state, samples, rpc_time = backend.step(allocated.pwm, task_config["control_period"])
                 if feedback:
-                    feedback.add_truth([state_from_sample(s) for s in samples])
+                    feedback.add_truth([backend.decode_physics_sample(s) for s in samples])
                 for sample in samples:
                     physics.write(dump(sample) + "\n")
                 row["timing"].update(rpc_step_s=rpc_time, wall_loop_s=time.perf_counter() - wall_start)
@@ -141,17 +141,12 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 if scene_capture:
                     scene_capture.update(state, initial_timestamp)
                 if capture and t >= next_capture:
-                    request = {"camera_name": "0", "image_type": 0,
-                               "pixels_as_float": False, "compress": True}
-                    image = backend.rpc.call("simGetImages", [request], backend.vehicle, False)[0]
-                    raw = image["image_data_uint8"]
-                    if isinstance(raw, str):
-                        raw = raw.encode("latin1")
+                    image = backend.capture_scene()
                     filename = f"{len(frame_metadata):05d}.png"
-                    (output / "frames" / filename).write_bytes(bytes(raw))
+                    (output / "frames" / filename).write_bytes(image.png)
                     frame_metadata.append({"filename": filename, "run_id": output.name,
                         "controller": controller_id, "simulation_t": t,
-                        "image_timestamp_ns": image["time_stamp"]})
+                        "image_timestamp_ns": image.timestamp_ns})
                     next_capture += .2
                 if (row["constraints"]["position_error"] > task_config["abort_position_error"]
                     or row["constraints"]["tilt_rad"] > task_config["abort_tilt_rad"]
@@ -172,8 +167,13 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
         if hasattr(backend,"failed_step_samples"):
             (output / "failed_step_physics.json").write_text(dump(backend.failed_step_samples)+"\n")
     finally:
-        backend.stop()
-        backend.close()
+        try:
+            backend.stop()
+        except Exception as cleanup_error:
+            failure = (failure or "") + f"; cleanup: {cleanup_error}"
+            status = "failed"
+        finally:
+            backend.close()
     result = RunResult(output.name, controller_id, status, str(output / "log.jsonl"),
                        compute(rows, task_config, backend.parameters.gravity), failure)
     (output / "result.json").write_text(dump(result) + "\n")

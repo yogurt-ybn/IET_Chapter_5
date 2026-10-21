@@ -1,70 +1,29 @@
 """C4 transfers, circles and figure eights, with analytic derivatives through snap."""
 
 import numpy as np
-from numpy.polynomial import Polynomial
 
 from ..types import Reference
 
-# Degree-nine smoothstep, derivatives 1..4 zero at both endpoints.
-SMOOTH = Polynomial([0, 0, 0, 0, 0, 126, -420, 540, -315, 70])
-SMOOTH_INTEGRAL = SMOOTH.integ()
+from ..trajectories.timing import (
+    SMOOTH, SMOOTH_INTEGRAL, blend, phase_harmonic, cruise_phase,
+)
 
-
-def blend(t, onset, duration):
-    if t <= onset:
-        return [0.] * 5
-    if t >= onset + duration:
-        return [1., 0., 0., 0., 0.]
-    u = (t - onset) / duration
-    return [SMOOTH.deriv(i)(u) / duration**i for i in range(5)]
-
-
-def phase_harmonic(phase, frequency):
-    """Time derivatives 0..4 of exp(i * frequency * phase(t))."""
-    d = frequency * np.asarray(phase)
-    z = np.exp(1j * d[0])
-    return [z, 1j * d[1] * z, (1j * d[2] - d[1]**2) * z,
-            (1j * d[3] - 3 * d[1] * d[2] - 1j * d[1]**3) * z,
-            (1j * d[4] - 4 * d[1] * d[3] - 3 * d[2]**2
-             - 6j * d[1]**2 * d[2] + d[1]**4) * z]
-
-
-def cruise_phase(t, onset, duration, ramp):
-    """One turn: smooth angular-speed ramps and a sustained constant-rate middle.
-
-    Returns angle and its first four TIME derivatives. The integral of the speed
-    smoothstep gives half a ramp's area, so omega = 2*pi/(duration-ramp).
-    Constant angular rate is not constant Cartesian speed on a figure eight.
-    """
-    if not 0 < 2 * ramp < duration:
-        raise ValueError('Cruise timing requires 0 < 2*ramp < duration')
-    elapsed = t - onset
-    if elapsed <= 0:
-        return np.zeros(5)
-    if elapsed >= duration:
-        return np.array([2*np.pi, 0., 0., 0., 0.])
-    omega = 2*np.pi / (duration - ramp)
-    if ramp <= elapsed <= duration - ramp:
-        return np.array([omega*(elapsed-ramp/2), omega, 0., 0., 0.])
-    remaining = duration - elapsed
-    u = min(elapsed, remaining) / ramp
-    result = np.array([omega*ramp*SMOOTH_INTEGRAL(u), omega*SMOOTH(u),
-                       omega/ramp*SMOOTH.deriv(1)(u),
-                       omega/ramp**2*SMOOTH.deriv(2)(u),
-                       omega/ramp**3*SMOOTH.deriv(3)(u)])
-    if elapsed > duration - ramp:
-        result[0] = 2*np.pi - result[0]
-        result[[2, 4]] *= -1
-    return result
+__all__ = ['Task', 'SMOOTH', 'SMOOTH_INTEGRAL', 'blend', 'phase_harmonic', 'cruise_phase']
 
 
 class Task:
     def __init__(self, name, config):
         self.name = name
         self.c = config
+        self.trajectory = None
+        if 'trajectory' in config:
+            from ..trajectories import Trajectory
+            self.trajectory = Trajectory(config['trajectory'])
 
     @property
     def tracking_interval(self):
+        if self.trajectory is not None:
+            return self.trajectory.tracking_interval
         if self.name in ('circle', 'figure_eight'):
             return (self.c[self.name + '_onset'],
                     self.c[self.name + '_onset'] + self.c[self.name + '_duration'])
@@ -72,12 +31,16 @@ class Task:
 
     @property
     def duration(self):
+        if self.trajectory is not None:
+            return self.trajectory.duration
         if self.tracking_interval is not None:
             return self.c[self.name + '_total_duration']
         return self.c['duration']
 
     def phase_at(self, t):
         """Actual phase law shared by reference generation and visual annotations."""
+        if self.trajectory is not None:
+            return self.trajectory.phase_at(t)
         if self.name not in ('circle', 'figure_eight'):
             raise ValueError('A phase is defined only for closed-path tasks')
         if self.name == 'figure_eight' and self.c.get('figure_eight_timing') == 'cruise':
@@ -87,6 +50,8 @@ class Task:
                                        self.c[self.name + '_duration']))
 
     def at(self, t):
+        if self.trajectory is not None:
+            return self.trajectory.at(t)
         c = self.c
         origin = np.array(c["initial_position"], dtype=float)
         if self.name in ("hover_transfer", "disturbance", "mismatch", "noise_delay"):

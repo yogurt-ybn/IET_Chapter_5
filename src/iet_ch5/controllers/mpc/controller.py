@@ -11,9 +11,9 @@ import osqp
 from scipy import sparse
 from scipy.linalg import block_diag
 
-from .lqr import LQR, hover_model, reference_vector, state_vector
-from ..allocation import Allocator
-from ..types import WrenchCommand
+from ..lqr import LQR, hover_model, reference_vector, state_vector
+from ...allocation import Allocator
+from ...types import WrenchCommand
 
 
 class MPC:

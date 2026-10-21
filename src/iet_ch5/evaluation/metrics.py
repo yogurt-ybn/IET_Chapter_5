@@ -70,7 +70,7 @@ def compute(rows, config, gravity):
         result["solver_status_counts"] = {s:statuses.count(s) for s in sorted(set(statuses))}
     result["collision_samples"] = sum(r["has_collided"] for r in rows)
     result["recovery_s"] = None
-    if rows[0]["task"] == "disturbance":
+    if config.get("condition", {}).get("kind", rows[0]["task"]) in ("disturbance", "wind"):
         onset,end = config["disturbance_onset"],config["disturbance_onset"]+config["disturbance_duration"]
         mask = (t>=onset)&(t<end)
         result["disturbance_interval_rms_m"] = time_rms(t[mask], np.sum(e[mask]**2,axis=1))

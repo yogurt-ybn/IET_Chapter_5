@@ -6,9 +6,9 @@ Desired-minus-actual translation errors; actual-minus-desired SO(3) errors.
 
 import numpy as np
 
-from .common import attitude_error, desired_attitude, unit_derivatives
-from ..frames import hat, vee
-from ..types import WrenchCommand
+from ..common import attitude_error, desired_attitude, unit_derivatives
+from ...frames import hat, vee
+from ...types import WrenchCommand
 
 
 class Geometric:

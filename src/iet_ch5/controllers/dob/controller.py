@@ -7,7 +7,7 @@ unfiltered acceleration signal. This is force-only compensation, not a moment ob
 
 import numpy as np
 
-from .geometric import Geometric
+from ..geometric import Geometric
 
 
 class DOB:

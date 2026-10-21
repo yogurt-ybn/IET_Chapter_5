@@ -2,6 +2,17 @@
 
 AirSim implementations and reproducible case-study materials for the conventional UAV control methods in Chapter 5.
 
+## Modular case-study interface
+
+Use the [modular project guide](docs/modular_case_study.md) for the current unified entry point, per-controller folders/configs, seven preset trajectories, 70-run protocol and general comparison-video workflow.
+
+```bash
+.venv/bin/python scripts/run_case_study.py list
+.venv/bin/python scripts/run_case_study.py plan --output .local/case-study-plan.json
+```
+
+The existing measured datasets below are preserved. New experiment results are published separately with their own frozen configurations and provenance.
+
 ## Status
 
 All five controllers are implemented through one verified motor interface. The fixed AirSim

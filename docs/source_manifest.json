@@ -32,7 +32,7 @@
       "licence": "MIT",
       "authors": "Flight Dynamics and Control Lab",
       "paper_citation": "Lee, Leok, McClamroch, CDC 2010, pp. 5420-5425",
-      "local_destination": "src/iet_ch5/controllers/common.py; src/iet_ch5/controllers/geometric.py",
+      "local_destination": "src/iet_ch5/controllers/common.py; src/iet_ch5/controllers/geometric/controller.py",
       "classification": "adapted normalization derivatives; original upward-frame standard SE3 implementation from cited equations",
       "input_output_conventions": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
       "modifications": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
@@ -67,7 +67,7 @@
       "licence_path": null,
       "authors": "W.-H. Chen, D. J. Ballance, P. J. Gawthrop, J. O'Reilly",
       "paper_citation": "IEEE TIE 47(4), 932-938, DOI 10.1109/41.857974",
-      "local_destination": "src/iet_ch5/controllers/dob.py",
+      "local_destination": "src/iet_ch5/controllers/dob/controller.py",
       "classification": "original constant-mass discrete implementation from cited observer equations; no paper/code redistribution",
       "input_output_conventions": "NWU force estimate from momentum and applied collective estimate; force subtraction before attitude construction",
       "modifications": "implicit-Euler momentum increment; finite force bounds; fixed geometric nominal gains; held estimate derivatives",
@@ -86,7 +86,7 @@
       "paper_citation": "Stellato et al., OSQP: an operator splitting solver for quadratic programs, Mathematical Programming Computation 2020",
       "local_destination": "external package osqp==1.0.5 via uv.lock",
       "classification": "external solver dependency; no source copied",
-      "input_output_conventions": "QP standard form; original model and physical-wrench constraints in controllers/mpc.py",
+      "input_output_conventions": "QP standard form; original model and physical-wrench constraints in controllers/mpc/controller.py",
       "modifications": "none to solver",
       "validation_status": "Final 10 MPC runs: 9 tracking passes,1 retained mismatch failure,0 fallback activations; separate actual timeout fallback and numerical active-constraint checks passed"
     },
@@ -141,5 +141,8 @@
       "modifications": "2 s phase-rate ramps, sustained cruise, unchanged controller gains/limits; independent physics speed metrics",
       "validation_status": "Derivative/join/endpoint/envelope tests and five complete actual AirSim runs pass; interrupted client attempt retained separately"
     }
-  ]
+  ],
+  "layout_migration": {
+    "description": "Historical source_paths and pinned commits are preserved. Current numerical controllers live in per-method packages; timing calculus moved to trajectories/timing.py; backend implementation moved to simulation/airsim_backend.py with old import wrappers. No additional upstream code copied."
+  }
 }

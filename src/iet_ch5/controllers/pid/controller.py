@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from .common import attitude_error, desired_attitude
-from ..types import WrenchCommand
+from ..common import attitude_error, desired_attitude
+from ...types import WrenchCommand
 
 
 class PID:

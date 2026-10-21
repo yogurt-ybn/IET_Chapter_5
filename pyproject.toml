@@ -23,3 +23,7 @@ markers = ["integration: opt-in AirSim tests requiring an explicitly selected se
 
 [tool.ruff]
 line-length = 100
+
+[tool.setuptools.package-data]
+"*" = ["config.json", "README.md"]
+"iet_ch5.trajectories" = ["configs/*.json"]

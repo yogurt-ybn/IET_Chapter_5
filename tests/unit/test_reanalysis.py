@@ -51,6 +51,9 @@ def test_exact_interval_includes_terminal_truth_and_handles_redundant_setup(tmp_
                     "reference": reference,
                     "diagnostics": {},
                     "motor_pwm": [0.6] * 4,
+                    "requested_wrench": [9.81,0,0,0],
+                    "telemetry_estimated_wrench": [9.81,0,0,0],
+                    "allocation_residual": [0,0,0,0],
                     "saturation": [False] * 4,
                 }
             )

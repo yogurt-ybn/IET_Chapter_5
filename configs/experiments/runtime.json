@@ -1,0 +1,10 @@
+{
+  "control_period_s": 0.012,
+  "settling_tolerance_m": 0.1,
+  "settling_dwell_s": 1.0,
+  "feedback": {
+    "delay_s": 0.024, "noise_period": 0.012,
+    "position_std_m": 0.005, "velocity_std_m_s": 0.01,
+    "attitude_std_rad": 0.001, "rate_std_rad_s": 0.002
+  }
+}

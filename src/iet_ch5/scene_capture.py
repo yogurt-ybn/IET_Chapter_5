@@ -3,7 +3,6 @@
 import hashlib
 
 import numpy as np
-from scipy.spatial.transform import Rotation
 
 from .frames import C, vector, rotation
 from .logging import dump
@@ -30,19 +29,11 @@ class SceneCapture:
         # AirSim kinematics are relative to the vehicle's initial origin; native debug
         # markers and external cameras use GLOBAL NED. The spawn/ground adjustment
         # makes this translation different from the configured Vehicles.Z value.
-        actor = backend.rpc.call('simGetObjectPose', backend.vehicle)
-        vehicle = backend.rpc.call('simGetVehiclePose', backend.vehicle)
-        self.origin = vector(actor['position']) - vector(vehicle['position'])
-        position = np.array(self.config['camera_position_vehicle_origin_ned_m'])
-        target = C @ ((self.reference.max(axis=0) + self.reference.min(axis=0)) / 2)
-        direction = target - position
-        yaw = np.arctan2(direction[1], direction[0])
-        pitch = -np.arctan2(direction[2], np.linalg.norm(direction[:2]))
-        q = Rotation.from_euler('xyz', [0., pitch, yaw]).as_quat()
-        pose = {'position': dict(zip(['x_val', 'y_val', 'z_val'], (position + self.origin).tolist())),
-                'orientation': dict(zip(['x_val', 'y_val', 'z_val', 'w_val'], q.tolist()))}
-        backend.rpc.call('simSetCameraPose', self.config['camera'], pose, '', True)
-        self.camera_info = backend.rpc.call('simGetCameraInfo', self.config['camera'], '', True)
+        target = (self.reference.max(axis=0)+self.reference.min(axis=0))/2
+        setup = backend.configure_camera(self.config['camera'],
+                    C@np.array(self.config['camera_position_vehicle_origin_ned_m']), target)
+        self.camera_info = setup['camera_info']
+        self.origin = setup['measured_vehicle_origin_global_ned_m']
         self.next_capture = 0.
         self.update(state, state.timestamp_ns)
 
@@ -50,8 +41,7 @@ class SceneCapture:
         t = (state.timestamp_ns - initial_timestamp) * 1e-9
         if t + 1e-9 < self.next_capture:
             return
-        rpc = self.backend.rpc
-        camera = rpc.call('simGetCameraInfo', self.config['camera'], '', True)
+        camera = self.backend.camera_info(self.config['camera'])
         # A fixed camera is a checked invariant, not just a requested view mode.
         original = self.camera_info['pose']
         current = camera['pose']
@@ -60,24 +50,14 @@ class SceneCapture:
                                    rotation(current['orientation']), atol=1e-5)):
             raise RuntimeError('External evidence camera moved during the run')
         self.trace.append(state.p.copy())
-        rpc.call('simFlushPersistentMarkers')
-        rpc.call('simPlotLineStrip', ned_points(self.reference, self.origin),
-                 [1., .8, 0., 1.], 5., -1., True)
-        if len(self.trace) > 1:
-            rpc.call('simPlotLineStrip', ned_points(self.trace, self.origin),
-                     [0., 1., 1., 1.], 3., -1., True)
-        request = {'camera_name': self.config['camera'], 'image_type': 0,
-                   'pixels_as_float': False, 'compress': True}
-        image = rpc.call('simGetImages', [request], '', True)[0]
-        raw = image['image_data_uint8']
-        raw = raw.encode('latin1') if isinstance(raw, str) else bytes(raw)
-        if image['width'] <= 0 or image['height'] <= 0 or not raw:
-            raise RuntimeError('External scene capture returned an empty frame')
+        self.backend.draw_paths(self.reference, self.trace)
+        image = self.backend.capture_scene(self.config['camera'], external=True)
+        raw = image.png
         filename = f'{len(self.frames):05d}.png'
         (self.output / 'frames' / filename).write_bytes(raw)
         self.frames.append({'filename': filename, 'simulation_t': t,
                             'truth_timestamp_ns': state.timestamp_ns,
-                            'image_timestamp_ns': image['time_stamp'],
+                            'image_timestamp_ns': image.timestamp_ns,
                             'truth_p_nwu_m': state.p, 'reference_p_nwu_m': self.task.at(t).p,
                             'truth_v_nwu_m_s': state.v, 'reference_v_nwu_m_s': self.task.at(t).v,
                             'camera_info': camera, 'sha256': hashlib.sha256(raw).hexdigest()})
