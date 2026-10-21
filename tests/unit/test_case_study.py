@@ -111,3 +111,17 @@ def test_resume_keeps_complete_tracking_failures_and_preserves_incomplete_attemp
     changed = resolve('configs/experiments/case_study.json', controllers=['pid'], trajectories=['hover'], repeats=1)
     with pytest.raises(ValueError, match='identical'):
         execute(changed, {}, output, resume=True)
+
+
+def test_publication_all_aborted_runs_retains_censoring_without_timing(tmp_path):
+    pytest.importorskip('matplotlib', reason='Publication QA requires optional plots dependency')
+    from iet_ch5.experiments.publication import plot
+    row = dict(controller='pid', trajectory='circle', condition='nominal', seed=0, repeat=0,
+               run_id='aborted', status='aborted',
+               metrics={'complete_common_interval': False, 'tracking_rms_m': None})
+    d = {'t': np.array([0., .012]), 'truth_p': np.zeros((2, 3)), 'reference_p': np.zeros((2, 3)),
+         'truth_v': np.zeros((2, 3)), 'requested_wrench': np.zeros((2, 4)),
+         'telemetry_estimated_wrench': np.zeros((2, 4)), 'motor_pwm': np.zeros((2, 4))}
+    plot([row], {'aborted': d}, tmp_path/'figures')
+    assert (tmp_path/'figures'/'accuracy_matrix.png').exists()
+    assert not row['metrics']['complete_common_interval'] and row['metrics']['tracking_rms_m'] is None

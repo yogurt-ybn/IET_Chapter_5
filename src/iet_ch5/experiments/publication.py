@@ -167,8 +167,9 @@ def plot(rows, data, output):
     paths = sorted({r['trajectory'] for r in rows})
     fig, ax = plt.subplots(figsize=(11, 5))
     matrix = np.full((len(methods), len(paths)), np.nan)
-    colour_max = max(.15, max((r['metrics'].get('tracking_rms_m') or 0.) for r in rows
-                             if r['metrics'].get('complete_common_interval')))
+    complete_rms = [r['metrics'].get('tracking_rms_m') or 0. for r in rows
+                    if r['metrics'].get('complete_common_interval')]
+    colour_max = max(.15, max(complete_rms, default=0.))
     for i, m in enumerate(methods):
         for j, p in enumerate(paths):
             group = [r for r in rows if r['controller'] == m and r['trajectory'] == p]
@@ -189,7 +190,8 @@ def plot(rows, data, output):
     fig, ax = plt.subplots(figsize=(8, 4))
     for i, m in enumerate(methods):
         group = [r for r in rows if r['controller'] == m]
-        values = [r['metrics']['controller_s']['p95']*1000 for r in group]
+        values = [r['metrics']['controller_s']['p95']*1000 for r in group
+                  if 'controller_s' in r['metrics']]
         ax.scatter(np.full(len(values), i), values, color=COLORS[m], alpha=.5)
     ax.set(xticks=range(len(methods)), xticklabels=methods, ylabel='Per-run controller p95 (ms)',
            title='Paused benchmark computation; not a real-time demonstration')
