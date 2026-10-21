@@ -8,7 +8,8 @@ import shutil
 
 import numpy as np
 
-from .engine import atomic_json
+from .engine import atomic_json, source_fingerprint
+from ..logging import revision
 
 COLORS = dict(zip(('pid', 'lqr', 'geometric', 'dob', 'mpc'),
                   ('#0072B2', '#E69F00', '#009E73', '#CC79A7', '#D55E00')))
@@ -41,6 +42,8 @@ def publish(source, destination):
     source, destination = Path(source), Path(destination)
     destination.mkdir(parents=True, exist_ok=False)
     protocol = json.loads((source/'protocol.json').read_text())
+    atomic_json(destination/'analysis_provenance.json', {'software': revision(),
+                'source_sha256': source_fingerprint(), 'role': 'postprocessing only; raw run metadata/protocol preserved'})
     journal = json.loads((source/'progress.json').read_text())
     rows = list(journal.values())
     if any(row['status'] in ('running', 'interrupted', 'infrastructure_failed') for row in rows):
@@ -164,6 +167,8 @@ def plot(rows, data, output):
     paths = sorted({r['trajectory'] for r in rows})
     fig, ax = plt.subplots(figsize=(11, 5))
     matrix = np.full((len(methods), len(paths)), np.nan)
+    colour_max = max(.15, max((r['metrics'].get('tracking_rms_m') or 0.) for r in rows
+                             if r['metrics'].get('complete_common_interval')))
     for i, m in enumerate(methods):
         for j, p in enumerate(paths):
             group = [r for r in rows if r['controller'] == m and r['trajectory'] == p]
@@ -172,8 +177,9 @@ def plot(rows, data, output):
                 matrix[i, j] = np.mean(full)
             text = f'{np.mean(full):.3f}' if full else 'incomplete'
             text += f"\n{sum(r['status']=='passed' for r in group)}/{len(group)} pass"
-            ax.text(j, i, text, ha='center', va='center', fontsize=8)
-    im = ax.imshow(np.ma.masked_invalid(matrix), cmap='YlOrRd', aspect='auto', vmin=0, vmax=max(.15, float(np.nanmax(matrix))))
+            ax.text(j, i, text, ha='center', va='center', fontsize=8,
+                    color='white' if full and np.mean(full) > .65*colour_max else '#111111')
+    im = ax.imshow(np.ma.masked_invalid(matrix), cmap='YlOrRd', aspect='auto', vmin=0, vmax=colour_max)
     ax.set(xticks=range(len(paths)), xticklabels=paths, yticks=range(len(methods)), yticklabels=methods,
            title='Tracking RMS (m), complete runs; all failures retained in pass counts')
     ax.tick_params(axis='x', labelrotation=25)

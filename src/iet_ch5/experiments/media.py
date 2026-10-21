@@ -81,14 +81,14 @@ def render(source, output, rows, data):
                 record['frames'][method] = {'filename': f['filename'], 'acquisition_t': f['simulation_t'], 'held_after_abort': stopped}
             # Sixth tile: reference geometry and measured outcome, not simulated footage.
             draw.rectangle((966, 480, 1434, 865), fill='#182536')
-            draw.text((984, 496), 'PRESET 3D COURSE / RESULTS', font=font, fill='white')
+            draw.text((984, 496), 'TOP-DOWN REFERENCE / RESULTS', font=font, fill='white')
             refs = np.array([task.at(float(q)).p for q in np.linspace(0, task.duration, 401)])
-            xy = np.column_stack([refs[:, 0]+.45*refs[:, 1], -refs[:, 2]+.15*refs[:, 1]])
+            xy = np.column_stack([refs[:, 0], -refs[:, 1]])
             xy -= xy.min(axis=0)
             xy *= min(400/max(xy[:, 0].max(), .1), 130/max(xy[:, 1].max(), .1))
             points = [(float(a+990), float(b+542)) for a, b in xy]
             draw.line(points, fill='yellow', width=2)
-            draw.text((984, 694), 'Projection of analytic reference (metres)', font=small, fill='#cbd5e1')
+            draw.text((984, 694), 'Analytic reference: NWU x/y (metres)', font=small, fill='#cbd5e1')
             for i, row in enumerate(rows):
                 rms = row['metrics'].get('tracking_rms_m')
                 label = f"{row['controller']}: {row['status']} | RMS {rms:.3f} m" if rms is not None else f"{row['controller']}: {row['status']}"
