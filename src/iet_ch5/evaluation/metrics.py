@@ -68,6 +68,10 @@ def compute(rows, config, gravity):
             np.quantile([r["timing"]["controller_s"] for r in solved_rows],[.5,.95,1]).tolist()))
         statuses = [r["diagnostics"]["solver_status"] for r in solved_rows]
         result["solver_status_counts"] = {s:statuses.count(s) for s in sorted(set(statuses))}
+        solver_times = [r['diagnostics']['solver_time_s'] for r in solved_rows if 'solver_time_s' in r['diagnostics']]
+        if solver_times:
+            result['solver_internal_s'] = dict(zip(['median', 'p95', 'max'],
+                np.quantile(solver_times, [.5, .95, 1]).tolist()))
     result["collision_samples"] = sum(r["has_collided"] for r in rows)
     result["recovery_s"] = None
     if config.get("condition", {}).get("kind", rows[0]["task"]) in ("disturbance", "wind"):

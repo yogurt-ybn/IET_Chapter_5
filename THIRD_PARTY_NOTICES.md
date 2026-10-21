@@ -38,3 +38,23 @@ article text is redistributed. Its discrete implementation and limitations are s
 in docs/m2_acceptance.md. OSQP Python 1.0.5 is an external Apache-2.0 wrapper dependency,
 pinned at `7065b3605925f725b7fa8ac76dc4d0bdbe512c75`; solver code is unmodified.
 The MPC formulation/model/constraint assembly is original project code.
+
+The optional rigid-body NMPC uses **acados v0.5.4**, pinned to
+`d9d0ba2e8f127855119d38874af8a9570df1d8e5` (BSD-2-Clause), with HPIPM
+`c25e646f938aae4694fd0fe9bfb0059bee6879bf` and BLASFEO
+`d6251233923c9b475fe894fb729fb63ab693e301` (BSD-2-Clause). Their licence texts
+are retained in `third_party/licenses/{acados,HPIPM,BLASFEO}.txt`. These are
+unmodified external builds; no full solver source or native binaries are redistributed.
+The 17-state rigid-body/motor-lag model, OCP, reference targets and controller adapter
+in `controllers/nmpc/` are original project code using these APIs. The existing FDCL
+normalization helper is reused with its retained notice. Cite Verschueren et al.,
+“acados -- a modular open-source framework for fast embedded optimal control,”
+Mathematical Programming Computation, 2021.
+
+**CasADi 3.7.2** (LGPL-3.0) is an unmodified external dependency pinned in `uv.lock`;
+no CasADi library code/binary is redistributed. Cite Andersson et al., Mathematical
+Programming Computation, 2019. The official **tera_renderer v0.2.0** binary is
+checksum-verified and downloaded only into the ignored local build. Its pinned
+source tree has no explicit licence file/declaration; no redistribution permission
+is assumed and no renderer source/binary is included in this repository. See the
+machine-readable manifest for exact component source pins, classifications and tests.

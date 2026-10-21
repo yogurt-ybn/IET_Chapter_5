@@ -59,6 +59,10 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                 mass=backend.parameters.mass * task_config["controller_mass_factor"],
                 J=backend.parameters.J * task_config["controller_inertia_factor"])
         controller.reset(state, task.at(0), controller_parameters)
+        if hasattr(controller, 'prepare_reference'):
+            controller.prepare_reference(task.at, task.duration)
+        if hasattr(controller, 'provenance'):
+            metadata['controller_provenance'] = controller.provenance
         metadata["controller_parameters"] = asdict(controller_parameters)
         metadata["verified_initial_state"] = asdict(state)
         for name in ["A", "B", "Q", "W", "P", "K"]:
@@ -96,6 +100,8 @@ def run(local_config, controllers_config, task_config, controller_id, task_name,
                     current_wind = desired_wind.copy()
                 feedback_state, noise_index = (feedback.sample(state) if feedback else (state, None))
                 applied = allocator.from_telemetry(samples[-1]["rotors"])
+                if hasattr(controller, 'set_applied_wrench'):
+                    controller.set_applied_wrench(applied)
                 if hasattr(controller, "set_applied_collective"):
                     controller.set_applied_collective(float(np.mean([
                         allocator.from_telemetry(s["rotors"])[0] for s in samples])))

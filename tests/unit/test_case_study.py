@@ -39,11 +39,11 @@ def test_analytic_trajectory_derivatives_and_endpoint_hold(name):
 
 def test_owned_defaults_preserve_original_numerical_configuration():
     legacy = json.loads(Path('configs/controllers.json').read_text())
-    assert load_controller_configs() == legacy
+    assert {k: load_controller_configs()[k] for k in legacy} == legacy
     override = {'dob': {'nominal': {'position_kp': [5., 5., 6.]}}}
     changed = load_controller_configs(overrides=override)
     assert changed['dob']['nominal']['position_kp'] == [5., 5., 6.]
-    assert load_controller_configs() == legacy
+    assert {k: load_controller_configs()[k] for k in legacy} == legacy
     for bad in [{'pid': {'unknown_gain': 1}}, {'mpc': {'horizon': 1.5}}, {'pid': {'velocity_limit': -1}},
                 {'pid': {'position_kp': [1., 2.]}}, {'dob': {'nominal': []}}, {'pid': {'velocity_limit': float('nan')}}]:
         with pytest.raises(ValueError):

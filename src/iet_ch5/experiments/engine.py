@@ -49,6 +49,9 @@ def classify(result, metrics):
 
 def execute(resolved, local_config, output, *, resume=False, demo=False):
     output = Path(output)
+    if demo and (len(resolved['trajectories']) != 1 or len(resolved['matrix']) > 6
+                 or len({r['controller'] for r in resolved['matrix']}) != len(resolved['matrix'])):
+        raise ValueError('Demo requires one trajectory and one run per controller, at most six')
     frozen = {'resolved': resolved, 'source_sha256': source_fingerprint(), 'software': revision(),
               'capture_demo': demo, 'thread_environment': {k: os.environ.get(k) for k in
                   ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS')}}

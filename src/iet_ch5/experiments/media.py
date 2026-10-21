@@ -14,8 +14,8 @@ from .publication import COLORS
 
 def render(source, output, rows, data):
     from ..references.tasks import Task
-    if len({r['trajectory'] for r in rows}) != 1 or len({r['controller'] for r in rows}) != len(rows) or len(rows) > 5:
-        raise ValueError('Media requires one trajectory, one run per controller, at most five controllers')
+    if len({r['trajectory'] for r in rows}) != 1 or len({r['controller'] for r in rows}) != len(rows) or len(rows) > 6:
+        raise ValueError('Media requires one trajectory, one run per controller, at most six controllers')
     frame_sets, pose = {}, None
     config = None
     total_native_frames = 0
@@ -75,24 +75,28 @@ def render(source, output, rows, data):
                 stopped = not row['metrics'].get('complete_common_interval') and t > times[-1]+.12
                 label = f'{method.upper()} | v={speed:.2f} m/s | e={error:.3f} m'
                 draw.text((x+8, y+5), label, font=small, fill=COLORS[method])
+                if len(rows) == 6:
+                    draw.rectangle((x+5, y+369, x+470, y+390), fill='#101923')
+                    draw.text((x+10, y+371), row['status'], font=small, fill='white')
                 if stopped:
                     draw.rectangle((x+15, y+65, x+455, y+120), fill='#991b1b')
                     draw.text((x+24, y+80), 'STOPPED - LAST REAL FRAME HELD', font=small, fill='white')
                 record['frames'][method] = {'filename': f['filename'], 'acquisition_t': f['simulation_t'], 'held_after_abort': stopped}
-            # Sixth tile: reference geometry and measured outcome, not simulated footage.
-            draw.rectangle((966, 480, 1434, 865), fill='#182536')
-            draw.text((984, 496), 'TOP-DOWN REFERENCE / RESULTS', font=font, fill='white')
-            refs = np.array([task.at(float(q)).p for q in np.linspace(0, task.duration, 401)])
-            xy = np.column_stack([refs[:, 0], -refs[:, 1]])
-            xy -= xy.min(axis=0)
-            xy *= min(400/max(xy[:, 0].max(), .1), 130/max(xy[:, 1].max(), .1))
-            points = [(float(a+990), float(b+542)) for a, b in xy]
-            draw.line(points, fill='yellow', width=2)
-            draw.text((984, 694), 'Analytic reference: NWU x/y (metres)', font=small, fill='#cbd5e1')
-            for i, row in enumerate(rows):
-                rms = row['metrics'].get('tracking_rms_m')
-                label = f"{row['controller']}: {row['status']} | RMS {rms:.3f} m" if rms is not None else f"{row['controller']}: {row['status']}"
-                draw.text((984, 723+25*i), label, font=small, fill=COLORS[row['controller']])
+            if len(rows) < 6:
+                # Sixth tile: reference geometry and measured outcome, not simulated footage.
+                draw.rectangle((966, 480, 1434, 865), fill='#182536')
+                draw.text((984, 496), 'TOP-DOWN REFERENCE / RESULTS', font=font, fill='white')
+                refs = np.array([task.at(float(q)).p for q in np.linspace(0, task.duration, 401)])
+                xy = np.column_stack([refs[:, 0], -refs[:, 1]])
+                xy -= xy.min(axis=0)
+                xy *= min(400/max(xy[:, 0].max(), .1), 130/max(xy[:, 1].max(), .1))
+                points = [(float(a+990), float(b+542)) for a, b in xy]
+                draw.line(points, fill='yellow', width=2)
+                draw.text((984, 694), 'Analytic reference: NWU x/y (metres)', font=small, fill='#cbd5e1')
+                for i, row in enumerate(rows):
+                    rms = row['metrics'].get('tracking_rms_m')
+                    label = f"{row['controller']}: {row['status']} | RMS {rms:.3f} m" if rms is not None else f"{row['controller']}: {row['status']}"
+                    draw.text((984, 723+25*i), label, font=small, fill=COLORS[row['controller']])
             draw.text((20, 886), 'Separate capture runs; paused simulation timing. Failures retained. No physical-flight or real-time claim.', font=small, fill='#cbd5e1')
             writer.append_data(np.array(canvas))
             if index%2 == 0:

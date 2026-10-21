@@ -11,8 +11,8 @@ import numpy as np
 from .engine import atomic_json, source_fingerprint
 from ..logging import revision
 
-COLORS = dict(zip(('pid', 'lqr', 'geometric', 'dob', 'mpc'),
-                  ('#0072B2', '#E69F00', '#009E73', '#CC79A7', '#D55E00')))
+COLORS = dict(zip(('pid', 'lqr', 'geometric', 'dob', 'mpc', 'nmpc'),
+                  ('#0072B2', '#E69F00', '#009E73', '#CC79A7', '#D55E00', '#8C56E9')))
 
 
 def repeatability(rows, data, tolerance):
@@ -163,7 +163,7 @@ def plot(rows, data, output):
         axes[1, 1].set(ylabel='Actual speed (m/s)')
         axes[0, 0].legend(ncol=3, fontsize=7)
         save(fig, trajectory+'_inputs')
-    methods = list(COLORS)
+    methods = [m for m in COLORS if any(r['controller'] == m for r in rows)]
     paths = sorted({r['trajectory'] for r in rows})
     fig, ax = plt.subplots(figsize=(11, 5))
     matrix = np.full((len(methods), len(paths)), np.nan)

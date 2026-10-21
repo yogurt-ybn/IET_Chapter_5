@@ -13,6 +13,7 @@ dependencies = ["numpy==2.2.6", "scipy==1.15.3", "msgpack==1.1.2"]
 dev = ["pytest==8.4.2", "ruff==0.14.1"]
 plots = ["matplotlib==3.10.7", "imageio==2.37.2", "imageio-ffmpeg==0.6.0"]
 mpc = ["osqp==1.0.5"]
+nmpc = ["casadi==3.7.2", "cython==3.1.4", "Deprecated==1.2.18", "matplotlib==3.10.7"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

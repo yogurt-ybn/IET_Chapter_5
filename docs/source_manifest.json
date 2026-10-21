@@ -140,6 +140,96 @@
       "input_output_conventions": "NWU p/v/a/jerk/snap; phase rate is not heading rate or constant Cartesian speed",
       "modifications": "2 s phase-rate ramps, sustained cruise, unchanged controller gains/limits; independent physics speed metrics",
       "validation_status": "Derivative/join/endpoint/envelope tests and five complete actual AirSim runs pass; interrupted client attempt retained separately"
+    },
+    {
+      "component": "acados NMPC runtime and Python templates",
+      "upstream_url": "https://github.com/acados/acados",
+      "pinned_commit": "d9d0ba2e8f127855119d38874af8a9570df1d8e5",
+      "source_paths": [
+        "acados/",
+        "interfaces/acados_template/"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "BSD-2-Clause",
+      "authors": "The acados authors",
+      "paper_citation": "Verschueren et al., acados -- a modular open-source framework for fast embedded optimal control, Mathematical Programming Computation, 2021",
+      "local_destination": "External ignored installation; original OCP in src/iet_ch5/controllers/nmpc/",
+      "classification": "Unmodified external solver/code-generation dependency; original rigid-body OCP and adapter",
+      "input_output_conventions": "17-state NWU/FLU, wxyz quaternion, physical commanded and applied wrench; shared allocator",
+      "modifications": "No acados source modifications; RK4 nonlinear model, nonlinear least squares, coupled rotor-input bounds, SQP-RTI, warm start and partial condensing assembled by original project code",
+      "validation_status": "Pinned build, model tests and actual development flights passed; fixed evaluation pending"
+    },
+    {
+      "component": "HPIPM",
+      "upstream_url": "https://github.com/giaf/hpipm",
+      "pinned_commit": "c25e646f938aae4694fd0fe9bfb0059bee6879bf",
+      "source_paths": [
+        "include/",
+        "ocp_qp/"
+      ],
+      "licence_path": "LICENSE.txt",
+      "licence": "BSD-2-Clause",
+      "authors": "Gianluca Frison and contributors",
+      "paper_citation": "Frison and Diehl, HPIPM: a high-performance quadratic programming framework for model predictive control, IFAC-PapersOnLine, 2020",
+      "local_destination": "External acados submodule/build only",
+      "classification": "Unmodified external QP solver dependency",
+      "input_output_conventions": "acados OCP-QP with partial condensing",
+      "modifications": "None",
+      "validation_status": "Native build hashes and source pin recorded in solver receipt"
+    },
+    {
+      "component": "BLASFEO",
+      "upstream_url": "https://github.com/giaf/blasfeo",
+      "pinned_commit": "d6251233923c9b475fe894fb729fb63ab693e301",
+      "source_paths": [
+        "include/",
+        "blasfeo_hp_pm/"
+      ],
+      "licence_path": "LICENSE.txt",
+      "licence": "BSD-2-Clause",
+      "authors": "Gianluca Frison and contributors",
+      "paper_citation": "Frison et al., BLASFEO: Basic Linear Algebra Subroutines For Embedded Optimization",
+      "local_destination": "External acados submodule/build only",
+      "classification": "Unmodified external linear-algebra dependency",
+      "input_output_conventions": "HPIPM/acados internal dense matrix kernels",
+      "modifications": "None; X64_AUTOMATIC Release build",
+      "validation_status": "Native build hashes and source pin recorded in solver receipt"
+    },
+    {
+      "component": "CasADi",
+      "upstream_url": "https://github.com/casadi/casadi",
+      "pinned_commit": null,
+      "package_version": "3.7.2",
+      "source_paths": [
+        "casadi/"
+      ],
+      "licence_path": "LICENSE.txt",
+      "licence": "LGPL-3.0",
+      "authors": "CasADi developers",
+      "paper_citation": "Andersson et al., CasADi: a software framework for nonlinear optimization and optimal control, Mathematical Programming Computation, 2019",
+      "local_destination": "External optional dependency via uv.lock",
+      "classification": "Unmodified external symbolic/automatic-differentiation dependency; no library code copied",
+      "input_output_conventions": "Original symbolic rigid-body RHS/cost translated to generated C",
+      "modifications": "None",
+      "validation_status": "Symbolic RHS tested against independent NumPy physics and large-attitude invariants"
+    },
+    {
+      "component": "Tera renderer build tool",
+      "upstream_url": "https://github.com/acados/tera_renderer",
+      "pinned_commit": "5313666635209d868f8d7ece39cad36827c9f479",
+      "source_paths": [
+        "src/main.rs",
+        "Cargo.toml"
+      ],
+      "licence_path": null,
+      "licence": "No explicit licence file/declaration found in pinned tree; no source/binary redistribution",
+      "authors": "acados authors",
+      "paper_citation": "External acados template renderer v0.2.0",
+      "local_destination": "Ignored external build-tool binary only",
+      "classification": "Official release downloaded locally; no code/binary copied into public repository",
+      "input_output_conventions": "Build-time JSON/template rendering",
+      "modifications": "None; official Linux amd64 SHA256 1973ddd1b536dcd4a059a22f7259c3b0e6b6c878cbfbe7e9b962eba195f361d9",
+      "validation_status": "Release checksum verified; no redistribution licence assumed"
     }
   ],
   "layout_migration": {

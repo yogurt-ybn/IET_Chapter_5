@@ -1,0 +1,9 @@
+{
+  "schema": "iet-ch5/experiment-v1",
+  "name": "rigid_body_mpc_comparison",
+  "controllers": ["mpc", "nmpc", "geometric"],
+  "trajectories": ["hover", "transfer", "circle", "figure_eight", "helix", "spatial_course", "agile_course"],
+  "repeats": 2,
+  "conditions": [{"id": "nominal", "kind": "nominal", "seeds": [0]}],
+  "repeatability_max_position_delta_m": 0.02
+}

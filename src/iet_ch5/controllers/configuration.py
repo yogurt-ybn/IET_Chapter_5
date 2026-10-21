@@ -6,7 +6,7 @@ import json
 import math
 from pathlib import Path
 
-METHODS = ('pid', 'lqr', 'geometric', 'dob', 'mpc')
+METHODS = ('pid', 'lqr', 'geometric', 'dob', 'mpc', 'nmpc')
 
 
 def merge_parameters(base, override, prefix=''):
@@ -44,11 +44,16 @@ def load_controller_configs(path=None, overrides=None):
             for item in value:
                 validate(item, key)
         elif isinstance(value, bool):
-            if key != "enabled":
+            if key not in ("enabled", "warm_start"):
                 raise ValueError(f"Expected numeric parameter: {key}")
+        elif isinstance(value, str):
+            if key != 'solver_type' or value not in ('SQP_RTI', 'SQP'):
+                raise ValueError(f'Invalid solver enumeration: {key}={value}')
         elif not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
             raise ValueError(f"Expected positive finite parameter: {key}")
-        elif key in ("horizon", "max_iter") and not isinstance(value, int):
+        elif key in ("horizon", "max_iter", "qp_max_iter", "integration_steps", "condensing_stages") and not isinstance(value, int):
             raise ValueError(f"Expected integer: {key}")
     validate(defaults)
+    if defaults['nmpc']['condensing_stages'] > defaults['nmpc']['horizon']:
+        raise ValueError('condensing_stages must not exceed horizon')
     return defaults
