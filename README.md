@@ -1,184 +1,174 @@
 # IET Chapter 5: UAV Control Systems
 
-AirSim implementations and reproducible case-study materials for the conventional UAV control methods in Chapter 5.
+A reproducible AirSim case study for conventional quadrotor control: **one simulation interface, six controller implementations, configurable trajectories and measured performance evaluation**. Each controller computes physical thrust and body moments through the same verified motor adapter.
 
-## Rigid-body nonlinear MPC with acados
+## Watch the controllers track an agile 3D trajectory
 
-The new `nmpc` uses full quaternion rigid-body dynamics and measured motor lag, generated C, SQP-RTI, HPIPM partial condensing and warm starts. It shares the same physical wrench/motor adapter; the historical near-hover `mpc` remains available. See the [model, installation and evaluation guide](docs/rigid_body_nmpc.md). Native dependencies are optional and installed locally, with source/build hashes recorded.
+[![Six controllers tracking the same agile 3D figure-eight trajectory in AirSim](results/examples/rigid_body_demo/comparison.gif)](results/examples/rigid_body_demo/comparison.mp4)
 
-[Measured results](docs/rigid_body_nmpc_results.md): the new 42-run matrix has 40 passes and two retained linear-MPC stress failures. **Rigid-body NMPC passes all 14 runs with zero fallback**, including the unchanged 4.02 m/s peak 3D task (3.84 mm RMS / 8.1 mm peak error). [Six-controller video](results/examples/rigid_body_demo/comparison.mp4) · [acados acceleration replay](results/examples/acados_acceleration/REPORT.md). RTI versus SQP native p95 is 2.46 versus 4.37 ms on the replay; end-to-end overhead and wall-time spikes are reported.
+**GIF: 2× simulation speed. [Watch the MP4 at 1×](results/examples/rigid_body_demo/comparison.mp4).** Yellow is the reference; cyan is the actual flight path. Panels show measured speed, tracking error, acceptance and logged MPC fallback/RTI commands.
 
-## Modular case-study interface
+The reference is a **6 m wide, three-dimensional multi-harmonic figure eight with changing heading**, an 8.5 s traversal and 1 s holds at each end. Peak reference speed is **4.02 m/s**, with approximately 40° ideal thrust tilt. These are genuine AirSim scene captures: 528 original frames have verified hashes and synchronized physics timestamps. The six demonstration runs contain three passes and three retained failures; they are separate from the evaluation matrix below.
 
-Use the [modular project guide](docs/modular_case_study.md) for the current unified entry point, per-controller folders/configs, seven preset trajectories, 70-run protocol and general comparison-video workflow.
+## Measured results
 
-```bash
-.venv/bin/python scripts/run_case_study.py list
-.venv/bin/python scripts/run_case_study.py plan --output .local/case-study-plan.json
+The latest [42-run evaluation](docs/rigid_body_nmpc_results.md) compares linear MPC, rigid-body nonlinear MPC and geometric control on seven trajectories with two repeats: **40 passes and two retained linear-MPC failures on the aggressive task**. All 14 NMPC runs pass, with zero fallback.
+
+| Controller | Aggressive traversal RMS, two repeats | Outcome |
+|---|---:|---|
+| Linear MPC | 331.756 / 332.115 mm | Both fail; 231 explicit LQR fallback activations per run |
+| Rigid-body NMPC | 3.837 / 3.840 mm | Both pass; zero fallback; peak error ≈8.1 mm |
+| Geometric | 15.297 / 15.297 mm | Both pass |
+
+The linear baseline retains its near-hover model and conservative prediction envelope. NMPC uses quaternion rigid-body dynamics, motor lag and coupled physical motor constraints. Model, weights, update intervals and horizons also differ, so these results compare the implemented configurations rather than establish a ranking of controller families. All seven NMPC repeat pairs pass the declared repeatability check; the aggressive linear-MPC pair fails it.
+
+acados generates C solvers and uses SQP-RTI, HPIPM/BLASFEO, partial condensing and warm starts. In a separate measured-feedback replay, default RTI versus SQP native-solver p95 is **2.46 versus 4.37 ms**; complete-call p95 is **7.29 versus 8.42 ms**. RTI performs one SQP step rather than solving to the same convergence tolerance. See the [timing ablations, residuals and command differences](results/examples/acados_acceleration/REPORT.md).
+
+Evaluation uses **paused simulation time**. Wall-time spikes are reported; real-time operation and physical flight are not established.
+
+## Controllers and configuration
+
+| ID | Implementation | Parameters |
+|---|---|---|
+| `pid` | [Cascaded position, attitude and rate PID](src/iet_ch5/controllers/pid/README.md) | [config.json](src/iet_ch5/controllers/pid/config.json) |
+| `lqr` | [Near-hover linear state feedback / LQR](src/iet_ch5/controllers/lqr/README.md) | [config.json](src/iet_ch5/controllers/lqr/config.json) |
+| `geometric` | [Geometric trajectory and attitude control](src/iet_ch5/controllers/geometric/README.md) | [config.json](src/iet_ch5/controllers/geometric/config.json) |
+| `dob` | [Bounded force disturbance observer around geometric control](src/iet_ch5/controllers/dob/README.md) | [config.json](src/iet_ch5/controllers/dob/config.json) |
+| `mpc` | [Constrained near-hover linear MPC, OSQP](src/iet_ch5/controllers/mpc/README.md) | [config.json](src/iet_ch5/controllers/mpc/config.json) |
+| `nmpc` | [17-state quaternion rigid-body + motor-lag NMPC, acados](src/iet_ch5/controllers/nmpc/README.md) | [config.json](src/iet_ch5/controllers/nmpc/config.json) |
+
+Each method owns its `controller.py`, `config.json` and parameter guide. All use the same state/reference contract, feedback, upward inertial/positive-thrust convention, physical allocator, experiment runner and evaluation. No built-in AirSim position or velocity controller is relabelled as a chapter algorithm.
+
+```text
+src/iet_ch5/
+  simulation/              Common backend interface and AirSim adapter
+  controllers/             pid/, lqr/, geometric/, dob/, mpc/, nmpc/
+  trajectories/            Analytic references, time laws and JSON presets
+  experiments/             Configuration, execution, publication and video
+  evaluation/              Independent physics-truth metrics
+  allocation.py            Shared physical thrust/moment-to-motor adapter
+  runner.py                Common control loop and logging
+configs/experiments/        Evaluation suites and runtime configuration
+scripts/run_case_study.py   Unified list / plan / run / demo / publish CLI
+results/examples/          Committed compact data, reports, figures and videos
 ```
 
-The new [70-run measured case study](docs/modular_results.md) has **64 tracking passes and six retained aggressive-task failures**. All 60 nominal runs pass. On the 4.02 m/s peak 3D course, geometric / DOB RMS is 15.3 / 7.8 mm; PID, near-hover LQR and linear MPC fail the 0.15 m threshold. Repeatability passes 34/35 pairs; aggressive MPC fails the predeclared check and uses substantial explicit LQR fallback.
+## Install
 
-[Actual-scene comparison video](results/examples/modular_agile_demo/comparison.mp4) · [2x GIF preview](results/examples/modular_agile_demo/comparison.gif) · [all-run report](results/examples/modular_case_study/REPORT.md)
-
-![Modular case-study accuracy](results/examples/modular_case_study/figures/accuracy_matrix.png)
-
-The existing measured datasets below are preserved with their own frozen configurations and provenance.
-
-## Status
-
-All five controllers are implemented through one verified motor interface. The fixed AirSim
-case study contains **51 runs: 47 tracking passes and four retained model-mismatch failures**.
-See the [English case study](docs/case_study.md), [all-run results](results/examples/m3/summary.csv)
-and [figures](results/examples/m3/figures/matrix/accuracy_matrix.png).
-The measured comparison uses paused simulation time. Real-time operation, physical flight
-and a prescribed external force/moment pulse are not claimed.
-
-## Start here
-
-- [Implementation requirements and acceptance criteria](docs/IMPLEMENTATION_REQUIREMENTS.md)
-- [Upstream code candidates and adaptation notes](docs/UPSTREAM_CANDIDATES.md)
-- [Agent handoff](AGENTS.md)
-
-## Implemented controllers
-
-1. Cascaded PID.
-2. Near-hover linear state feedback/LQR.
-3. Geometric attitude/trajectory control on SO(3)/SE(3).
-4. Disturbance-observer compensation with a matched nominal-controller ablation.
-5. Constrained model predictive control.
-
-All methods use the common state/reference contract, physical allocation, experiment runner,
-logging and evaluation. See [conventions](docs/model_and_conventions.md),
-[equation mapping](docs/controller_mapping.md), [source notices](THIRD_PARTY_NOTICES.md)
-and [protocol](docs/experiment_protocol.md). No built-in AirSim position/velocity controller
-is relabelled as a chapter algorithm.
-
-## Install and verify
-
-Python 3.10 is the tested interpreter. From this repository:
+Tested on Linux x86_64 with Python 3.10. Install the Python environment from the lockfile:
 
 ```bash
 uv sync --extra dev --extra plots --extra mpc --locked
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/pytest -q
 .venv/bin/ruff check src scripts tests
+.venv/bin/python scripts/run_case_study.py list
 ```
 
-Without an explicitly selected server, integration tests skip. The host's inherited ROS
-pytest plugins are disabled; no host package upgrades are needed.
-
-## Select and launch an isolated simulator
-
-Reuse an existing Unreal 4.27.2 / AirSim Blocks installation. Inspect running experiments
-first. Create **ignored** `.local/environment.json` with keys `editor` (absolute installed
-UE4Editor executable), `project` (absolute Blocks.uproject), `airsim_root`, `host` (local
-RPC bind address), `port` (a free dedicated port matching configs/airsim-settings.json),
-and `vehicle` (`Chapter5`). Do not commit this local file. The telemetry extension patch
-and observed build are documented in the environment report; upstream AirSim alone does
-not guarantee these custom APIs. No rebuild is needed on the already validated host.
+Simulator integration tests skip unless a server is explicitly selected. Viewing the committed results and regenerating their figures does not require AirSim:
 
 ```bash
-.venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json
-.venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/capabilities.json
+.venv/bin/python scripts/plot_case_study.py results/examples/rigid_body_mpc \
+  --output results/runs/regenerated-figures
 ```
 
-The launcher refuses an occupied RPC port and writes its own PID/settings/logs to `.local`.
-After the server finishes loading, the read-only check must report the required dynamics
-APIs available. It never arms, resets, pauses or commands the vehicle.
-
-The following command **resets, arms and operates only the selected simulator**. Use an
-exclusive instance. It finishes paused and disarmed:
+For **NMPC**, also install the optional dependencies and pinned native solver. CMake and GCC are required:
 
 ```bash
-.venv/bin/python scripts/bridge_smoke.py --local-config .local/environment.json --exclusive-simulator --check-overflow --output .local/bridge-smoke.json
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 IET_CH5_LOCAL_CONFIG=.local/environment.json .venv/bin/pytest -q
+uv sync --extra dev --extra plots --extra mpc --extra nmpc --locked
+.venv/bin/python scripts/install_acados.py
 ```
 
-The overflow check advances until more than 10,000 new physics samples exist, about 30 s
-of simulation time; wall duration can be longer. Read the [bridge regression diagnosis](docs/bridge_regression.md)
-before replacing measured timestamps with a single wall-timed continuation call.
+The installer builds acados v0.5.4 at a fixed source commit under ignored `.local/`, recording compiler and binary hashes. Run it after `uv sync`, including after later environment resynchronization. See the [native installation and model guide](docs/rigid_body_nmpc.md).
 
-## Run a baseline and regenerate figures
+## Connect an isolated AirSim instance
+
+Reuse an Unreal 4.27.2 / AirSim Blocks installation with the required telemetry extension. The [environment report](docs/environment_report.md) records the extension and verified simulator build; stock AirSim does not guarantee these custom APIs.
+
+Create ignored `.local/environment.json` with `editor` (installed UE4Editor executable), `project` (Blocks.uproject), `airsim_root`, `host`, `port` and `vehicle` (`Chapter5`). Use a free dedicated RPC port matching the selected AirSim settings. Keep machine paths and endpoint details local.
 
 ```bash
-.venv/bin/python scripts/run_experiment.py --local-config .local/environment.json --exclusive-simulator --controller pid --output results/runs/my-pid-run
-.venv/bin/python scripts/plot_results.py results/runs/my-pid-run --output results/runs/my-pid-run/figures
-.venv/bin/python scripts/plot_results.py results/examples/m1/pid results/examples/m1/lqr results/examples/m1/geometric --output results/examples/m1/figures
+.venv/bin/python scripts/launch_simulator.py \
+  --local-config .local/environment.json \
+  --settings configs/airsim-demo-settings.json \
+  --local-output .local/ch5-simulator
+# After Unreal finishes loading, verify the required APIs without commanding flight:
+.venv/bin/python scripts/check_environment.py \
+  --local-config .local/environment.json --output .local/capabilities.json
 ```
 
-Controller choices are `pid`, `lqr`, `geometric`, `dob` and `mpc`. Tasks are
-`hover_transfer`, `circle`, `figure_eight`, `disturbance`, `mismatch` and `noise_delay`.
-The figure-eight task uses `configs/figure-eight-demo-task.json`.
-Use `--dob-disabled` for the matched compensation-off ablation.
-Output directories must be new, so an experiment cannot silently overwrite earlier data.
-Every run resets controller memory and records its exact configuration, source revision,
-truth/feedback, requested/estimated wrench, motor inputs/states, timing and failures.
+The launcher refuses an occupied RPC port. The `run` and `demo` commands below reset, arm and operate the selected simulator; use an exclusive instance. Each completed run finishes paused and disarmed.
 
-## Full matrix and publication figures
+## Run a trajectory or the evaluation suite
+
+Seven [JSON trajectory presets](src/iet_ch5/trajectories/configs) provide analytic position, velocity, acceleration, jerk, snap and heading references:
+
+| ID | Reference |
+|---|---|
+| `hover` | Fixed point |
+| `transfer` | Smooth three-axis displacement |
+| `circle` | Horizontal circle |
+| `figure_eight` | Horizontal Gerono figure eight |
+| `helix` | Circular ascent |
+| `spatial_course` | 3D multi-harmonic figure eight with varying yaw |
+| `agile_course` | Faster, wider spatial figure eight used in the GIF |
+
+Preview the latest suite without connecting to a simulator, then run one controller/trajectory pair:
 
 ```bash
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/run_benchmark.py --local-config .local/environment.json --exclusive-simulator --output results/runs/my-benchmark
-.venv/bin/python scripts/summarize_benchmark.py --source results/runs/my-benchmark --output results/runs/my-analysis
-.venv/bin/python scripts/plot_benchmark_summary.py --source results/runs/my-analysis --output results/runs/my-analysis/figures
+.venv/bin/python scripts/run_case_study.py plan \
+  --suite configs/experiments/rigid_body_mpc.json \
+  --output .local/rigid-body-plan.json
+.venv/bin/python scripts/run_case_study.py run \
+  --suite configs/experiments/rigid_body_mpc.json \
+  --controller nmpc --trajectory agile_course --repeats 1 \
+  --local-config .local/environment.json --exclusive-simulator \
+  --output results/runs/my-nmpc
 ```
 
-The matrix takes several hundred seconds of physics time. It retains failures, freezes
-source/configuration before running, and supports `--resume` only when the manifest matches.
-The published numerical source is `2e6d9ed06c3083c17b4a3b074a1537e92bdb0880`; use that
-commit in a separate checkout when reproducing the exact recorded version. Later commits
-add common-duration analysis, artefacts and documentation. Two abandoned bridge-validation
-attempts are kept separately and excluded from the final matrix.
-
-Regenerate all-run figures entirely from committed compact data:
+Use `--controller geometric` for a first flight without the optional acados build. To run the full **3 controllers × 7 trajectories × 2 repeats** evaluation and publish its compact results:
 
 ```bash
-.venv/bin/python scripts/plot_benchmark_summary.py --source results/examples/m3 --output results/examples/m3/figures/matrix
-.venv/bin/python scripts/plot_results.py results/examples/m3/runs/00-pid-hover_transfer-s0-r0 results/examples/m3/runs/10-lqr-hover_transfer-s0-r0 results/examples/m3/runs/20-geometric-hover_transfer-s0-r0 results/examples/m3/runs/30-dob-hover_transfer-s0-r0 results/examples/m3/runs/40-mpc-hover_transfer-s0-r0 --output results/examples/m3/figures/nominal
-.venv/bin/python scripts/plot_results.py results/examples/m3/runs/33-dob-disturbance-s0-r0 results/examples/m3/runs/50-dob-disturbance-s0-r0-off --output results/examples/m3/figures/observer_ablation
+.venv/bin/python scripts/run_case_study.py run \
+  --suite configs/experiments/rigid_body_mpc.json \
+  --local-config .local/environment.json --exclusive-simulator \
+  --output results/runs/my-rigid-body-matrix
+.venv/bin/python scripts/run_case_study.py publish \
+  --output results/runs/my-rigid-body-matrix \
+  --destination results/runs/my-rigid-body-publication
 ```
 
-Outputs include editable Python source plus PDF/SVG/PNG. Position statistics in the case
-study use independent physics truth on identical complete simulation-time windows;
-original controller-run statistics are also retained. Full control/physics/noise logs are
-in the ignored local archive identified by [its checksum](results/examples/m3/full_archive.json).
-Compact examples, all-run metric samples/configurations/results and regenerated figures
-are committed; an external upload of the larger archive is not claimed.
+Use new output directories. Runs freeze their exact source/configuration and retain failures; `--resume` only accepts a matching experiment. The [modular guide](docs/modular_case_study.md) explains custom trajectories, strict partial parameter overrides via `--controller-overrides`, runtime settings and additional robustness protocols. Tune on separate development tasks and freeze parameters before evaluation.
 
-## Faster figure-eight tracking demo
+## Record your own six-controller comparison
 
-[Full-speed video](results/examples/figure_eight_cruise/comparison.mp4),
-[2× preview](results/examples/figure_eight_cruise/comparison.gif) and
-[speed comparison](results/examples/figure_eight_cruise/speed_comparison.png)
-show the same 4×2 m figure eight retimed from **28 s to 14 s of traversal**. The reference
-mean speed doubles from 0.436 to 0.871 m/s. Smooth 2 s phase-rate ramps bracket 10 s of
-sustained cruise, avoiding the previous long slow entry/exit. Initial/final holds remain
-2 s each, so the full run is 18 s. Controller gains and velocity/tilt limits are unchanged.
-
-Each fixed-camera panel labels the actual physics speed in m/s beside its time/error.
-The MP4 plays at 1× simulation time; the compact GIF is explicitly 2×. Measured speed
-statistics are computed from independent truth velocities and compared with the earlier
-runs using the same processing. See [time law, actual results and provenance](docs/figure_eight_cruise.md).
-
-![Faster figure-eight comparison](results/examples/figure_eight_cruise/comparison_preview.png)
-
-The original [28 s figure eight](docs/figure_eight_demo.md),
-[circular demo](docs/trajectory_demo.md) and [51-run case study](docs/case_study.md)
-remain available. This is a separate nominal shape-tracking comparison.
-
-Launch an exclusive simulator, wait for loading, then check capabilities and record into
-new output directories:
+With NMPC installed and the dedicated simulator checked:
 
 ```bash
-.venv/bin/python scripts/launch_simulator.py --local-config .local/environment.json --settings configs/airsim-demo-settings.json --local-output .local/figure-eight-cruise-simulator
-.venv/bin/python scripts/check_environment.py --local-config .local/environment.json --output .local/figure-eight-cruise-capabilities.json
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/capture_tracking_comparison.py --local-config .local/environment.json --exclusive-simulator --task-config configs/figure-eight-cruise-task.json --output results/runs/my-cruise-eight
-.venv/bin/python scripts/render_tracking_comparison.py --source results/runs/my-cruise-eight --output results/runs/my-cruise-eight-publication
-.venv/bin/python scripts/plot_speed_comparison.py --previous results/runs/figure-eight-feasible-20261020 --current results/runs/my-cruise-eight-publication
+.venv/bin/python scripts/run_case_study.py demo \
+  --suite configs/experiments/rigid_body_mpc.json \
+  --controller all --trajectory agile_course \
+  --local-config .local/environment.json --exclusive-simulator \
+  --output results/runs/my-six-controller-demo
+.venv/bin/python scripts/run_case_study.py publish \
+  --output results/runs/my-six-controller-demo \
+  --destination results/runs/my-six-controller-video
 ```
 
-The final speed-comparison command needs the retained older raw records; compact before/after
-speed samples are included in the published package. The renderer checks source-image hashes,
-exact image/physics timestamps, fixed camera poses, identical references across methods and
-complete video decoding. Raw logs/images stay in ignored archives with published checksums.
-Paused recording makes no real-time or physical-flight claim.
+Publication generates synchronized MP4/GIF comparisons from actual scene images and checks frame hashes, physics timestamps and camera poses. Capture runs are separate from benchmark timing. `--controller` and `--trajectory` also accept multiple IDs; a video group must contain one trajectory and one run per controller.
+
+## Evidence and reproducibility
+
+| Dataset | Measured outcome | Report |
+|---|---|---|
+| Latest rigid-body comparison | 42 runs; 40 passes, 2 retained failures | [Results and interpretation](docs/rigid_body_nmpc_results.md) · [All-run report](results/examples/rigid_body_mpc/REPORT.md) |
+| Six-controller scene demonstration | 6 separate captures; 3 passes, 3 retained failures | [Media validation](results/examples/rigid_body_demo/media_validation.json) · [MP4](results/examples/rigid_body_demo/comparison.mp4) |
+| acados computation replay | 438 measured records × 3 repeats per variant | [Timing report](results/examples/acados_acceleration/REPORT.md) · [Portable replay inputs](results/examples/acados_acceleration/REPLAY.md) |
+| Earlier modular comparison | 70 runs; 64 passes, 6 retained failures | [Results](docs/modular_results.md) |
+| Original robustness case study | 51 runs; 47 passes, 4 retained mismatch failures | [Case study](docs/case_study.md) |
+
+These are distinct datasets with their own frozen configurations and provenance. The latest numerical source is `99515454ff0c69bce66f4a8f9ca6af5989057d25`; later commits add analysis, media and documentation. Compact truth samples, configurations, results and figures are committed. Full raw logs/images remain in local checksummed archives identified by each dataset's `full_archive.json`; an external raw-data upload is not claimed.
+
+Earlier [cruise figure-eight](docs/figure_eight_cruise.md), [original figure-eight](docs/figure_eight_demo.md) and [circular](docs/trajectory_demo.md) demonstrations remain available.
+
+For equations and adaptation history, see [model and conventions](docs/model_and_conventions.md), [controller mapping](docs/controller_mapping.md), [experiment protocol](docs/experiment_protocol.md), [third-party notices](THIRD_PARTY_NOTICES.md) and the [source/licence manifest](docs/source_manifest.json). Implementation scope and handoff are recorded in the [requirements](docs/IMPLEMENTATION_REQUIREMENTS.md), [upstream candidates](docs/UPSTREAM_CANDIDATES.md) and [current handoff](docs/IMPLEMENTATION_HANDOFF.md).

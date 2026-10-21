@@ -111,7 +111,11 @@ def render(source, output, rows, data):
             draw.text((20, 886), 'Separate capture runs; paused simulation timing. Failures retained. No physical-flight or real-time claim.', font=small, fill='#cbd5e1')
             writer.append_data(np.array(canvas))
             if index%2 == 0:
-                previews.append(canvas.resize((864, 552)))
+                preview = canvas.copy()
+                preview_draw = ImageDraw.Draw(preview)
+                preview_draw.rectangle((0, 0, 1439, 39), fill='#101923')
+                preview_draw.text((20, 12), f"{rows[0]['trajectory']} | actual AirSim | t = {t:.1f} s | playback 2x", font=font, fill='white')
+                previews.append(preview.resize((864, 552)))
             if not poster_saved and t >= task.duration*.55:
                 canvas.save(output/'comparison_preview.png')
                 poster_saved = True
