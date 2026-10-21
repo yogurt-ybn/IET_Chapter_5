@@ -4,6 +4,8 @@ The new `nmpc` controller uses the complete six-DOF rigid-body equations with qu
 
 See [model, cost, constraints and all tunable parameters](../src/iet_ch5/controllers/nmpc/README.md). No arbitrary 2 m/s speed or small-angle state cap is carried into the nonlinear OCP. Experiment safety bounds remain shared. Full rigid-body modeling does not imply that every aerodynamic or simulator effect is modeled.
 
+[Completed measured evaluation, video and timing ablations](rigid_body_nmpc_results.md) retain failures and limitations.
+
 ## What accelerates computation
 
 The [official acados feature guide](https://docs.acados.org/features/index.html) describes RTI and partial condensing; the [Python interface guide](https://docs.acados.org/python_interface/index.html) documents generated C solvers and wrapper choices. This implementation uses:
@@ -61,3 +63,5 @@ Use the actual NMPC run folder recorded in the matrix journal (the numeric prefi
 The model/OCP is original Chapter 5 project work. acados, HPIPM and BLASFEO are pinned external BSD-2-Clause solver dependencies; CasADi is an unmodified LGPL-3.0 dependency. Their licences and citations are identified in the source manifest/notices. The separate renderer release has no explicit licence in its pinned source tree; it is used only as an externally downloaded build tool, and no renderer code/binary is redistributed.
 
 State/input costs and the finite-horizon terminal weight do not establish stability, recursive feasibility or a global optimum. Quaternion norm drift, nonlinear residuals, failed QPs and geometric fallback must be reported; status 0 for RTI does not mean a converged NLP. Native build/reference-preparation cost is outside evaluated updates, never hidden as online work. Motor lag/density approximations and omitted drag/wind remain model mismatch. No real-time or physical-flight claim is made.
+
+The committed acceleration package also includes [portable exact feedback inputs](../results/examples/acados_acceleration/REPLAY.md), allowing replay without a simulator or the full raw archive.

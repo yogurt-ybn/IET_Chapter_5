@@ -5,7 +5,21 @@ Branch: `feat/ch5-airsim-controllers`. Review: https://github.com/yogurt-ybn/IET
 case-study text and capture tooling are anchored at `a878670`, followed by the verified
 media/handoff commit. Use Git HEAD for the final delivery revision.
 
-## Current delivery: modular 70-run case study
+## Current delivery: rigid-body NMPC with acados
+
+Numerical/model/runtime/configuration freeze: `99515454ff0c69bce66f4a8f9ca6af5989057d25`. The original `mpc` remains the near-hover OSQP baseline; `nmpc` is a separate genuine acados 17-state quaternion rigid-body/motor-lag OCP using the same wrench/motor allocator. No hard speed/tilt state box is retained in NMPC. Native acados v0.5.4, HPIPM/BLASFEO source pins, licences and library/build hashes are recorded. See [model/install/tuning](rigid_body_nmpc.md) and [measured interpretation](rigid_body_nmpc_results.md).
+
+The new fixed 42-run matrix contains **40 passes and two retained linear-MPC aggressive failures**, with every interval complete. NMPC passes all 14 runs, zero geometric fallback; all 7 NMPC repeat pairs pass. The unchanged 4.02 m/s aggressive course gives NMPC 3.837/3.840 mm traversal RMS and 8.095/8.105 mm peak error. The old linear MPC retains its limitations: about 0.332 m RMS and 231 LQR fallback activations per run. Overall 20/21 repeat checks pass; its aggressive pair fails at 34.379 mm. There is no collision/safety/bridge abort, saturation or task-level speed/tilt evaluation violation. Model, cost, update rate and constraint-policy changes are explicitly distinguished; this is not a pure model-only ablation.
+
+Current video: `results/examples/rigid_body_demo/comparison.mp4`  / 2x GIF, six independent actual-scene runs (3 pass/3 tracking failures). All 528 native image hashes, common fixed camera and exact image/paused-physics timestamps pass verification. The MP4 decodes completely to 106 frames. The final renderer labels logged QP/RTI and fallback commands without changing source images. These captures are separate from matrix timing/repeat counts.
+
+Model-matched acceleration replay: 438 measured feedback records x3 repeats per variant; all four variants return accepted status with 0 fallback. Default RTI C-solver p95 2.462 ms versus SQP 4.373 ms; complete call p95 7.285 versus8.420 ms. RTI is not equally converged: residuals/command differences are retained. Cold-start and uncondensed variants are slightly faster on this workload; do not claim warm start/partial condensing always improve speed. In actual aggressive flight computation p95 is 10.031/11.733 ms, with85–92 ms maxima: hard realtime is not established. Native C time and total Python/controller time stay separate.
+
+Validation: final local **47 tests pass**, including opt-in native acados solve/reset/failure checks and selected read-only AirSim integration; 4 upstream deprecation warnings remain. A fresh minimal environment has 43 passed / 4 explicit skips, with no acados/plot/Unreal requirement for ordinary controllers. Ruff, whitespace, wheel build with six controller resources, frozen config checks, figure regeneration and source/binary/full AirSim diff preservation pass. Portable committed feedback replay reproduces all four variants' commands exactly. Only the chapter-owned simulator was stopped; the original user process remains running.
+
+Raw archive `rigid-body-mpc-9951545.tar.gz`: 245,022,417 bytes, SHA256 `66d44afe3c1d644a40b76f7f947faf6dd044065885d0106b903cc62d5e7f47d9`, retained under ignored `.local/artifacts`. It includes 42 matrix runs, six captures and three separate pre-freeze development runs. Compact results/figures, source/configuration hashes, exact compressed replay feedback and native solver provenance are committed. No external raw archive upload is claimed. The old 70-run / 51-run datasets and videos remain unchanged. No new wind/noise/mismatch, physical-flight, global-stability or realtime claim is made.
+
+## Earlier modular 70-run case study
 
 Use `scripts/run_case_study.py` (list / plan / run / demo / publish) and [modular_case_study.md](modular_case_study.md). All five methods now own `controller.py`, `config.json` and a tuning README in separate folders. A typed common simulation interface isolates AirSim RPC; legacy imports still work. Seven analytic trajectory configurations include hover, transfer, circle, figure eight, helix, nominal 3D and aggressive 3D. Numerical controller ASTs match the pre-refactor implementations exactly, apart from imports; defaults match the historical snapshot.
 

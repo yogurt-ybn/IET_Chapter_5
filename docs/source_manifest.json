@@ -157,7 +157,7 @@
       "classification": "Unmodified external solver/code-generation dependency; original rigid-body OCP and adapter",
       "input_output_conventions": "17-state NWU/FLU, wxyz quaternion, physical commanded and applied wrench; shared allocator",
       "modifications": "No acados source modifications; RK4 nonlinear model, nonlinear least squares, coupled rotor-input bounds, SQP-RTI, warm start and partial condensing assembled by original project code",
-      "validation_status": "Pinned build, model tests and actual development flights passed; fixed evaluation pending"
+      "validation_status": "Pinned native build/model tests; final 42-run matrix:40 passes,2 retained linear-baseline stress failures. All14 NMPC runs pass with0fallback and7/7repeat checks; six-controller actual video and model-matched replay ablations recorded."
     },
     {
       "component": "HPIPM",

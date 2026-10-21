@@ -6,6 +6,8 @@ AirSim implementations and reproducible case-study materials for the conventiona
 
 The new `nmpc` uses full quaternion rigid-body dynamics and measured motor lag, generated C, SQP-RTI, HPIPM partial condensing and warm starts. It shares the same physical wrench/motor adapter; the historical near-hover `mpc` remains available. See the [model, installation and evaluation guide](docs/rigid_body_nmpc.md). Native dependencies are optional and installed locally, with source/build hashes recorded.
 
+[Measured results](docs/rigid_body_nmpc_results.md): the new 42-run matrix has 40 passes and two retained linear-MPC stress failures. **Rigid-body NMPC passes all 14 runs with zero fallback**, including the unchanged 4.02 m/s peak 3D task (3.84 mm RMS / 8.1 mm peak error). [Six-controller video](results/examples/rigid_body_demo/comparison.mp4) · [acados acceleration replay](results/examples/acados_acceleration/REPORT.md). RTI versus SQP native p95 is 2.46 versus 4.37 ms on the replay; end-to-end overhead and wall-time spikes are reported.
+
 ## Modular case-study interface
 
 Use the [modular project guide](docs/modular_case_study.md) for the current unified entry point, per-controller folders/configs, seven preset trajectories, 70-run protocol and general comparison-video workflow.

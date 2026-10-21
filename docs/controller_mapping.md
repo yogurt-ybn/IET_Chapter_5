@@ -107,3 +107,7 @@ physics velocities provide traversal speed metrics. See [retiming and measured s
 comparison](figure_eight_cruise.md). No controller gain/limit or allocation change is used.
 
 Current package layout and tunable per-method configurations are documented in [modular_case_study.md](modular_case_study.md). Historical acceptance documents retain their original file paths and commit references.
+
+## Rigid-body nonlinear MPC extension
+
+`controllers/nmpc/{model,reference,solver,controller}.py` implements full NWU/FLU rigid-body equations with wxyz quaternion, measured first-order applied-wrench lag, flatness preview and a genuine acados nonlinear multiple-shooting OCP. The historical near-hover OSQP controller remains `mpc`. See [model/parameters](rigid_body_nmpc.md) and [measured comparison](rigid_body_nmpc_results.md). Physical motor feasibility remains the same shared allocation polytope; no hard 2 m/s or small-angle state box is carried into NMPC.
