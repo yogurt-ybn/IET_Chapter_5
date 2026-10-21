@@ -1,0 +1,6 @@
+{
+  "source_run": "dev-dob-on-wind",
+  "log_sha256": "f0e9ca569b25f33abb4cadf4bc566448ee5de33ed0baa2a01f1080febc58a629",
+  "sample_selection": "all control samples, lossless gzip",
+  "purpose": "M2 development, not final matrix"
+}

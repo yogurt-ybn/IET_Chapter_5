@@ -1,0 +1,20 @@
+[
+  {
+    "development_run": "nmpc-initial-transfer",
+    "status": "passed",
+    "tracking_rms_m": 0.0001233044374333454,
+    "fallback_activations": 0
+  },
+  {
+    "development_run": "nmpc-development-spatial",
+    "status": "passed",
+    "tracking_rms_m": 0.0004302959726193797,
+    "fallback_activations": 0
+  },
+  {
+    "development_run": "nmpc-development-course",
+    "status": "passed",
+    "tracking_rms_m": 0.0024289971202998144,
+    "fallback_activations": 0
+  }
+]

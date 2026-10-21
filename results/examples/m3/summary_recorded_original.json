@@ -1,0 +1,3362 @@
+[
+  {
+    "run_id": "00-pid-hover_transfer-s0-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/00-pid-hover_transfer-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.010933373696420199,
+      "position_max_m": 0.034713464009244833,
+      "axis_rms_m": [
+        0.009080481166127344,
+        0.006066546163638112,
+        0.0005296601000900245
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.017782657384106934,
+      "steady_hold_rms_m": 0.001859065828196545,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.817326143647142e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.9226529891732117e-16,
+        2.6356369830993415e-16,
+        2.6490955425378243e-17
+      ],
+      "controller_s": {
+        "median": 0.0002269995165988803,
+        "p95": 0.0005615774716716259,
+        "max": 0.0034254469792358577
+      },
+      "allocation_s": {
+        "median": 9.241202496923506e-05,
+        "p95": 0.000216634664684534,
+        "max": 0.001482058025430888
+      },
+      "rpc_step_s": {
+        "median": 0.016759161982918158,
+        "p95": 0.020267355965916067,
+        "max": 0.06090523797320202
+      },
+      "wall_loop_s": {
+        "median": 0.017869144503492862,
+        "p95": 0.021836375276325266,
+        "max": 0.06182319502113387
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.005545684238814241,
+      "rate_rms_rad_s": 0.0055800202027340776,
+      "mean_normalized_squared_motor_command": 0.3527981804084959,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "01-pid-hover_transfer-s0-r1",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/01-pid-hover_transfer-s0-r1/log.jsonl",
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.010932165722083425,
+      "position_max_m": 0.03471855215941478,
+      "axis_rms_m": [
+        0.009079436551573783,
+        0.006065902854598328,
+        0.0005300017354854948
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.017783012263611512,
+      "steady_hold_rms_m": 0.0018765659657656879,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8024064391775584e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.8012128167341785e-16,
+        2.5565487227208195e-16,
+        2.3188153933990787e-17
+      ],
+      "controller_s": {
+        "median": 0.00021625400404445827,
+        "p95": 0.0004927560337819155,
+        "max": 0.0031188990105874836
+      },
+      "allocation_s": {
+        "median": 9.117199806496501e-05,
+        "p95": 0.00018504209874663498,
+        "max": 0.001464058004785329
+      },
+      "rpc_step_s": {
+        "median": 0.016496633528731763,
+        "p95": 0.01994799539388623,
+        "max": 0.02424469101242721
+      },
+      "wall_loop_s": {
+        "median": 0.017636471515288576,
+        "p95": 0.021132651943480595,
+        "max": 0.08235036500263959
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.005545126442894463,
+      "rate_rms_rad_s": 0.005583297196469865,
+      "mean_normalized_squared_motor_command": 0.3527980104738882,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 1,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "02-pid-circle-s0-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/02-pid-circle-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1666,
+      "duration_s": 19.998426624,
+      "position_rms_m": 0.016000969752652507,
+      "position_max_m": 0.03730060492372689,
+      "axis_rms_m": [
+        0.01119834434637072,
+        0.011428119187886243,
+        0.0001618911760214093
+      ],
+      "loop_rms_m": 0.019128899003987652,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8033745528575547e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.715704840708857e-16,
+        2.557215761166782e-16,
+        2.849979001274287e-17
+      ],
+      "controller_s": {
+        "median": 0.00019982346566393971,
+        "p95": 0.000523827489814721,
+        "max": 0.004191829008050263
+      },
+      "allocation_s": {
+        "median": 8.996648830361664e-05,
+        "p95": 0.00020072398183401674,
+        "max": 0.001456917030736804
+      },
+      "rpc_step_s": {
+        "median": 0.016547036997508258,
+        "p95": 0.02002604324661661,
+        "max": 0.024023734033107758
+      },
+      "wall_loop_s": {
+        "median": 0.017792229016777128,
+        "p95": 0.021398237484390847,
+        "max": 0.02570234501035884
+      },
+      "wall_deadline_misses": 1666,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.005216108921166642,
+      "rate_rms_rad_s": 0.0038090306349870887,
+      "mean_normalized_squared_motor_command": 0.35288471718837666,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "circle",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "03-pid-disturbance-s0-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/03-pid-disturbance-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.06095829059547871,
+      "position_max_m": 0.16927772511254852,
+      "axis_rms_m": [
+        0.058490946458547695,
+        0.01715380163803505,
+        0.000685174480757162
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.017823074918595385,
+      "steady_hold_rms_m": 0.0929709229742341,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.7992968846505457e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.788473441207474e-16,
+        2.5443853295982477e-16,
+        2.4789305939013756e-17
+      ],
+      "controller_s": {
+        "median": 0.0002228044904768467,
+        "p95": 0.0005321819626260549,
+        "max": 0.004033545032143593
+      },
+      "allocation_s": {
+        "median": 9.447699994780123e-05,
+        "p95": 0.00018521161400713025,
+        "max": 0.0025301669957116246
+      },
+      "rpc_step_s": {
+        "median": 0.016798572527477518,
+        "p95": 0.020861736201914026,
+        "max": 0.046600480971392244
+      },
+      "wall_loop_s": {
+        "median": 0.017921388003742322,
+        "p95": 0.02271368172368966,
+        "max": 0.04740522598149255
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": 0.7022069760000011,
+      "disturbance_interval_rms_m": 0.11289180132978466,
+      "attitude_rms_rad": 0.0068750515305430575,
+      "rate_rms_rad_s": 0.008297273814274904,
+      "mean_normalized_squared_motor_command": 0.3529845748563461,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "disturbance",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "04-pid-mismatch-s0-r0",
+    "controller": "pid",
+    "status": "failed",
+    "log_path": "results/runs/frozen-m3-final-20261020/04-pid-mismatch-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.20793223051120371,
+      "position_max_m": 0.24206625095679446,
+      "axis_rms_m": [
+        0.009224282376879524,
+        0.0061610632660797455,
+        0.20763613943489537
+      ],
+      "initial_hover_rms_m": 0.16620340525417168,
+      "transfer_rms_m": 0.2242191338648982,
+      "steady_hold_rms_m": 0.20933574741021646,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.7983218946999008e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7690473361322375e-16,
+        2.671391252963293e-16,
+        2.7264255147190792e-17
+      ],
+      "controller_s": {
+        "median": 0.00023765399237163365,
+        "p95": 0.0005789484799606725,
+        "max": 0.0019042350468225777
+      },
+      "allocation_s": {
+        "median": 9.868200868368149e-05,
+        "p95": 0.00022433150152210144,
+        "max": 0.0022349010105244815
+      },
+      "rpc_step_s": {
+        "median": 0.01691370297339745,
+        "p95": 0.02073715563165024,
+        "max": 0.02967488899594173
+      },
+      "wall_loop_s": {
+        "median": 0.018104913498973474,
+        "p95": 0.022256871781428343,
+        "max": 0.09881995595060289
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.00565547364757142,
+      "rate_rms_rad_s": 0.005168493264133994,
+      "mean_normalized_squared_motor_command": 0.3528486028767141,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": "Tracking acceptance tolerance not met",
+    "task": "mismatch",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "05-pid-noise_delay-s0-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/05-pid-noise_delay-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 996,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.01240363222290253,
+      "position_max_m": 0.041619590939612996,
+      "axis_rms_m": [
+        0.009970733554476112,
+        0.006893151397357582,
+        0.002630404630428053
+      ],
+      "initial_hover_rms_m": 0.0019489684988460822,
+      "transfer_rms_m": 0.02026311989131252,
+      "steady_hold_rms_m": 0.004074061360562914,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.80791672924299e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.929148673087468e-16,
+        2.461138931542095e-16,
+        2.3418766925686896e-17
+      ],
+      "controller_s": {
+        "median": 0.0001981934765353799,
+        "p95": 0.0005223092157393694,
+        "max": 0.004544763010926545
+      },
+      "allocation_s": {
+        "median": 9.057650458998978e-05,
+        "p95": 0.00019363572937436402,
+        "max": 0.003423182002734393
+      },
+      "rpc_step_s": {
+        "median": 0.01856792002217844,
+        "p95": 0.02417494599649217,
+        "max": 0.03262129402719438
+      },
+      "wall_loop_s": {
+        "median": 0.020476149511523545,
+        "p95": 0.02673495074850507,
+        "max": 0.03599487600149587
+      },
+      "wall_deadline_misses": 996,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.006395818421471809,
+      "rate_rms_rad_s": 0.04137323971737627,
+      "mean_normalized_squared_motor_command": 0.3528697670872539,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "06-pid-noise_delay-s1-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/06-pid-noise_delay-s1-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 996,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.012179170619604635,
+      "position_max_m": 0.040349657542119374,
+      "axis_rms_m": [
+        0.010403175265768436,
+        0.0057425401964037925,
+        0.0026700886621667226
+      ],
+      "initial_hover_rms_m": 0.0018991121948215663,
+      "transfer_rms_m": 0.019991355006928346,
+      "steady_hold_rms_m": 0.003418564897536879,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8142616586611178e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7730235602495554e-16,
+        2.8015784137025435e-16,
+        2.5478751053409354e-17
+      ],
+      "controller_s": {
+        "median": 0.00018764298874884844,
+        "p95": 0.000529169017681852,
+        "max": 0.003917691006790847
+      },
+      "allocation_s": {
+        "median": 8.513647480867803e-05,
+        "p95": 0.00018548150546848774,
+        "max": 0.00211771804606542
+      },
+      "rpc_step_s": {
+        "median": 0.017160446528578177,
+        "p95": 0.02287607276230119,
+        "max": 0.04005493602016941
+      },
+      "wall_loop_s": {
+        "median": 0.01941082251141779,
+        "p95": 0.02518778629018925,
+        "max": 0.0746519590029493
+      },
+      "wall_deadline_misses": 996,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.006421400951555527,
+      "rate_rms_rad_s": 0.04244072083577609,
+      "mean_normalized_squared_motor_command": 0.35283808156811397,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 1,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "07-pid-noise_delay-s2-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/07-pid-noise_delay-s2-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.012365856348575614,
+      "position_max_m": 0.038219072086856785,
+      "axis_rms_m": [
+        0.010105826525343458,
+        0.0067350211138879805,
+        0.002329412816302746
+      ],
+      "initial_hover_rms_m": 0.0032512124160081353,
+      "transfer_rms_m": 0.01879007567995439,
+      "steady_hold_rms_m": 0.004794986361866277,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.804122761819442e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.848375611237298e-16,
+        2.636779683484747e-16,
+        2.358139725155972e-17
+      ],
+      "controller_s": {
+        "median": 0.0001635829685255885,
+        "p95": 0.00047446411917917387,
+        "max": 0.0023521819966845214
+      },
+      "allocation_s": {
+        "median": 7.51810148358345e-05,
+        "p95": 0.00016753501258790488,
+        "max": 0.0007505730027332902
+      },
+      "rpc_step_s": {
+        "median": 0.016453006013762206,
+        "p95": 0.021255767403636112,
+        "max": 0.03116314095677808
+      },
+      "wall_loop_s": {
+        "median": 0.017910522990860045,
+        "p95": 0.02387670091702603,
+        "max": 0.03266913699917495
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.006635290995794904,
+      "rate_rms_rad_s": 0.0451224512537702,
+      "mean_normalized_squared_motor_command": 0.35286110575656787,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 2,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "08-pid-noise_delay-s3-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/08-pid-noise_delay-s3-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.013030161149673309,
+      "position_max_m": 0.04249490671939412,
+      "axis_rms_m": [
+        0.010854698676916994,
+        0.006806198906483635,
+        0.0023740835421638133
+      ],
+      "initial_hover_rms_m": 0.002837329799428152,
+      "transfer_rms_m": 0.02098931073460044,
+      "steady_hold_rms_m": 0.0034866772103262856,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.80201112623239e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        4.0419056990259605e-16,
+        2.654126918244515e-16,
+        2.5153490401663703e-17
+      ],
+      "controller_s": {
+        "median": 0.00018061301670968533,
+        "p95": 0.0004994829709175973,
+        "max": 0.004147003986872733
+      },
+      "allocation_s": {
+        "median": 8.3141028881073e-05,
+        "p95": 0.00018531996174715447,
+        "max": 0.00289768201764673
+      },
+      "rpc_step_s": {
+        "median": 0.01698105299146846,
+        "p95": 0.02209876992856152,
+        "max": 0.02877584198722616
+      },
+      "wall_loop_s": {
+        "median": 0.018855494970921427,
+        "p95": 0.023885539988987143,
+        "max": 0.08038141101133078
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.00662681494344617,
+      "rate_rms_rad_s": 0.044744339284903595,
+      "mean_normalized_squared_motor_command": 0.35284719261626957,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 3,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "09-pid-noise_delay-s4-r0",
+    "controller": "pid",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/09-pid-noise_delay-s4-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.012608830204250023,
+      "position_max_m": 0.04209002707313186,
+      "axis_rms_m": [
+        0.01087828660922344,
+        0.005977548746047782,
+        0.0022168424742909213
+      ],
+      "initial_hover_rms_m": 0.0020706871160326643,
+      "transfer_rms_m": 0.020588301124764844,
+      "steady_hold_rms_m": 0.0027223215348074446,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8029632249411374e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.712308238590367e-16,
+        3.0010716134398763e-16,
+        2.1927988938519327e-17
+      ],
+      "controller_s": {
+        "median": 0.00017002300592139363,
+        "p95": 0.0004636214522179216,
+        "max": 0.004435818002093583
+      },
+      "allocation_s": {
+        "median": 7.843648199923337e-05,
+        "p95": 0.00020354103762656447,
+        "max": 0.002644897031132132
+      },
+      "rpc_step_s": {
+        "median": 0.016624634008621797,
+        "p95": 0.021510060678701846,
+        "max": 0.03510838997317478
+      },
+      "wall_loop_s": {
+        "median": 0.01831283897627145,
+        "p95": 0.023767913627671076,
+        "max": 0.0365022859768942
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.006341424834474458,
+      "rate_rms_rad_s": 0.040922076237271135,
+      "mean_normalized_squared_motor_command": 0.35281398507103884,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 4,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "10-lqr-hover_transfer-s0-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/10-lqr-hover_transfer-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 995,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.0008314147741213811,
+      "position_max_m": 0.001977633037669449,
+      "axis_rms_m": [
+        0.0004780621011798446,
+        0.00031822002977299074,
+        0.0006012014360379524
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.001371822561487008,
+      "steady_hold_rms_m": 0.00012190330613429317,
+      "transfer_settle_s": 0.012128256000000448,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8118449059773026e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.778806743871383e-16,
+        2.4512884677611196e-16,
+        2.5588987552487918e-17
+      ],
+      "controller_s": {
+        "median": 0.0004598780069500208,
+        "p95": 0.001177295006345957,
+        "max": 0.005656249006278813
+      },
+      "allocation_s": {
+        "median": 5.245103966444731e-05,
+        "p95": 0.00013197101070545612,
+        "max": 0.0015971980174072087
+      },
+      "rpc_step_s": {
+        "median": 0.017251011973712593,
+        "p95": 0.022769905289169397,
+        "max": 0.03351314802421257
+      },
+      "wall_loop_s": {
+        "median": 0.01892067102016881,
+        "p95": 0.025114490307169036,
+        "max": 0.08500335202552378
+      },
+      "wall_deadline_misses": 995,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.00028906626590947254,
+      "rate_rms_rad_s": 0.0006718270606887073,
+      "mean_normalized_squared_motor_command": 0.35275185038466594,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "11-lqr-hover_transfer-s0-r1",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/11-lqr-hover_transfer-s0-r1/log.jsonl",
+    "metrics": {
+      "valid_samples": 997,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.0008315716249845389,
+      "position_max_m": 0.001978901925772125,
+      "axis_rms_m": [
+        0.00047812515093977834,
+        0.00031819827243009834,
+        0.0006013797194291985
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.0013712800317735808,
+      "steady_hold_rms_m": 0.00012129351107568002,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.7970627901932665e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.6093090322042443e-16,
+        2.555838207661861e-16,
+        2.356486025675356e-17
+      ],
+      "controller_s": {
+        "median": 0.0004655980155803263,
+        "p95": 0.0009160321787931019,
+        "max": 0.0034307900350540876
+      },
+      "allocation_s": {
+        "median": 5.3571013268083334e-05,
+        "p95": 0.00012090196833014481,
+        "max": 0.0010631280019879341
+      },
+      "rpc_step_s": {
+        "median": 0.018264428013935685,
+        "p95": 0.023302869207691396,
+        "max": 0.03877794602885842
+      },
+      "wall_loop_s": {
+        "median": 0.020046998979523778,
+        "p95": 0.025074865017086265,
+        "max": 0.04044650500873104
+      },
+      "wall_deadline_misses": 997,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.00028906638727027557,
+      "rate_rms_rad_s": 0.0006718204809854812,
+      "mean_normalized_squared_motor_command": 0.3527518375621537,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 1,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "12-lqr-circle-s0-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/12-lqr-circle-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1663,
+      "duration_s": 19.989426432000002,
+      "position_rms_m": 0.0012909232147903721,
+      "position_max_m": 0.0036102913958550383,
+      "axis_rms_m": [
+        8.724070929005484e-05,
+        9.600871692332856e-05,
+        0.001284388621641446
+      ],
+      "loop_rms_m": 0.001543284991767242,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8144060101524444e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.6891334171534895e-16,
+        2.5489087029299904e-16,
+        2.5640019839993918e-17
+      ],
+      "controller_s": {
+        "median": 0.0004283980233594775,
+        "p95": 0.0009113979875110084,
+        "max": 0.005218531005084515
+      },
+      "allocation_s": {
+        "median": 4.992104368284345e-05,
+        "p95": 0.00010916300234384829,
+        "max": 0.0012332210317254066
+      },
+      "rpc_step_s": {
+        "median": 0.017547742987517267,
+        "p95": 0.022084009094396603,
+        "max": 0.04105982801411301
+      },
+      "wall_loop_s": {
+        "median": 0.019589008996263146,
+        "p95": 0.02382930098101496,
+        "max": 0.09086138801649213
+      },
+      "wall_deadline_misses": 1663,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0003400369602885891,
+      "rate_rms_rad_s": 0.0009130416432566795,
+      "mean_normalized_squared_motor_command": 0.3528355725123471,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "circle",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "13-lqr-disturbance-s0-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/13-lqr-disturbance-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.04503744086564818,
+      "position_max_m": 0.12561041808665777,
+      "axis_rms_m": [
+        0.04353187625740472,
+        0.011484203519558858,
+        0.0012082627024418064
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.0013716597572249229,
+      "steady_hold_rms_m": 0.06981932897617822,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8059746797762688e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.657149453065167e-16,
+        2.4343748079912273e-16,
+        2.4447064923653616e-17
+      ],
+      "controller_s": {
+        "median": 0.0004318979918025434,
+        "p95": 0.0009813329204916951,
+        "max": 0.004453496017958969
+      },
+      "allocation_s": {
+        "median": 4.99009620398283e-05,
+        "p95": 0.00012168110697530187,
+        "max": 0.0022693079663440585
+      },
+      "rpc_step_s": {
+        "median": 0.017044450039975345,
+        "p95": 0.021760056138737122,
+        "max": 0.03049285098677501
+      },
+      "wall_loop_s": {
+        "median": 0.01850592700066045,
+        "p95": 0.023492134222760797,
+        "max": 0.03160240000579506
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": 0.4232010240000008,
+      "disturbance_interval_rms_m": 0.08617188260125015,
+      "attitude_rms_rad": 0.019711844176408238,
+      "rate_rms_rad_s": 0.031433131385482066,
+      "mean_normalized_squared_motor_command": 0.352919181101125,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "disturbance",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "14-lqr-mismatch-s0-r0",
+    "controller": "lqr",
+    "status": "failed",
+    "log_path": "results/runs/frozen-m3-final-20261020/14-lqr-mismatch-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.19344670451139598,
+      "position_max_m": 0.2059127005035493,
+      "axis_rms_m": [
+        0.0004859495237058466,
+        0.000321517129093334,
+        0.1934458269545132
+      ],
+      "initial_hover_rms_m": 0.12974395019389243,
+      "transfer_rms_m": 0.20232988491682505,
+      "steady_hold_rms_m": 0.2050217205494324,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8122622310744924e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7089116364718774e-16,
+        2.6680859936076944e-16,
+        2.4907726769868073e-17
+      ],
+      "controller_s": {
+        "median": 0.00042349251452833414,
+        "p95": 0.0009041045123012734,
+        "max": 0.0030197909800335765
+      },
+      "allocation_s": {
+        "median": 4.999549128115177e-05,
+        "p95": 0.00010396351572126147,
+        "max": 0.0010582180111669004
+      },
+      "rpc_step_s": {
+        "median": 0.016863336000824347,
+        "p95": 0.021192083964706395,
+        "max": 0.06627632700838149
+      },
+      "wall_loop_s": {
+        "median": 0.01824137449148111,
+        "p95": 0.023049782309681174,
+        "max": 0.06922426697565243
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0002918022349255071,
+      "rate_rms_rad_s": 0.0006896859094012305,
+      "mean_normalized_squared_motor_command": 0.35277847720458166,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": "Tracking acceptance tolerance not met",
+    "task": "mismatch",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "15-lqr-noise_delay-s0-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/15-lqr-noise_delay-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.0044461568948018166,
+      "position_max_m": 0.012678791300500666,
+      "axis_rms_m": [
+        0.0032245040315670758,
+        0.0026341215339960537,
+        0.001559579631740452
+      ],
+      "initial_hover_rms_m": 0.001100171458105615,
+      "transfer_rms_m": 0.007328037929024012,
+      "steady_hold_rms_m": 0.0017709456825272902,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8006910442941055e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.637227238145746e-16,
+        2.463307335887066e-16,
+        2.4923097440010533e-17
+      ],
+      "controller_s": {
+        "median": 0.00022271298803389072,
+        "p95": 0.0004999720607884217,
+        "max": 0.005582564044743776
+      },
+      "allocation_s": {
+        "median": 4.1561026591807604e-05,
+        "p95": 8.554890519008032e-05,
+        "max": 0.004433055000845343
+      },
+      "rpc_step_s": {
+        "median": 0.016533849004190415,
+        "p95": 0.021109334070933978,
+        "max": 0.03276005299994722
+      },
+      "wall_loop_s": {
+        "median": 0.018017183989286423,
+        "p95": 0.023416941094910725,
+        "max": 0.03451178298564628
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.002351298985238747,
+      "rate_rms_rad_s": 0.03750856072990958,
+      "mean_normalized_squared_motor_command": 0.3528039874050628,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "16-lqr-noise_delay-s1-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/16-lqr-noise_delay-s1-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 997,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.0040041804070748465,
+      "position_max_m": 0.011806743100843517,
+      "axis_rms_m": [
+        0.0028447990638192115,
+        0.002188479926914879,
+        0.0017751435514870523
+      ],
+      "initial_hover_rms_m": 0.0016179795049102584,
+      "transfer_rms_m": 0.0065899493256492215,
+      "steady_hold_rms_m": 0.0015871410210849563,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8004903716318346e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.885780586188048e-16,
+        2.697495005143935e-16,
+        2.3771132631744685e-17
+      ],
+      "controller_s": {
+        "median": 0.0002530350466258824,
+        "p95": 0.0005687160068191584,
+        "max": 0.0019569629803299904
+      },
+      "allocation_s": {
+        "median": 4.50710067525506e-05,
+        "p95": 9.05739841982722e-05,
+        "max": 0.0029608100303448737
+      },
+      "rpc_step_s": {
+        "median": 0.017332011950202286,
+        "p95": 0.02269977502292022,
+        "max": 0.06819908396573737
+      },
+      "wall_loop_s": {
+        "median": 0.019564469053875655,
+        "p95": 0.024885368405375623,
+        "max": 0.06961605901597068
+      },
+      "wall_deadline_misses": 997,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.002213481339028825,
+      "rate_rms_rad_s": 0.032716310435848536,
+      "mean_normalized_squared_motor_command": 0.3527856961954023,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 1,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "17-lqr-noise_delay-s2-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/17-lqr-noise_delay-s2-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.00406550239252083,
+      "position_max_m": 0.01112084745910108,
+      "axis_rms_m": [
+        0.0026394310325537217,
+        0.0027344830215401622,
+        0.001443716084586431
+      ],
+      "initial_hover_rms_m": 0.0014216677359236364,
+      "transfer_rms_m": 0.006436048825840433,
+      "steady_hold_rms_m": 0.0021214145591835925,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.7979667060767597e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        4.0505793164058446e-16,
+        2.680147770384167e-16,
+        2.5695591487906455e-17
+      ],
+      "controller_s": {
+        "median": 0.00021899398416280746,
+        "p95": 0.0004897299862932407,
+        "max": 0.0030595410498790443
+      },
+      "allocation_s": {
+        "median": 4.1110964957624674e-05,
+        "p95": 7.425203220918774e-05,
+        "max": 0.0016123169916681945
+      },
+      "rpc_step_s": {
+        "median": 0.016478055040352046,
+        "p95": 0.020265091024339196,
+        "max": 0.03471685998374596
+      },
+      "wall_loop_s": {
+        "median": 0.017979219963308424,
+        "p95": 0.022241488203871992,
+        "max": 0.03728998202132061
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0022229752211308153,
+      "rate_rms_rad_s": 0.03390231133165168,
+      "mean_normalized_squared_motor_command": 0.3527881143209819,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 2,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "18-lqr-noise_delay-s3-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/18-lqr-noise_delay-s3-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.004702611116337399,
+      "position_max_m": 0.013820746607357107,
+      "axis_rms_m": [
+        0.0038378362804928285,
+        0.002225659224243873,
+        0.0015594887024827115
+      ],
+      "initial_hover_rms_m": 0.0009138364915068867,
+      "transfer_rms_m": 0.007869555273658119,
+      "steady_hold_rms_m": 0.0015087791247130338,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.7950997854997836e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7686867515596134e-16,
+        2.463307335887066e-16,
+        2.4245471082207093e-17
+      ],
+      "controller_s": {
+        "median": 0.00024252396542578936,
+        "p95": 0.0005293230060487969,
+        "max": 0.005850237037520856
+      },
+      "allocation_s": {
+        "median": 4.4150976464152336e-05,
+        "p95": 8.495999500155435e-05,
+        "max": 0.0019985130056738853
+      },
+      "rpc_step_s": {
+        "median": 0.017044103995431215,
+        "p95": 0.02168983720475807,
+        "max": 0.07862144301179796
+      },
+      "wall_loop_s": {
+        "median": 0.01887533301487565,
+        "p95": 0.023698605940444394,
+        "max": 0.0798523030243814
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0021504249057738424,
+      "rate_rms_rad_s": 0.03557494292906867,
+      "mean_normalized_squared_motor_command": 0.35277717830063227,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 3,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "19-lqr-noise_delay-s4-r0",
+    "controller": "lqr",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/19-lqr-noise_delay-s4-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.004116885806457866,
+      "position_max_m": 0.012527855645791279,
+      "axis_rms_m": [
+        0.003092396508648574,
+        0.002099122181234652,
+        0.0017261282237890157
+      ],
+      "initial_hover_rms_m": 0.001395935367193703,
+      "transfer_rms_m": 0.006758924760979664,
+      "steady_hold_rms_m": 0.0017039739032235826,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8043456911840978e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.5908775952719907e-16,
+        2.9284300678833475e-16,
+        2.3093506273941244e-17
+      ],
+      "controller_s": {
+        "median": 0.0002258939784951508,
+        "p95": 0.0005543599603697655,
+        "max": 0.004025097005069256
+      },
+      "allocation_s": {
+        "median": 4.1861028876155615e-05,
+        "p95": 9.845200693234799e-05,
+        "max": 0.0013721230207011104
+      },
+      "rpc_step_s": {
+        "median": 0.016568534018006176,
+        "p95": 0.02021135488175787,
+        "max": 0.02992179401917383
+      },
+      "wall_loop_s": {
+        "median": 0.018035037035588175,
+        "p95": 0.022490831936011087,
+        "max": 0.03129368700319901
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.002158745993561207,
+      "rate_rms_rad_s": 0.03222733552438652,
+      "mean_normalized_squared_motor_command": 0.35276219461680525,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 4,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "20-geometric-hover_transfer-s0-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/20-geometric-hover_transfer-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.0002755643413666376,
+      "position_max_m": 0.0007208467826621635,
+      "axis_rms_m": [
+        0.00011108882775625761,
+        7.95038028854913e-05,
+        0.00023932012850429914
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.0004107684779186252,
+      "steady_hold_rms_m": 6.892278230483304e-05,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.799416799919489e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.670205142458112e-16,
+        2.5522119140308774e-16,
+        2.439454888092385e-17
+      ],
+      "controller_s": {
+        "median": 0.0005560539721045643,
+        "p95": 0.0010032961115939542,
+        "max": 0.06449644698295742
+      },
+      "allocation_s": {
+        "median": 9.638199117034674e-05,
+        "p95": 0.00018312252359464748,
+        "max": 0.003290013992227614
+      },
+      "rpc_step_s": {
+        "median": 0.01666211849078536,
+        "p95": 0.02138926852494478,
+        "max": 0.02777035697363317
+      },
+      "wall_loop_s": {
+        "median": 0.01818436899338849,
+        "p95": 0.02322168699465692,
+        "max": 0.0808593449764885
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 2.3903636648691283e-05,
+      "rate_rms_rad_s": 0.00025637843813257734,
+      "mean_normalized_squared_motor_command": 0.3527522298819144,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "21-geometric-hover_transfer-s0-r1",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/21-geometric-hover_transfer-s0-r1/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.00027527468876523023,
+      "position_max_m": 0.0007201118272346595,
+      "axis_rms_m": [
+        0.00011099929641857791,
+        7.943629807441967e-05,
+        0.00023905059091666557
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.00041072356576191187,
+      "steady_hold_rms_m": 6.833267052629106e-05,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.798403016096391e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.813214678026731e-16,
+        2.633787010202979e-16,
+        2.5705755883273507e-17
+      ],
+      "controller_s": {
+        "median": 0.0005556800169870257,
+        "p95": 0.001100929011590778,
+        "max": 0.004617805010639131
+      },
+      "allocation_s": {
+        "median": 9.814195800572634e-05,
+        "p95": 0.00018049101345241062,
+        "max": 0.0016770469956099987
+      },
+      "rpc_step_s": {
+        "median": 0.017664598999544978,
+        "p95": 0.021918649191502475,
+        "max": 0.04679740499705076
+      },
+      "wall_loop_s": {
+        "median": 0.019493337953463197,
+        "p95": 0.023592926980927586,
+        "max": 0.04824090900365263
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 2.3814549356031456e-05,
+      "rate_rms_rad_s": 0.00025590177170165907,
+      "mean_normalized_squared_motor_command": 0.352752104256478,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 1,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "22-geometric-circle-s0-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/22-geometric-circle-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1654,
+      "duration_s": 19.992426496,
+      "position_rms_m": 0.00015182386112061217,
+      "position_max_m": 0.0003566888890496844,
+      "axis_rms_m": [
+        9.965248010940242e-05,
+        0.00011443185357154408,
+        5.021842470327495e-06
+      ],
+      "loop_rms_m": 0.00018141824339968767,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8057068995729968e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.735389886403047e-16,
+        2.6018141634220893e-16,
+        2.7037291676357267e-17
+      ],
+      "controller_s": {
+        "median": 0.0005278284661471844,
+        "p95": 0.0009087715065106749,
+        "max": 0.006256462016608566
+      },
+      "allocation_s": {
+        "median": 9.66709922067821e-05,
+        "p95": 0.00015484848699998105,
+        "max": 0.0014015230117365718
+      },
+      "rpc_step_s": {
+        "median": 0.019237711501773447,
+        "p95": 0.02520889398292638,
+        "max": 0.040454134985338897
+      },
+      "wall_loop_s": {
+        "median": 0.020795977994566783,
+        "p95": 0.027472650571144175,
+        "max": 0.08607198699610308
+      },
+      "wall_deadline_misses": 1654,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 2.2891613860864736e-05,
+      "rate_rms_rad_s": 0.00015585519036416144,
+      "mean_normalized_squared_motor_command": 0.352835758503307,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "circle",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "23-geometric-disturbance-s0-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/23-geometric-disturbance-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.06247692382838963,
+      "position_max_m": 0.1760996476405536,
+      "axis_rms_m": [
+        0.060252872813164306,
+        0.016508113270351482,
+        0.000662966871186952
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.0004107503331601536,
+      "steady_hold_rms_m": 0.09682424398135643,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8114227868994955e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.959506333917062e-16,
+        2.5386593868748086e-16,
+        2.625802136488331e-17
+      ],
+      "controller_s": {
+        "median": 0.0005374939937610179,
+        "p95": 0.0010428694920847188,
+        "max": 0.004257127991877496
+      },
+      "allocation_s": {
+        "median": 8.972102659754455e-05,
+        "p95": 0.00016775696130935102,
+        "max": 0.004101415979675949
+      },
+      "rpc_step_s": {
+        "median": 0.016475690994411707,
+        "p95": 0.020410735032055528,
+        "max": 0.02617120201466605
+      },
+      "wall_loop_s": {
+        "median": 0.01789244348765351,
+        "p95": 0.022192779550096017,
+        "max": 0.027985822001937777
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": 0.7532080640000007,
+      "disturbance_interval_rms_m": 0.11703644656285299,
+      "attitude_rms_rad": 0.01097858391435426,
+      "rate_rms_rad_s": 0.050865570450840045,
+      "mean_normalized_squared_motor_command": 0.35293955290175366,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "disturbance",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "24-geometric-mismatch-s0-r0",
+    "controller": "geometric",
+    "status": "failed",
+    "log_path": "results/runs/frozen-m3-final-20261020/24-geometric-mismatch-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.18848831213320202,
+      "position_max_m": 0.19949597494575888,
+      "axis_rms_m": [
+        0.002135718266419025,
+        0.0014256260568426577,
+        0.18847082031087975
+      ],
+      "initial_hover_rms_m": 0.142925674182226,
+      "transfer_rms_m": 0.19695337063437926,
+      "steady_hold_rms_m": 0.19604768934854824,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.7994611235991933e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7917482492525713e-16,
+        2.545605057042294e-16,
+        2.3700407448600482e-17
+      ],
+      "controller_s": {
+        "median": 0.0005739240150433034,
+        "p95": 0.00131083098531235,
+        "max": 0.005800704006105661
+      },
+      "allocation_s": {
+        "median": 9.825651068240404e-05,
+        "p95": 0.00022275401570368548,
+        "max": 0.0020766929956153035
+      },
+      "rpc_step_s": {
+        "median": 0.017145254503702745,
+        "p95": 0.022190611009136774,
+        "max": 0.03326510498300195
+      },
+      "wall_loop_s": {
+        "median": 0.01911130250664428,
+        "p95": 0.024143471842398866,
+        "max": 0.05597879097331315
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0002748719127101977,
+      "rate_rms_rad_s": 0.0009667194898359739,
+      "mean_normalized_squared_motor_command": 0.3527929474238518,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": "Tracking acceptance tolerance not met",
+    "task": "mismatch",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "25-geometric-noise_delay-s0-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/25-geometric-noise_delay-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.004061405200039805,
+      "position_max_m": 0.011758415845069812,
+      "axis_rms_m": [
+        0.002845730651764674,
+        0.0023842082915724308,
+        0.0016469305021507858
+      ],
+      "initial_hover_rms_m": 0.0010195889128006125,
+      "transfer_rms_m": 0.0066351219304906645,
+      "steady_hold_rms_m": 0.0018489481908244673,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8130032789217793e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.651592916931179e-16,
+        2.5240226575462543e-16,
+        2.5045070184415152e-17
+      ],
+      "controller_s": {
+        "median": 0.0005202830070629716,
+        "p95": 0.0013347715139389034,
+        "max": 0.005966244963929057
+      },
+      "allocation_s": {
+        "median": 8.679600432515144e-05,
+        "p95": 0.00019863801426254213,
+        "max": 0.0015707149868831038
+      },
+      "rpc_step_s": {
+        "median": 0.016831334010930732,
+        "p95": 0.022120771632762624,
+        "max": 0.038049099035561085
+      },
+      "wall_loop_s": {
+        "median": 0.019203166506486014,
+        "p95": 0.024999377949279727,
+        "max": 0.039528693014290184
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.005486665380603503,
+      "rate_rms_rad_s": 0.024266768959496816,
+      "mean_normalized_squared_motor_command": 0.3527944895159721,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "26-geometric-noise_delay-s1-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/26-geometric-noise_delay-s1-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 994,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.003893855813116728,
+      "position_max_m": 0.011650619513802642,
+      "axis_rms_m": [
+        0.0025529723414158094,
+        0.0019332974051766555,
+        0.0022151312512909984
+      ],
+      "initial_hover_rms_m": 0.0015563735556953949,
+      "transfer_rms_m": 0.0063618214272752275,
+      "steady_hold_rms_m": 0.0016703884161912697,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.797776884200514e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.859759734048396e-16,
+        2.5500435096859064e-16,
+        2.585822181377928e-17
+      ],
+      "controller_s": {
+        "median": 0.0005119429843034595,
+        "p95": 0.0009779356361832466,
+        "max": 0.0035701669985428452
+      },
+      "allocation_s": {
+        "median": 8.564148447476327e-05,
+        "p95": 0.00014958202373236413,
+        "max": 0.0007975730113685131
+      },
+      "rpc_step_s": {
+        "median": 0.0186996019911021,
+        "p95": 0.02444703704677521,
+        "max": 0.04196255799615756
+      },
+      "wall_loop_s": {
+        "median": 0.020638647984014824,
+        "p95": 0.026813099998980756,
+        "max": 0.04331564996391535
+      },
+      "wall_deadline_misses": 994,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.005394592472548575,
+      "rate_rms_rad_s": 0.021889984424902722,
+      "mean_normalized_squared_motor_command": 0.35277847556464986,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 1,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "27-geometric-noise_delay-s2-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/27-geometric-noise_delay-s2-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 989,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.003914281515832616,
+      "position_max_m": 0.010628742631332169,
+      "axis_rms_m": [
+        0.0023822767423814185,
+        0.0026304115842993923,
+        0.0016514515448783288
+      ],
+      "initial_hover_rms_m": 0.0014535995472235662,
+      "transfer_rms_m": 0.006099128494484226,
+      "steady_hold_rms_m": 0.002078167900689606,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8023205725699727e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.5301622736128024e-16,
+        2.671474153004283e-16,
+        2.74574200181954e-17
+      ],
+      "controller_s": {
+        "median": 0.0005084379808977246,
+        "p95": 0.0009540934232063591,
+        "max": 0.00589332397794351
+      },
+      "allocation_s": {
+        "median": 8.532102219760418e-05,
+        "p95": 0.00016100698849186299,
+        "max": 0.0020591520005837083
+      },
+      "rpc_step_s": {
+        "median": 0.0193837370024994,
+        "p95": 0.028108835022430865,
+        "max": 0.09327361499890685
+      },
+      "wall_loop_s": {
+        "median": 0.021280178043525666,
+        "p95": 0.030285240220837287,
+        "max": 0.09487075998913497
+      },
+      "wall_deadline_misses": 989,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0055883504084669,
+      "rate_rms_rad_s": 0.023431210388795202,
+      "mean_normalized_squared_motor_command": 0.3527824128543317,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 2,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "28-geometric-noise_delay-s3-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/28-geometric-noise_delay-s3-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 997,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.004352156240540485,
+      "position_max_m": 0.01296206182915683,
+      "axis_rms_m": [
+        0.0034490986400960485,
+        0.001975376039957415,
+        0.0017728147150013278
+      ],
+      "initial_hover_rms_m": 0.0006485709855589784,
+      "transfer_rms_m": 0.0072694932018962976,
+      "steady_hold_rms_m": 0.0014649782682545959,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8022828136078357e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.767602549387128e-16,
+        2.5587171270657905e-16,
+        2.6129272356900657e-17
+      ],
+      "controller_s": {
+        "median": 0.0005279780016280711,
+        "p95": 0.0014722310123033808,
+        "max": 0.008076397003605962
+      },
+      "allocation_s": {
+        "median": 9.062100434675813e-05,
+        "p95": 0.0002181157935410736,
+        "max": 0.002685542975086719
+      },
+      "rpc_step_s": {
+        "median": 0.018810936016961932,
+        "p95": 0.024771508993580937,
+        "max": 0.03411479800706729
+      },
+      "wall_loop_s": {
+        "median": 0.020865028956905007,
+        "p95": 0.02730821399018168,
+        "max": 0.0362686010194011
+      },
+      "wall_deadline_misses": 997,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.005551252793832993,
+      "rate_rms_rad_s": 0.02372751708864897,
+      "mean_normalized_squared_motor_command": 0.3527764701561543,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 3,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "29-geometric-noise_delay-s4-r0",
+    "controller": "geometric",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/29-geometric-noise_delay-s4-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.0038876705220110075,
+      "position_max_m": 0.011902483145710472,
+      "axis_rms_m": [
+        0.0027331801463337246,
+        0.0019431149034597399,
+        0.0019667264292100063
+      ],
+      "initial_hover_rms_m": 0.001408272113651348,
+      "transfer_rms_m": 0.0063176283058160665,
+      "steady_hold_rms_m": 0.001740047002151834,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.808174734470402e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        4.102621020685149e-16,
+        2.6107588313450947e-16,
+        2.4069288229178198e-17
+      ],
+      "controller_s": {
+        "median": 0.0005211689858697355,
+        "p95": 0.0012361028813756994,
+        "max": 0.008376481011509895
+      },
+      "allocation_s": {
+        "median": 8.893100311979651e-05,
+        "p95": 0.0001885649922769515,
+        "max": 0.0017597679980099201
+      },
+      "rpc_step_s": {
+        "median": 0.01699310605181381,
+        "p95": 0.022292091889539734,
+        "max": 0.03192279097856954
+      },
+      "wall_loop_s": {
+        "median": 0.019807200995273888,
+        "p95": 0.02507462439243679,
+        "max": 0.10242171701975167
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.005350008389978253,
+      "rate_rms_rad_s": 0.0223672040168526,
+      "mean_normalized_squared_motor_command": 0.352757251274851,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 4,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "30-dob-hover_transfer-s0-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/30-dob-hover_transfer-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 997,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.00026889997127138316,
+      "position_max_m": 0.0008075572869028201,
+      "axis_rms_m": [
+        7.37245453965923e-05,
+        5.3030308437604564e-05,
+        0.0002531001231584628
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.00044947291933728915,
+      "steady_hold_rms_m": 1.5083116519476155e-05,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8088643485993317e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.6911662962269e-16,
+        2.66496893996937e-16,
+        2.5778390612861788e-17
+      ],
+      "controller_s": {
+        "median": 0.0006219600327312946,
+        "p95": 0.0012929081800393746,
+        "max": 0.004912176984362304
+      },
+      "allocation_s": {
+        "median": 0.00010283099254593253,
+        "p95": 0.00020067900186404564,
+        "max": 0.002151134016457945
+      },
+      "rpc_step_s": {
+        "median": 0.018897394998930395,
+        "p95": 0.02423822281416504,
+        "max": 0.0354839549981989
+      },
+      "wall_loop_s": {
+        "median": 0.020610712992493063,
+        "p95": 0.026429103803820908,
+        "max": 0.037228861998301
+      },
+      "wall_deadline_misses": 997,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 3.9524595501088236e-05,
+      "rate_rms_rad_s": 0.0003618870896822034,
+      "mean_normalized_squared_motor_command": 0.35275208861706775,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "31-dob-hover_transfer-s0-r1",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/31-dob-hover_transfer-s0-r1/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.00026892683742703983,
+      "position_max_m": 0.0008075787214811203,
+      "axis_rms_m": [
+        7.366560246280658e-05,
+        5.300968581493126e-05,
+        0.00025315014539222273
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.0004500045021086543,
+      "steady_hold_rms_m": 1.4910401647783564e-05,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.813791805937683e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7312817766088635e-16,
+        2.575545595504396e-16,
+        2.7657319793747415e-17
+      ],
+      "controller_s": {
+        "median": 0.0006112200208008289,
+        "p95": 0.001288518978981301,
+        "max": 0.005915851972531527
+      },
+      "allocation_s": {
+        "median": 9.856099495664239e-05,
+        "p95": 0.00019104602397419503,
+        "max": 0.0015286130364984274
+      },
+      "rpc_step_s": {
+        "median": 0.017112297005951405,
+        "p95": 0.022101322899106886,
+        "max": 0.0981959099881351
+      },
+      "wall_loop_s": {
+        "median": 0.01908892800565809,
+        "p95": 0.023828900058288124,
+        "max": 0.10021237196633592
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 3.9487192751137307e-05,
+      "rate_rms_rad_s": 0.00036171769127648544,
+      "mean_normalized_squared_motor_command": 0.35275209325468276,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 1,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "32-dob-circle-s0-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/32-dob-circle-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1664,
+      "duration_s": 19.995426560000002,
+      "position_rms_m": 7.633446876704213e-05,
+      "position_max_m": 0.000182907423361941,
+      "axis_rms_m": [
+        5.294621913236365e-05,
+        5.467989954874525e-05,
+        5.810127956713836e-06
+      ],
+      "loop_rms_m": 9.127028190717017e-05,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.808548523011617e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.9036699220340587e-16,
+        2.70833702686879e-16,
+        2.4863674025575642e-17
+      ],
+      "controller_s": {
+        "median": 0.0005961489805486053,
+        "p95": 0.00135558197798673,
+        "max": 0.005406484007835388
+      },
+      "allocation_s": {
+        "median": 9.886696352623403e-05,
+        "p95": 0.00021799112728331234,
+        "max": 0.0032156399684026837
+      },
+      "rpc_step_s": {
+        "median": 0.017039538972312585,
+        "p95": 0.02163138553733006,
+        "max": 0.03278919996228069
+      },
+      "wall_loop_s": {
+        "median": 0.01911968647618778,
+        "p95": 0.024085864177322943,
+        "max": 0.036906924040522426
+      },
+      "wall_deadline_misses": 1664,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 3.0288151359527456e-05,
+      "rate_rms_rad_s": 0.00019869955926664012,
+      "mean_normalized_squared_motor_command": 0.35283552324480494,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "circle",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "33-dob-disturbance-s0-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/33-dob-disturbance-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.02943197911006721,
+      "position_max_m": 0.08099998335266945,
+      "axis_rms_m": [
+        0.028381966938614316,
+        0.007722885111668902,
+        0.0010307243000916618
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.00044909222463438065,
+      "steady_hold_rms_m": 0.045648793321018774,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8072386296201686e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.676665092169906e-16,
+        2.587023644674049e-16,
+        2.6291902682773483e-17
+      ],
+      "controller_s": {
+        "median": 0.0006160199991427362,
+        "p95": 0.0013065229926723986,
+        "max": 0.003064217045903206
+      },
+      "allocation_s": {
+        "median": 9.94509900920093e-05,
+        "p95": 0.00023214910761453194,
+        "max": 0.001286570040974766
+      },
+      "rpc_step_s": {
+        "median": 0.016552756016608328,
+        "p95": 0.02016965811490081,
+        "max": 0.025423632992897183
+      },
+      "wall_loop_s": {
+        "median": 0.018179340986534953,
+        "p95": 0.02268864390789531,
+        "max": 0.02728838101029396
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": 0.00019200000000019202,
+      "disturbance_interval_rms_m": 0.06393922215128783,
+      "attitude_rms_rad": 0.01287246017345204,
+      "rate_rms_rad_s": 0.06009149831668817,
+      "mean_normalized_squared_motor_command": 0.3529391637427619,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "disturbance",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "34-dob-mismatch-s0-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/34-dob-mismatch-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.009159151341226154,
+      "position_max_m": 0.033602237701416016,
+      "axis_rms_m": [
+        0.00117721359090741,
+        0.0007814751665265213,
+        0.009049503744237585
+      ],
+      "initial_hover_rms_m": 0.02216773757049544,
+      "transfer_rms_m": 0.002403451428823707,
+      "steady_hold_rms_m": 0.000388949067341017,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.799367338830574e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.575173604429896e-16,
+        2.5955800009302976e-16,
+        2.4601346515603944e-17
+      ],
+      "controller_s": {
+        "median": 0.0006063439941499382,
+        "p95": 0.0014046599768334999,
+        "max": 0.010398079990409315
+      },
+      "allocation_s": {
+        "median": 9.72365087363869e-05,
+        "p95": 0.0002128435764461755,
+        "max": 0.001190168026369065
+      },
+      "rpc_step_s": {
+        "median": 0.016488598485011607,
+        "p95": 0.019966702433885077,
+        "max": 0.08711481100181118
+      },
+      "wall_loop_s": {
+        "median": 0.018054098007269204,
+        "p95": 0.021958666533464566,
+        "max": 0.08861819404410198
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.00034756677352156424,
+      "rate_rms_rad_s": 0.0024236314993785002,
+      "mean_normalized_squared_motor_command": 0.3527335918497433,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "mismatch",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "35-dob-noise_delay-s0-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/35-dob-noise_delay-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.004244514630308113,
+      "position_max_m": 0.012290372251833638,
+      "axis_rms_m": [
+        0.0028982408249272128,
+        0.002608754414794579,
+        0.0016764560748539273
+      ],
+      "initial_hover_rms_m": 0.0013860003504112292,
+      "transfer_rms_m": 0.006926572814519516,
+      "steady_hold_rms_m": 0.00191996833255481,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.80673529341506e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7947076036992655e-16,
+        2.5847379792054426e-16,
+        2.791820594150174e-17
+      ],
+      "controller_s": {
+        "median": 0.0005700389738194644,
+        "p95": 0.0015065829269587992,
+        "max": 0.0042302049696445465
+      },
+      "allocation_s": {
+        "median": 8.918100502341986e-05,
+        "p95": 0.00022688400931656326,
+        "max": 0.004451417946256697
+      },
+      "rpc_step_s": {
+        "median": 0.016363170987460762,
+        "p95": 0.020265198958804825,
+        "max": 0.03093244496267289
+      },
+      "wall_loop_s": {
+        "median": 0.018750287010334432,
+        "p95": 0.023437257966725154,
+        "max": 0.032784804003313184
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.012088890504669998,
+      "rate_rms_rad_s": 0.04482833318772906,
+      "mean_normalized_squared_motor_command": 0.3528417547104064,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "36-dob-noise_delay-s1-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/36-dob-noise_delay-s1-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.004014804172532717,
+      "position_max_m": 0.011907856834078344,
+      "axis_rms_m": [
+        0.0024924543210243524,
+        0.002089493183787344,
+        0.0023537931592005645
+      ],
+      "initial_hover_rms_m": 0.0018096145653526735,
+      "transfer_rms_m": 0.006468875761670972,
+      "steady_hold_rms_m": 0.0018919637365851583,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.801541095961738e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.5735303605122226e-16,
+        2.476317761956892e-16,
+        2.7972416050126014e-17
+      ],
+      "controller_s": {
+        "median": 0.0005560590070672333,
+        "p95": 0.0013132480002241206,
+        "max": 0.0065292600193060935
+      },
+      "allocation_s": {
+        "median": 8.908149902708828e-05,
+        "p95": 0.00019347697962075462,
+        "max": 0.0036384949926286936
+      },
+      "rpc_step_s": {
+        "median": 0.017981356009840965,
+        "p95": 0.0224478180258302,
+        "max": 0.0358767089783214
+      },
+      "wall_loop_s": {
+        "median": 0.02037389250472188,
+        "p95": 0.02546243878896348,
+        "max": 0.03838645794894546
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0118579363068261,
+      "rate_rms_rad_s": 0.03991821395892504,
+      "mean_normalized_squared_motor_command": 0.3528047664203985,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 1,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "37-dob-noise_delay-s2-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/37-dob-noise_delay-s2-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 997,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.003982874012325993,
+      "position_max_m": 0.010535610372296196,
+      "axis_rms_m": [
+        0.002369667795395336,
+        0.0026111233002901455,
+        0.0018520245808870514
+      ],
+      "initial_hover_rms_m": 0.001620694761116691,
+      "transfer_rms_m": 0.006148334281501101,
+      "steady_hold_rms_m": 0.002390470729472214,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8054581774787003e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.894454203567932e-16,
+        2.6281060661048627e-16,
+        2.6142824884056726e-17
+      ],
+      "controller_s": {
+        "median": 0.0005511990166269243,
+        "p95": 0.0011820179875940081,
+        "max": 0.005073747015558183
+      },
+      "allocation_s": {
+        "median": 8.522102143615484e-05,
+        "p95": 0.00015739280497655263,
+        "max": 0.003163048007991165
+      },
+      "rpc_step_s": {
+        "median": 0.018686544965021312,
+        "p95": 0.024209087796043603,
+        "max": 0.03366805502446368
+      },
+      "wall_loop_s": {
+        "median": 0.02066522598033771,
+        "p95": 0.02672229679301381,
+        "max": 0.0385209689848125
+      },
+      "wall_deadline_misses": 997,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.01243606539360769,
+      "rate_rms_rad_s": 0.04438616589339841,
+      "mean_normalized_squared_motor_command": 0.3528235651327748,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 2,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "38-dob-noise_delay-s3-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/38-dob-noise_delay-s3-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 994,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.004391261685150531,
+      "position_max_m": 0.01311701394572162,
+      "axis_rms_m": [
+        0.0034727554089931047,
+        0.0020071126749908242,
+        0.0017873577612418279
+      ],
+      "initial_hover_rms_m": 0.0011453727524120827,
+      "transfer_rms_m": 0.007291174388670385,
+      "steady_hold_rms_m": 0.001669186071289023,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.798315852164158e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.699297812520541e-16,
+        2.636779683484747e-16,
+        2.565493390643825e-17
+      ],
+      "controller_s": {
+        "median": 0.0005593835085164756,
+        "p95": 0.0011742680129827904,
+        "max": 0.005515244964044541
+      },
+      "allocation_s": {
+        "median": 8.68809875100851e-05,
+        "p95": 0.00018230949062854036,
+        "max": 0.0039390200399793684
+      },
+      "rpc_step_s": {
+        "median": 0.018895093497121707,
+        "p95": 0.024682582871173506,
+        "max": 0.03699400299228728
+      },
+      "wall_loop_s": {
+        "median": 0.02095492900116369,
+        "p95": 0.027434038688079445,
+        "max": 0.08071276900591329
+      },
+      "wall_deadline_misses": 994,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.012168700947937743,
+      "rate_rms_rad_s": 0.04314485258811402,
+      "mean_normalized_squared_motor_command": 0.3528062287542577,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 3,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "39-dob-noise_delay-s4-r0",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/39-dob-noise_delay-s4-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 988,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.004013194016063878,
+      "position_max_m": 0.012196223477602689,
+      "axis_rms_m": [
+        0.0028081893793437005,
+        0.0018352196520585089,
+        0.0022026727966292232
+      ],
+      "initial_hover_rms_m": 0.0017679518837187518,
+      "transfer_rms_m": 0.006395912147248977,
+      "steady_hold_rms_m": 0.001981833289043549,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.808786078258405e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.660266534311063e-16,
+        2.5500435096859064e-16,
+        2.5587171270657905e-17
+      ],
+      "controller_s": {
+        "median": 0.000546883005881682,
+        "p95": 0.0009273046714952213,
+        "max": 0.006583779992070049
+      },
+      "allocation_s": {
+        "median": 8.418600191362202e-05,
+        "p95": 0.00014585181488655508,
+        "max": 0.0027269309503026307
+      },
+      "rpc_step_s": {
+        "median": 0.018914636981207877,
+        "p95": 0.029010561676113863,
+        "max": 0.05437706602970138
+      },
+      "wall_loop_s": {
+        "median": 0.0208701670053415,
+        "p95": 0.03126121864188462,
+        "max": 0.06083509401651099
+      },
+      "wall_deadline_misses": 988,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.01197413819011139,
+      "rate_rms_rad_s": 0.04156156299729104,
+      "mean_normalized_squared_motor_command": 0.35278555232624276,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 4,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "40-mpc-hover_transfer-s0-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/40-mpc-hover_transfer-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 997,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.003081104839706558,
+      "position_max_m": 0.009563356931589113,
+      "axis_rms_m": [
+        0.00041559870712338414,
+        0.00027847011036865894,
+        0.0030402202462209565
+      ],
+      "initial_hover_rms_m": 2.0608561795865328e-05,
+      "transfer_rms_m": 0.0053362492205101045,
+      "steady_hold_rms_m": 8.255136513697357e-05,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8001218012297026e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.4385471900377773e-16,
+        2.704542319265091e-16,
+        2.216475801512921e-17
+      ],
+      "controller_s": {
+        "median": 8.959963452070951e-06,
+        "p95": 0.006065095996018499,
+        "max": 0.052829140971880406
+      },
+      "allocation_s": {
+        "median": 9.672099258750677e-05,
+        "p95": 0.00018984099151566616,
+        "max": 0.0021876940154470503
+      },
+      "rpc_step_s": {
+        "median": 0.01790972100570798,
+        "p95": 0.022722899983637034,
+        "max": 0.03265312500298023
+      },
+      "wall_loop_s": {
+        "median": 0.020566791004966944,
+        "p95": 0.026999367005191743,
+        "max": 0.06867859099293128
+      },
+      "wall_deadline_misses": 997,
+      "fallback_count": 0,
+      "qp_updates": 333,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.0028990039718337357,
+        "p95": 0.008223562990315252,
+        "max": 0.052829140971880406
+      },
+      "solver_status_counts": {
+        "solved": 333
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0002511752721910103,
+      "rate_rms_rad_s": 0.0005980114318159588,
+      "mean_normalized_squared_motor_command": 0.35274291421111026,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "41-mpc-hover_transfer-s0-r1",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/41-mpc-hover_transfer-s0-r1/log.jsonl",
+    "metrics": {
+      "valid_samples": 990,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.0030810223969613987,
+      "position_max_m": 0.009561673777922707,
+      "axis_rms_m": [
+        0.00041543684753705945,
+        0.00027839782281289974,
+        0.003040165437692375
+      ],
+      "initial_hover_rms_m": 1.962157562458192e-05,
+      "transfer_rms_m": 0.005332102556708876,
+      "steady_hold_rms_m": 8.23852038614689e-05,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8180518497854773e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.8533001152088467e-16,
+        2.4383706859198995e-16,
+        2.3091812208046736e-17
+      ],
+      "controller_s": {
+        "median": 8.725037332624197e-06,
+        "p95": 0.0064536170597421,
+        "max": 0.014579940005205572
+      },
+      "allocation_s": {
+        "median": 9.531647083349526e-05,
+        "p95": 0.00020055900968145575,
+        "max": 0.0044770880485884845
+      },
+      "rpc_step_s": {
+        "median": 0.017910846014274284,
+        "p95": 0.026469864996033717,
+        "max": 0.05040404002647847
+      },
+      "wall_loop_s": {
+        "median": 0.02061497699469328,
+        "p95": 0.02963065157236997,
+        "max": 0.052296379988547415
+      },
+      "wall_deadline_misses": 990,
+      "fallback_count": 0,
+      "qp_updates": 330,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.003415241517359391,
+        "p95": 0.008398262996342965,
+        "max": 0.014579940005205572
+      },
+      "solver_status_counts": {
+        "solved": 330
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0002511568983373994,
+      "rate_rms_rad_s": 0.0005978622136479107,
+      "mean_normalized_squared_motor_command": 0.3527428189937474,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "hover_transfer",
+    "seed": 0,
+    "repeat": 1,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "42-mpc-circle-s0-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/42-mpc-circle-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1665,
+      "duration_s": 19.995426560000002,
+      "position_rms_m": 0.0013609592257994056,
+      "position_max_m": 0.0038079828728944604,
+      "axis_rms_m": [
+        9.11384360140977e-05,
+        0.00010014095258005432,
+        0.001354206627286169
+      ],
+      "loop_rms_m": 0.0016270829066971403,
+      "transfer_settle_s": 0.009128192000000368,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8036721326281524e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.5266386165522245e-16,
+        2.427534752244353e-16,
+        2.4205448775449327e-17
+      ],
+      "controller_s": {
+        "median": 8.860020898282528e-06,
+        "p95": 0.008077251841314135,
+        "max": 0.0727038059849292
+      },
+      "allocation_s": {
+        "median": 9.757198859006166e-05,
+        "p95": 0.0002465137979015708,
+        "max": 0.004315064987167716
+      },
+      "rpc_step_s": {
+        "median": 0.01673861197195947,
+        "p95": 0.02040176304290071,
+        "max": 0.029132168972864747
+      },
+      "wall_loop_s": {
+        "median": 0.019193569023627788,
+        "p95": 0.02767524099908769,
+        "max": 0.09177672397345304
+      },
+      "wall_deadline_misses": 1665,
+      "fallback_count": 0,
+      "qp_updates": 555,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.006041201006155461,
+        "p95": 0.010440286673838272,
+        "max": 0.0727038059849292
+      },
+      "solver_status_counts": {
+        "solved": 555
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.00035111958391489473,
+      "rate_rms_rad_s": 0.000913216725436421,
+      "mean_normalized_squared_motor_command": 0.35283547122196246,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "circle",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "43-mpc-disturbance-s0-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/43-mpc-disturbance-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.04729416876934243,
+      "position_max_m": 0.13141733103771774,
+      "axis_rms_m": [
+        0.0456154558153769,
+        0.012061801133636717,
+        0.003237521235612719
+      ],
+      "initial_hover_rms_m": 1.962157562458192e-05,
+      "transfer_rms_m": 0.0053353855258208745,
+      "steady_hold_rms_m": 0.0731779796711475,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8007461011361418e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.560668165208166e-16,
+        2.4383706859198995e-16,
+        2.5970030162816848e-17
+      ],
+      "controller_s": {
+        "median": 8.981034625321627e-06,
+        "p95": 0.006504040170693758,
+        "max": 0.017745386983733624
+      },
+      "allocation_s": {
+        "median": 9.968201629817486e-05,
+        "p95": 0.00026427599368616933,
+        "max": 0.0019291989738121629
+      },
+      "rpc_step_s": {
+        "median": 0.016690601012669504,
+        "p95": 0.02023373803240247,
+        "max": 0.0255558030330576
+      },
+      "wall_loop_s": {
+        "median": 0.018323205003980547,
+        "p95": 0.026309581886744125,
+        "max": 0.03854828898329288
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "qp_updates": 333,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.0032172880019061267,
+        "p95": 0.00933135221712291,
+        "max": 0.017745386983733624
+      },
+      "solver_status_counts": {
+        "solved": 333
+      },
+      "collision_samples": 0,
+      "recovery_s": 0.4772021760000005,
+      "disturbance_interval_rms_m": 0.08995371654598078,
+      "attitude_rms_rad": 0.019853336412717776,
+      "rate_rms_rad_s": 0.031963044653000997,
+      "mean_normalized_squared_motor_command": 0.3529137711361453,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "disturbance",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "44-mpc-mismatch-s0-r0",
+    "controller": "mpc",
+    "status": "failed",
+    "log_path": "results/runs/frozen-m3-final-20261020/44-mpc-mismatch-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.20334163806300745,
+      "position_max_m": 0.22191959249836676,
+      "axis_rms_m": [
+        0.00041700373379473856,
+        0.0002758331964804655,
+        0.20334102339193838
+      ],
+      "initial_hover_rms_m": 0.1363439169916285,
+      "transfer_rms_m": 0.2122017382744529,
+      "steady_hold_rms_m": 0.2155994896661566,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.810599732535243e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.846769292662169e-16,
+        2.367281195890316e-16,
+        2.3072388352902766e-17
+      ],
+      "controller_s": {
+        "median": 9.350012987852097e-06,
+        "p95": 0.0062414531013928335,
+        "max": 0.016618850000668317
+      },
+      "allocation_s": {
+        "median": 9.944097837433219e-05,
+        "p95": 0.0002544999995734542,
+        "max": 0.0030427059973590076
+      },
+      "rpc_step_s": {
+        "median": 0.016517817974090576,
+        "p95": 0.020173884026007727,
+        "max": 0.025572053040377796
+      },
+      "wall_loop_s": {
+        "median": 0.018093520950060338,
+        "p95": 0.024799207097385072,
+        "max": 0.03503105597337708
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "qp_updates": 333,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.0031857179710641503,
+        "p95": 0.0077480857609771156,
+        "max": 0.016618850000668317
+      },
+      "solver_status_counts": {
+        "solved": 333
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.00026395687503373447,
+      "rate_rms_rad_s": 0.0007309852910157549,
+      "mean_normalized_squared_motor_command": 0.3527749071609527,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": "Tracking acceptance tolerance not met",
+    "task": "mismatch",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "45-mpc-noise_delay-s0-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/45-mpc-noise_delay-s0-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 999,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.0058157474865393015,
+      "position_max_m": 0.012961667303877199,
+      "axis_rms_m": [
+        0.0038877200679355074,
+        0.002383060044535201,
+        0.0036096504435609313
+      ],
+      "initial_hover_rms_m": 0.0022558055473212014,
+      "transfer_rms_m": 0.009346014435477945,
+      "steady_hold_rms_m": 0.0027899597226179276,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.796250050642625e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.8693820283292046e-16,
+        2.435118079402443e-16,
+        2.45029690981724e-17
+      ],
+      "controller_s": {
+        "median": 8.369970601052046e-06,
+        "p95": 0.0061169401218649,
+        "max": 0.0213020290248096
+      },
+      "allocation_s": {
+        "median": 8.686102228239179e-05,
+        "p95": 0.0002254960942082102,
+        "max": 0.0018065969925373793
+      },
+      "rpc_step_s": {
+        "median": 0.01647610601503402,
+        "p95": 0.01995928402757272,
+        "max": 0.028689978003967553
+      },
+      "wall_loop_s": {
+        "median": 0.018666928983293474,
+        "p95": 0.02585007599554956,
+        "max": 0.04022922198055312
+      },
+      "wall_deadline_misses": 999,
+      "fallback_count": 0,
+      "qp_updates": 333,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.0030126149649731815,
+        "p95": 0.007713553600478911,
+        "max": 0.0213020290248096
+      },
+      "solver_status_counts": {
+        "solved": 333
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0044836879093973474,
+      "rate_rms_rad_s": 0.06290456307979882,
+      "mean_normalized_squared_motor_command": 0.3528130348413508,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "46-mpc-noise_delay-s1-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/46-mpc-noise_delay-s1-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.991255808,
+      "position_rms_m": 0.005470405728702327,
+      "position_max_m": 0.012973232869735753,
+      "axis_rms_m": [
+        0.004136014190290097,
+        0.001964677994462493,
+        0.0029931197490934143
+      ],
+      "initial_hover_rms_m": 0.002236886538794188,
+      "transfer_rms_m": 0.008615489446201618,
+      "steady_hold_rms_m": 0.0029790705890214383,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8043353079441284e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.5041414214731503e-16,
+        2.467644144577008e-16,
+        2.3123152427095145e-17
+      ],
+      "controller_s": {
+        "median": 8.140021236613393e-06,
+        "p95": 0.005708883493207395,
+        "max": 0.014836581016425043
+      },
+      "allocation_s": {
+        "median": 7.950147846713662e-05,
+        "p95": 0.0001910670252982526,
+        "max": 0.00244910700712353
+      },
+      "rpc_step_s": {
+        "median": 0.01633093849522993,
+        "p95": 0.019844558494514785,
+        "max": 0.026325023034587502
+      },
+      "wall_loop_s": {
+        "median": 0.01818257151171565,
+        "p95": 0.02424693649227265,
+        "max": 0.041401338996365666
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "qp_updates": 334,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.0027448759938124567,
+        "p95": 0.007165681489277631,
+        "max": 0.014836581016425043
+      },
+      "solver_status_counts": {
+        "solved": 334
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.004293432523232252,
+      "rate_rms_rad_s": 0.06841812436117244,
+      "mean_normalized_squared_motor_command": 0.3528246446350514,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 1,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "47-mpc-noise_delay-s2-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/47-mpc-noise_delay-s2-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.005761517513426653,
+      "position_max_m": 0.013445243137171223,
+      "axis_rms_m": [
+        0.0036355240666425576,
+        0.0028859615922786335,
+        0.003413103354174521
+      ],
+      "initial_hover_rms_m": 0.003414588537239877,
+      "transfer_rms_m": 0.008598785284831406,
+      "steady_hold_rms_m": 0.003489687225629154,
+      "transfer_settle_s": 0.000128000000000128,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.79990179062581e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.5041414214731503e-16,
+        2.411265631607762e-16,
+        2.303929616531697e-17
+      ],
+      "controller_s": {
+        "median": 8.90000956133008e-06,
+        "p95": 0.0063645296293543645,
+        "max": 0.01358826202340424
+      },
+      "allocation_s": {
+        "median": 8.61859880387783e-05,
+        "p95": 0.00021786654542665923,
+        "max": 0.002933184034191072
+      },
+      "rpc_step_s": {
+        "median": 0.016676618484780192,
+        "p95": 0.020295128124416806,
+        "max": 0.025504800025373697
+      },
+      "wall_loop_s": {
+        "median": 0.0194090090226382,
+        "p95": 0.02663071000133641,
+        "max": 0.042464524041861296
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "qp_updates": 333,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.0029823650256730616,
+        "p95": 0.008771946572232979,
+        "max": 0.01358826202340424
+      },
+      "solver_status_counts": {
+        "solved": 333
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.004110330035686849,
+      "rate_rms_rad_s": 0.06191949061543429,
+      "mean_normalized_squared_motor_command": 0.35277766270982186,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 2,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "48-mpc-noise_delay-s3-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/48-mpc-noise_delay-s3-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.0056254257211133364,
+      "position_max_m": 0.01512873015285992,
+      "axis_rms_m": [
+        0.003703080390437436,
+        0.0032927445812283426,
+        0.0026627886300855004
+      ],
+      "initial_hover_rms_m": 0.002870356902530476,
+      "transfer_rms_m": 0.008915713134505017,
+      "steady_hold_rms_m": 0.0028847371609245897,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.7977708784866006e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.449931312848875e-16,
+        2.5652223401007035e-16,
+        2.5587171270657905e-17
+      ],
+      "controller_s": {
+        "median": 8.859991794452071e-06,
+        "p95": 0.006267688469961285,
+        "max": 0.015038384008221328
+      },
+      "allocation_s": {
+        "median": 8.533100481145084e-05,
+        "p95": 0.00019700902339536694,
+        "max": 0.0034232710022479296
+      },
+      "rpc_step_s": {
+        "median": 0.01815908501157537,
+        "p95": 0.022604226786643263,
+        "max": 0.030706646968610585
+      },
+      "wall_loop_s": {
+        "median": 0.020745997986523435,
+        "p95": 0.027244973508641124,
+        "max": 0.03663243498886004
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "qp_updates": 333,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.002777802001219243,
+        "p95": 0.008253350399900225,
+        "max": 0.015038384008221328
+      },
+      "solver_status_counts": {
+        "solved": 333
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.0042292092226481415,
+      "rate_rms_rad_s": 0.06378609960038709,
+      "mean_normalized_squared_motor_command": 0.3528067533796259,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 3,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "49-mpc-noise_delay-s4-r0",
+    "controller": "mpc",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/49-mpc-noise_delay-s4-r0/log.jsonl",
+    "metrics": {
+      "valid_samples": 996,
+      "duration_s": 11.994255872,
+      "position_rms_m": 0.004682605727761,
+      "position_max_m": 0.01192519123751919,
+      "axis_rms_m": [
+        0.0028475586827568884,
+        0.0028163632340333813,
+        0.0024261706625670456
+      ],
+      "initial_hover_rms_m": 0.00236089070009804,
+      "transfer_rms_m": 0.007490100662062219,
+      "steady_hold_rms_m": 0.0022787136586866303,
+      "transfer_settle_s": 0.003128064000000208,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.812244635894852e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.7643499428696714e-16,
+        2.5240226575462543e-16,
+        2.5099280293039428e-17
+      ],
+      "controller_s": {
+        "median": 8.789997082203627e-06,
+        "p95": 0.00581324627273716,
+        "max": 0.012152000039350241
+      },
+      "allocation_s": {
+        "median": 8.65460024215281e-05,
+        "p95": 0.00019614050688687712,
+        "max": 0.003306258993688971
+      },
+      "rpc_step_s": {
+        "median": 0.01880148399504833,
+        "p95": 0.023316071514273062,
+        "max": 0.03399354399880394
+      },
+      "wall_loop_s": {
+        "median": 0.020876080001471564,
+        "p95": 0.028766245508450083,
+        "max": 0.037919073016382754
+      },
+      "wall_deadline_misses": 996,
+      "fallback_count": 0,
+      "qp_updates": 332,
+      "fallback_activations": 0,
+      "qp_update_computation_s": {
+        "median": 0.0028388419887050986,
+        "p95": 0.007765978202223774,
+        "max": 0.012152000039350241
+      },
+      "solver_status_counts": {
+        "solved": 332
+      },
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.004533035958586773,
+      "rate_rms_rad_s": 0.06761250746272332,
+      "mean_normalized_squared_motor_command": 0.3527651045428583,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "noise_delay",
+    "seed": 4,
+    "repeat": 0,
+    "observer_enabled": true
+  },
+  {
+    "run_id": "50-dob-disturbance-s0-r0-off",
+    "controller": "dob",
+    "status": "passed",
+    "log_path": "results/runs/frozen-m3-final-20261020/50-dob-disturbance-s0-r0-off/log.jsonl",
+    "metrics": {
+      "valid_samples": 998,
+      "duration_s": 11.997255936,
+      "position_rms_m": 0.062412210546372825,
+      "position_max_m": 0.17605085006574872,
+      "axis_rms_m": [
+        0.06019042235673067,
+        0.016491159919061138,
+        0.0006623641952124928
+      ],
+      "initial_hover_rms_m": 0.0,
+      "transfer_rms_m": 0.00041092532137958974,
+      "steady_hold_rms_m": 0.09675301008241216,
+      "transfer_settle_s": 0.006128128000000288,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8035676680158463e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.917510440392194e-16,
+        2.553075887637077e-16,
+        2.2079925473433067e-17
+      ],
+      "controller_s": {
+        "median": 0.0006075340206734836,
+        "p95": 0.0012703599903034042,
+        "max": 0.0034331799834035337
+      },
+      "allocation_s": {
+        "median": 9.530602255836129e-05,
+        "p95": 0.00018775914504658424,
+        "max": 0.0017265360220335424
+      },
+      "rpc_step_s": {
+        "median": 0.01871456200024113,
+        "p95": 0.022384310472989454,
+        "max": 0.03157202701549977
+      },
+      "wall_loop_s": {
+        "median": 0.020397871994646266,
+        "p95": 0.024487593641970305,
+        "max": 0.07950781797990203
+      },
+      "wall_deadline_misses": 998,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": 0.7442078720000005,
+      "disturbance_interval_rms_m": 0.11692656596714227,
+      "attitude_rms_rad": 0.010969459533517639,
+      "rate_rms_rad_s": 0.050824799684762126,
+      "mean_normalized_squared_motor_command": 0.3529393421299876,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "failure": null,
+    "task": "disturbance",
+    "seed": 0,
+    "repeat": 0,
+    "observer_enabled": false
+  }
+]

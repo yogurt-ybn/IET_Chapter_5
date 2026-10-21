@@ -1,0 +1,616 @@
+{
+  "platform": "Linux",
+  "python": "3.10.12",
+  "vehicle": "Chapter5",
+  "capabilities": {
+    "ping": {
+      "available": true,
+      "result": true,
+      "wall_s": 0.002024826011620462
+    },
+    "getServerVersion": {
+      "available": true,
+      "result": 1,
+      "wall_s": 0.0014103690045885742
+    },
+    "getMinRequiredClientVersion": {
+      "available": true,
+      "result": 1,
+      "wall_s": 0.00013971101725474
+    },
+    "listVehicles": {
+      "available": true,
+      "result": [
+        "Chapter5"
+      ],
+      "wall_s": 0.000859471969306469
+    },
+    "simIsPaused": {
+      "available": true,
+      "result": false,
+      "wall_s": 0.00011330097913742065
+    },
+    "isApiControlEnabled": {
+      "available": true,
+      "result": false,
+      "wall_s": 7.872097194194794e-05
+    },
+    "getMultirotorState": {
+      "available": true,
+      "result": {
+        "collision": {
+          "has_collided": false,
+          "penetration_depth": 0.0,
+          "time_stamp": 0,
+          "normal": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          },
+          "impact_point": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          },
+          "position": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          },
+          "object_name": "",
+          "object_id": -1
+        },
+        "kinematics_estimated": {
+          "position": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 3.679650068283081
+          },
+          "orientation": {
+            "w_val": 1.0,
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          },
+          "linear_velocity": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          },
+          "angular_velocity": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          },
+          "linear_acceleration": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          },
+          "angular_acceleration": {
+            "x_val": 0.0,
+            "y_val": 0.0,
+            "z_val": 0.0
+          }
+        },
+        "gps_location": {
+          "latitude": 47.64146799999743,
+          "longitude": -122.14016499999997,
+          "altitude": 121.32044219970703
+        },
+        "timestamp": 1792464725410284544,
+        "landed_state": 0,
+        "rc_data": {
+          "timestamp": 0,
+          "pitch": 0.0,
+          "roll": 0.0,
+          "throttle": 0.0,
+          "yaw": 0.0,
+          "left_z": 0.0,
+          "right_z": 0.0,
+          "switches": 0,
+          "vendor_id": "",
+          "is_initialized": false,
+          "is_valid": false
+        }
+      },
+      "wall_s": 0.0009359319810755551
+    },
+    "getDynamicsParameters": {
+      "available": true,
+      "result": {
+        "mass": 1.0,
+        "inertia": [
+          0.006721187382936478,
+          0.0,
+          0.0,
+          0.0,
+          0.008040687069296837,
+          0.0,
+          0.0,
+          0.0,
+          0.014278875663876534
+        ],
+        "body_box": {
+          "x_val": 0.18000000715255737,
+          "y_val": 0.10999999940395355,
+          "z_val": 0.03999999910593033
+        },
+        "rotor_poses": [
+          {
+            "position": {
+              "x_val": 0.16086679697036743,
+              "y_val": 0.16086679697036743,
+              "z_val": 0.02500000037252903
+            },
+            "normal": {
+              "x_val": 0.0,
+              "y_val": 0.0,
+              "z_val": -1.0
+            },
+            "turning_direction": -1
+          },
+          {
+            "position": {
+              "x_val": -0.16086679697036743,
+              "y_val": -0.16086679697036743,
+              "z_val": 0.02500000037252903
+            },
+            "normal": {
+              "x_val": 0.0,
+              "y_val": 0.0,
+              "z_val": -1.0
+            },
+            "turning_direction": -1
+          },
+          {
+            "position": {
+              "x_val": 0.16086679697036743,
+              "y_val": -0.16086679697036743,
+              "z_val": 0.02500000037252903
+            },
+            "normal": {
+              "x_val": 0.0,
+              "y_val": 0.0,
+              "z_val": -1.0
+            },
+            "turning_direction": 1
+          },
+          {
+            "position": {
+              "x_val": -0.16086679697036743,
+              "y_val": 0.16086679697036743,
+              "z_val": 0.02500000037252903
+            },
+            "normal": {
+              "x_val": 0.0,
+              "y_val": 0.0,
+              "z_val": -1.0
+            },
+            "turning_direction": 1
+          }
+        ],
+        "max_thrust": 4.179445266723633,
+        "max_torque": 0.05556217208504677,
+        "max_speed": 669.857421875,
+        "max_rpm": 6396.6669921875,
+        "thrust_coefficient": 0.1099189966917038,
+        "power_coefficient": 0.040164001286029816,
+        "rotor_reference_air_density": 1.225000023841858,
+        "propeller_diameter": 0.22859999537467957,
+        "propeller_height": 0.009999999776482582,
+        "control_signal_filter_tc": 0.004999999888241291,
+        "linear_drag_coefficient": 0.32499998807907104,
+        "angular_drag_coefficient": 0.32499998807907104,
+        "restitution": 0.550000011920929,
+        "friction": 0.5,
+        "air_density": 1.210349440574646,
+        "gravity": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 9.806650161743164
+        },
+        "physics_loop_period_nanos": 3000064
+      },
+      "wall_s": 0.0002790039870887995
+    },
+    "getRotorStates": {
+      "available": true,
+      "result": {
+        "rotors": [
+          {
+            "thrust": 0.2786296606063843,
+            "torque_scaler": -0.0037041446194052696,
+            "speed": 172.95643615722656,
+            "control_signal_input": 0.06666667014360428,
+            "control_signal_filtered": 0.06666666269302368
+          },
+          {
+            "thrust": 0.2786296606063843,
+            "torque_scaler": -0.0037041446194052696,
+            "speed": 172.95643615722656,
+            "control_signal_input": 0.06666667014360428,
+            "control_signal_filtered": 0.06666666269302368
+          },
+          {
+            "thrust": 0.2786296606063843,
+            "torque_scaler": 0.0037041446194052696,
+            "speed": 172.95643615722656,
+            "control_signal_input": 0.06666667014360428,
+            "control_signal_filtered": 0.06666666269302368
+          },
+          {
+            "thrust": 0.2786296606063843,
+            "torque_scaler": 0.0037041446194052696,
+            "speed": 172.95643615722656,
+            "control_signal_input": 0.06666667014360428,
+            "control_signal_filtered": 0.06666666269302368
+          }
+        ],
+        "timestamp": 1792464725407284480
+      },
+      "wall_s": 0.00011701101902872324
+    },
+    "simGetGroundTruthKinematics": {
+      "available": true,
+      "result": {
+        "position": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 3.679650068283081
+        },
+        "orientation": {
+          "w_val": 1.0,
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 0.0
+        },
+        "linear_velocity": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 0.0
+        },
+        "angular_velocity": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 0.0
+        },
+        "linear_acceleration": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 0.0
+        },
+        "angular_acceleration": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 0.0
+        }
+      },
+      "wall_s": 0.00011423201067373157
+    },
+    "simGetGroundTruthEnvironment": {
+      "available": true,
+      "result": {
+        "position": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 3.679650068283081
+        },
+        "geo_point": {
+          "latitude": 47.64146799999743,
+          "longitude": -122.14016499999997,
+          "altitude": 121.32044219970703
+        },
+        "gravity": {
+          "x_val": 0.0,
+          "y_val": 0.0,
+          "z_val": 9.806650161743164
+        },
+        "air_pressure": 99876.0390625,
+        "temperature": 287.3614196777344,
+        "air_density": 1.2107954025268555
+      },
+      "wall_s": 6.888096686452627e-05
+    },
+    "getDynamicsStateBatch": {
+      "available": true,
+      "result": {
+        "samples": [
+          {
+            "sequence": 1,
+            "reset_id": 1,
+            "timestamp": 1792464697209682944,
+            "dt": 0.0,
+            "rotors": [
+              {
+                "thrust": 0.0,
+                "torque_scaler": -0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.0,
+                "control_signal_filtered": 0.0
+              },
+              {
+                "thrust": 0.0,
+                "torque_scaler": -0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.0,
+                "control_signal_filtered": 0.0
+              },
+              {
+                "thrust": 0.0,
+                "torque_scaler": 0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.0,
+                "control_signal_filtered": 0.0
+              },
+              {
+                "thrust": 0.0,
+                "torque_scaler": 0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.0,
+                "control_signal_filtered": 0.0
+              }
+            ],
+            "kinematics": {
+              "position": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": -0.1464959681034088
+              },
+              "orientation": {
+                "w_val": 1.0,
+                "x_val": -0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.014709699898958206
+              },
+              "angular_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 9.806650161743164
+              },
+              "angular_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              }
+            },
+            "has_collided": false,
+            "grounded": false
+          },
+          {
+            "sequence": 2,
+            "reset_id": 1,
+            "timestamp": 1792464697212683008,
+            "dt": 0.003000064054504037,
+            "rotors": [
+              {
+                "thrust": 0.0,
+                "torque_scaler": -0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.0
+              },
+              {
+                "thrust": 0.0,
+                "torque_scaler": -0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.0
+              },
+              {
+                "thrust": 0.0,
+                "torque_scaler": 0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.0
+              },
+              {
+                "thrust": 0.0,
+                "torque_scaler": 0.0,
+                "speed": 0.0,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.0
+              }
+            ],
+            "kinematics": {
+              "position": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": -0.14640770852565765
+              },
+              "orientation": {
+                "w_val": 1.0,
+                "x_val": -0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.04413028061389923
+              },
+              "angular_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 9.806650161743164
+              },
+              "angular_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              }
+            },
+            "has_collided": false,
+            "grounded": false
+          },
+          {
+            "sequence": 3,
+            "reset_id": 1,
+            "timestamp": 1792464697215683072,
+            "dt": 0.003000064054504037,
+            "rotors": [
+              {
+                "thrust": 0.125716432929039,
+                "torque_scaler": -0.0016712931683287024,
+                "speed": 116.17671203613281,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.030079694464802742
+              },
+              {
+                "thrust": 0.125716432929039,
+                "torque_scaler": -0.0016712931683287024,
+                "speed": 116.17671203613281,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.030079694464802742
+              },
+              {
+                "thrust": 0.125716432929039,
+                "torque_scaler": 0.0016712931683287024,
+                "speed": 116.17671203613281,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.030079694464802742
+              },
+              {
+                "thrust": 0.125716432929039,
+                "torque_scaler": 0.0016712931683287024,
+                "speed": 116.17671203613281,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.030079694464802742
+              }
+            ],
+            "kinematics": {
+              "position": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": -0.14623118937015533
+              },
+              "orientation": {
+                "w_val": 1.0,
+                "x_val": -0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.07355085760354996
+              },
+              "angular_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 9.806650161743164
+              },
+              "angular_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              }
+            },
+            "has_collided": false,
+            "grounded": false
+          },
+          {
+            "sequence": 4,
+            "reset_id": 1,
+            "timestamp": 1792464697218683136,
+            "dt": 0.003000064054504037,
+            "rotors": [
+              {
+                "thrust": 0.19471019506454468,
+                "torque_scaler": -0.002588506555184722,
+                "speed": 144.5830535888672,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.046587567776441574
+              },
+              {
+                "thrust": 0.19471019506454468,
+                "torque_scaler": -0.002588506555184722,
+                "speed": 144.5830535888672,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.046587567776441574
+              },
+              {
+                "thrust": 0.19471019506454468,
+                "torque_scaler": 0.002588506555184722,
+                "speed": 144.5830535888672,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.046587567776441574
+              },
+              {
+                "thrust": 0.19471019506454468,
+                "torque_scaler": 0.002588506555184722,
+                "speed": 144.5830535888672,
+                "control_signal_input": 0.06666667014360428,
+                "control_signal_filtered": 0.046587567776441574
+              }
+            ],
+            "kinematics": {
+              "position": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": -0.14596639573574066
+              },
+              "orientation": {
+                "w_val": 1.0,
+                "x_val": -0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.1022261381149292
+              },
+              "angular_velocity": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              },
+              "linear_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 9.309798240661621
+              },
+              "angular_acceleration": {
+                "x_val": 0.0,
+                "y_val": 0.0,
+                "z_val": 0.0
+              }
+            },
+            "has_collided": false,
+            "grounded": false
+          }
+        ],
+        "buffer_first_sequence": 1,
+        "buffer_last_sequence": 9401,
+        "samples_dropped": false
+      },
+      "wall_s": 0.00021727196872234344
+    }
+  },
+  "settings_sha256": "11f43fb1db015ddd4b5b2a33fd1200d05ee6b31532c48194b59683282bed9ddf",
+  "recorded_utc": "2026-10-20T02:57:46.307006+00:00",
+  "source_commit": "13448700ec2b36d6aad7a4e0909bc9daf9d3d931",
+  "plugin_sha256": "88c360b81842ab5547eecebbe5a1816e89bb254e8ebff94e2b479bbfd7b17030",
+  "source_inventory": "docs/airsim_source_inventory.json"
+}

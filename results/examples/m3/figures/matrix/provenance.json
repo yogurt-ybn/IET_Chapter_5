@@ -1,0 +1,6 @@
+{
+  "source": "scripts/plot_benchmark_summary.py",
+  "summary": "results/examples/m3/summary.json",
+  "font": "DejaVu Serif",
+  "failures_included": true
+}

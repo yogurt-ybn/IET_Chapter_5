@@ -1,0 +1,16 @@
+{
+  "base_commit": "13448700ec2b36d6aad7a4e0909bc9daf9d3d931",
+  "all_files_reconstructed": true,
+  "files": {
+    "AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp": true,
+    "AirLib/include/vehicles/multirotor/api/MultirotorApiBase.hpp": true,
+    "AirLib/include/vehicles/multirotor/api/MultirotorCommon.hpp": true,
+    "AirLib/include/vehicles/multirotor/api/MultirotorRpcLibAdaptors.hpp": true,
+    "AirLib/include/vehicles/multirotor/api/MultirotorRpcLibClient.hpp": true,
+    "AirLib/src/vehicles/multirotor/api/MultirotorRpcLibClient.cpp": true,
+    "AirLib/src/vehicles/multirotor/api/MultirotorRpcLibServer.cpp": true,
+    "PythonClient/airsim/client.py": true,
+    "PythonClient/airsim/types.py": true,
+    "Unreal/Plugins/AirSim/Source/Vehicles/Multirotor/MultirotorPawnSimApi.cpp": true
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "source_run": "tune-geometric-01",
+  "sample_selection": "all control samples; lossless gzip",
+  "log_sha256": "6195eb09717362234c09999bb3baae80362ed26b4a7e62f1185f3a8f417ce44e",
+  "physics_samples_location": "ignored results/runs/tune-geometric-01/physics.jsonl",
+  "purpose": "M1 development acceptance; not the frozen final benchmark"
+}

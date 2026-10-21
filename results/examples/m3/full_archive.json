@@ -1,0 +1,8 @@
+{
+  "filename": "ch5-m3-frozen-2e6d9ed.tar.gz",
+  "bytes": 115308253,
+  "sha256": "2411366d79e84e8e4b47f9c65a563e16ed6fc14b52e085d5995f1af9e7600af3",
+  "contents": "Complete frozen 51-run original control/physics logs, configurations, noise arrays and results",
+  "source_commit": "2e6d9ed06c3083c17b4a3b074a1537e92bdb0880",
+  "storage": "local ignored .local/artifacts/; no external upload claimed"
+}

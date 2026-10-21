@@ -1,0 +1,82 @@
+[
+  {
+    "seed": 0,
+    "methods": [
+      "pid",
+      "lqr",
+      "geometric",
+      "dob",
+      "mpc"
+    ],
+    "arrays_identical": true,
+    "array_sha256": "046964012bb4a96604f88612b4fc8244ee95a51148b55360213b211cf07420aa",
+    "shape": [
+      1003,
+      12
+    ]
+  },
+  {
+    "seed": 1,
+    "methods": [
+      "pid",
+      "lqr",
+      "geometric",
+      "dob",
+      "mpc"
+    ],
+    "arrays_identical": true,
+    "array_sha256": "d4279477396f5bf6fad1f61592961fdff243011ffcefe69e9e39e712009345ec",
+    "shape": [
+      1003,
+      12
+    ]
+  },
+  {
+    "seed": 2,
+    "methods": [
+      "pid",
+      "lqr",
+      "geometric",
+      "dob",
+      "mpc"
+    ],
+    "arrays_identical": true,
+    "array_sha256": "64fa35f22af6a0d323531228a27265d2183315c466c0862b3bc7aa7fd3db747f",
+    "shape": [
+      1003,
+      12
+    ]
+  },
+  {
+    "seed": 3,
+    "methods": [
+      "pid",
+      "lqr",
+      "geometric",
+      "dob",
+      "mpc"
+    ],
+    "arrays_identical": true,
+    "array_sha256": "ee885c1a79c232ab63dece5ce65ee6ea524ab1a1cc87da693923d275ef3d335e",
+    "shape": [
+      1003,
+      12
+    ]
+  },
+  {
+    "seed": 4,
+    "methods": [
+      "pid",
+      "lqr",
+      "geometric",
+      "dob",
+      "mpc"
+    ],
+    "arrays_identical": true,
+    "array_sha256": "0e7b294a5f21430bba36902faf9568ec406ac8e1c9ddb0bc9cd81dd31550244a",
+    "shape": [
+      1003,
+      12
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "SettingsVersion": 1.2,
+  "SimMode": "Multirotor",
+  "ClockType": "SteppableClock",
+  "ClockSpeed": 1.0,
+  "ApiServerPort": 41461,
+  "ViewMode": "NoDisplay",
+  "Vehicles": {
+    "Chapter5": {
+      "VehicleType": "SimpleFlight",
+      "AllowAPIAlways": true,
+      "RC": {
+        "RemoteControlID": -1
+      },
+      "X": 0,
+      "Y": 0,
+      "Z": -3
+    }
+  },
+  "CameraDefaults": {
+    "CaptureSettings": [
+      {
+        "ImageType": 0,
+        "Width": 640,
+        "Height": 480
+      }
+    ]
+  }
+}

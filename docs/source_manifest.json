@@ -1,0 +1,238 @@
+{
+  "components": [
+    {
+      "component": "AirSim",
+      "upstream_url": "https://github.com/microsoft/AirSim",
+      "pinned_commit": "13448700ec2b36d6aad7a4e0909bc9daf9d3d931",
+      "source_paths": [
+        "AirLib/include/vehicles/multirotor/RotorActuator.hpp",
+        "AirLib/include/vehicles/multirotor/MultiRotorPhysicsBody.hpp",
+        "AirLib/include/vehicles/multirotor/api/MultirotorApiBase.hpp",
+        "AirLib/include/physics/FastPhysicsEngine.hpp"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "MIT",
+      "authors": "Microsoft Corporation",
+      "paper_citation": "Shah et al., AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles (2017)",
+      "local_destination": "src/iet_ch5/backends/; patches/airsim-dynamics-telemetry.patch",
+      "classification": "protocol integration and preserved pre-existing extension patch",
+      "input_output_conventions": "NED/FRD to NWU/FLU; physical wrench to linear normalized input; retained custom atomic telemetry",
+      "modifications": "NED/FRD to NWU/FLU; physical wrench to linear normalized input; retained custom atomic telemetry",
+      "validation_status": "M0 runtime passed; original binary build receipt unavailable"
+    },
+    {
+      "component": "FDCL",
+      "upstream_url": "https://github.com/fdcl-gwu/uav_geometric_control",
+      "pinned_commit": "f5fcb51c3b962152a4895a9d2e86e4a184655741",
+      "source_paths": [
+        "cpp/src/fdcl_control.cpp",
+        "cpp/src/fdcl_matrix_utils.cpp"
+      ],
+      "licence_path": "LICENSE.md",
+      "licence": "MIT",
+      "authors": "Flight Dynamics and Control Lab",
+      "paper_citation": "Lee, Leok, McClamroch, CDC 2010, pp. 5420-5425",
+      "local_destination": "src/iet_ch5/controllers/common.py; src/iet_ch5/controllers/geometric/controller.py",
+      "classification": "adapted normalization derivatives; original upward-frame standard SE3 implementation from cited equations",
+      "input_output_conventions": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
+      "modifications": "select standard coupled yaw; upward thrust and desired-minus-actual translation",
+      "validation_status": "Standard SE3 actual M1 acceptance and final M3 matrix passed nominal/loop/wind/noise; mismatch failed tracking tolerance and is retained"
+    },
+    {
+      "component": "safe-control-gym",
+      "upstream_url": "https://github.com/learnsyslab/safe-control-gym",
+      "pinned_commit": "6b5391d014f36fdfa0f9d22d92c77387e5274308",
+      "source_paths": [
+        "safe_control_gym/controllers/pid/pid.py",
+        "safe_control_gym/controllers/lqr/lqr.py",
+        "safe_control_gym/controllers/mpc/linear_mpc.py"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "MIT",
+      "authors": "Dynamic Systems Lab",
+      "paper_citation": "Yuan et al., Safe-Control-Gym, RA-L 2022",
+      "local_destination": "none at M0",
+      "classification": "inspected reference only; no copied code",
+      "input_output_conventions": "do not use Crazyflie mapping or import simulator stack",
+      "modifications": "do not use Crazyflie mapping or import simulator stack",
+      "validation_status": "inspected reference only; original PID/LQR numerical cores passed M1 AirSim hover/transfer"
+    },
+    {
+      "component": "Force-only DOB",
+      "upstream_url": "https://eprints.gla.ac.uk/320/1/gawthropiee474.pdf",
+      "pinned_commit": null,
+      "source_paths": [
+        "Chen et al. 2000 section II-B, equations 2-8 (structure only)"
+      ],
+      "licence_path": null,
+      "authors": "W.-H. Chen, D. J. Ballance, P. J. Gawthrop, J. O'Reilly",
+      "paper_citation": "IEEE TIE 47(4), 932-938, DOI 10.1109/41.857974",
+      "local_destination": "src/iet_ch5/controllers/dob/controller.py",
+      "classification": "original constant-mass discrete implementation from cited observer equations; no paper/code redistribution",
+      "input_output_conventions": "NWU force estimate from momentum and applied collective estimate; force subtraction before attitude construction",
+      "modifications": "implicit-Euler momentum increment; finite force bounds; fixed geometric nominal gains; held estimate derivatives",
+      "validation_status": "M2 convergence/bounds/off equivalence plus final M3 matched wind ablation and 10 core runs passed; force-only scope retained"
+    },
+    {
+      "component": "OSQP Python",
+      "upstream_url": "https://github.com/osqp/osqp-python",
+      "pinned_commit": "7065b3605925f725b7fa8ac76dc4d0bdbe512c75",
+      "source_paths": [
+        "src/osqp/interface.py"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "Apache-2.0 (Python wrapper; underlying solver has its own notices)",
+      "authors": "OSQP developers",
+      "paper_citation": "Stellato et al., OSQP: an operator splitting solver for quadratic programs, Mathematical Programming Computation 2020",
+      "local_destination": "external package osqp==1.0.5 via uv.lock",
+      "classification": "external solver dependency; no source copied",
+      "input_output_conventions": "QP standard form; original model and physical-wrench constraints in controllers/mpc/controller.py",
+      "modifications": "none to solver",
+      "validation_status": "Final 10 MPC runs: 9 tracking passes,1 retained mismatch failure,0 fallback activations; separate actual timeout fallback and numerical active-constraint checks passed"
+    },
+    {
+      "component": "Original PID/LQR/linear-MPC cores",
+      "upstream_url": "https://github.com/yogurt-ybn/IET_Chapter_5",
+      "pinned_commit": "2e6d9ed06c3083c17b4a3b074a1537e92bdb0880",
+      "source_paths": [
+        "src/iet_ch5/controllers/pid.py",
+        "src/iet_ch5/controllers/lqr.py",
+        "src/iet_ch5/controllers/mpc.py"
+      ],
+      "licence_path": null,
+      "authors": "Chapter 5 project contributors",
+      "paper_citation": "Chapter 5 preserved model and conventional control structures; standard discrete Riccati and receding-horizon derivations; external solver references retained separately",
+      "local_destination": "src/iet_ch5/controllers/",
+      "classification": "original numerical implementation; safe-control-gym consulted, no copied PID/LQR/MPC code",
+      "input_output_conventions": "NWU/FLU state; positive collective thrust and body moments; full coupled rotor adapter",
+      "modifications": "Full 12-state aircraft model beyond planar illustrative chapter example; actual AirSim actuator mapping, bounded integrals, explicit constraints/fallback",
+      "validation_status": "Final 51-run fixed matrix:47 tracking passes,4 retained controller-model mismatch failures; all run records published"
+    },
+    {
+      "component": "Original figure-eight reference",
+      "upstream_url": "https://github.com/yogurt-ybn/IET_Chapter_5",
+      "pinned_commit": "3eb6692c4eab26ca1db9331c185b002620ebb7c6",
+      "source_paths": [
+        "src/iet_ch5/references/tasks.py"
+      ],
+      "licence_path": null,
+      "authors": "Chapter 5 project contributors",
+      "paper_citation": "Standard Gerono parametric curve and direct chain-rule differentiation; no external code copied",
+      "local_destination": "src/iet_ch5/references/tasks.py",
+      "classification": "original trajectory implementation",
+      "input_output_conventions": "vehicle-origin NWU reference position/velocity/acceleration/jerk/snap; fixed heading",
+      "modifications": "C4 phase ramp, common hover endpoints, component-envelope design check, figure-eight evaluation windows",
+      "validation_status": "finite-difference derivatives through snap, endpoint/crossing/envelope tests; five genuine AirSim runs complete and pass loop tracking tolerance"
+    },
+    {
+      "component": "Original sustained-cruise phase law",
+      "upstream_url": "https://github.com/yogurt-ybn/IET_Chapter_5",
+      "pinned_commit": "fe885932bf8124f8257ff5e695239e1732e2041c",
+      "source_paths": [
+        "src/iet_ch5/references/tasks.py",
+        "src/iet_ch5/evaluation/reanalyze.py"
+      ],
+      "licence_path": null,
+      "authors": "Chapter 5 project contributors",
+      "paper_citation": "Direct polynomial integration and chain-rule time derivatives; no external code copied",
+      "local_destination": "src/iet_ch5/references/tasks.py; src/iet_ch5/evaluation/reanalyze.py",
+      "classification": "original timing/reference and speed-metric implementation",
+      "input_output_conventions": "NWU p/v/a/jerk/snap; phase rate is not heading rate or constant Cartesian speed",
+      "modifications": "2 s phase-rate ramps, sustained cruise, unchanged controller gains/limits; independent physics speed metrics",
+      "validation_status": "Derivative/join/endpoint/envelope tests and five complete actual AirSim runs pass; interrupted client attempt retained separately"
+    },
+    {
+      "component": "acados NMPC runtime and Python templates",
+      "upstream_url": "https://github.com/acados/acados",
+      "pinned_commit": "d9d0ba2e8f127855119d38874af8a9570df1d8e5",
+      "source_paths": [
+        "acados/",
+        "interfaces/acados_template/"
+      ],
+      "licence_path": "LICENSE",
+      "licence": "BSD-2-Clause",
+      "authors": "The acados authors",
+      "paper_citation": "Verschueren et al., acados -- a modular open-source framework for fast embedded optimal control, Mathematical Programming Computation, 2021",
+      "local_destination": "External ignored installation; original OCP in src/iet_ch5/controllers/nmpc/",
+      "classification": "Unmodified external solver/code-generation dependency; original rigid-body OCP and adapter",
+      "input_output_conventions": "17-state NWU/FLU, wxyz quaternion, physical commanded and applied wrench; shared allocator",
+      "modifications": "No acados source modifications; RK4 nonlinear model, nonlinear least squares, coupled rotor-input bounds, SQP-RTI, warm start and partial condensing assembled by original project code",
+      "validation_status": "Pinned native build/model tests; final 42-run matrix:40 passes,2 retained linear-baseline stress failures. All14 NMPC runs pass with0fallback and7/7repeat checks; six-controller actual video and model-matched replay ablations recorded."
+    },
+    {
+      "component": "HPIPM",
+      "upstream_url": "https://github.com/giaf/hpipm",
+      "pinned_commit": "c25e646f938aae4694fd0fe9bfb0059bee6879bf",
+      "source_paths": [
+        "include/",
+        "ocp_qp/"
+      ],
+      "licence_path": "LICENSE.txt",
+      "licence": "BSD-2-Clause",
+      "authors": "Gianluca Frison and contributors",
+      "paper_citation": "Frison and Diehl, HPIPM: a high-performance quadratic programming framework for model predictive control, IFAC-PapersOnLine, 2020",
+      "local_destination": "External acados submodule/build only",
+      "classification": "Unmodified external QP solver dependency",
+      "input_output_conventions": "acados OCP-QP with partial condensing",
+      "modifications": "None",
+      "validation_status": "Native build hashes and source pin recorded in solver receipt"
+    },
+    {
+      "component": "BLASFEO",
+      "upstream_url": "https://github.com/giaf/blasfeo",
+      "pinned_commit": "d6251233923c9b475fe894fb729fb63ab693e301",
+      "source_paths": [
+        "include/",
+        "blasfeo_hp_pm/"
+      ],
+      "licence_path": "LICENSE.txt",
+      "licence": "BSD-2-Clause",
+      "authors": "Gianluca Frison and contributors",
+      "paper_citation": "Frison et al., BLASFEO: Basic Linear Algebra Subroutines For Embedded Optimization",
+      "local_destination": "External acados submodule/build only",
+      "classification": "Unmodified external linear-algebra dependency",
+      "input_output_conventions": "HPIPM/acados internal dense matrix kernels",
+      "modifications": "None; X64_AUTOMATIC Release build",
+      "validation_status": "Native build hashes and source pin recorded in solver receipt"
+    },
+    {
+      "component": "CasADi",
+      "upstream_url": "https://github.com/casadi/casadi",
+      "pinned_commit": null,
+      "package_version": "3.7.2",
+      "source_paths": [
+        "casadi/"
+      ],
+      "licence_path": "LICENSE.txt",
+      "licence": "LGPL-3.0",
+      "authors": "CasADi developers",
+      "paper_citation": "Andersson et al., CasADi: a software framework for nonlinear optimization and optimal control, Mathematical Programming Computation, 2019",
+      "local_destination": "External optional dependency via uv.lock",
+      "classification": "Unmodified external symbolic/automatic-differentiation dependency; no library code copied",
+      "input_output_conventions": "Original symbolic rigid-body RHS/cost translated to generated C",
+      "modifications": "None",
+      "validation_status": "Symbolic RHS tested against independent NumPy physics and large-attitude invariants"
+    },
+    {
+      "component": "Tera renderer build tool",
+      "upstream_url": "https://github.com/acados/tera_renderer",
+      "pinned_commit": "5313666635209d868f8d7ece39cad36827c9f479",
+      "source_paths": [
+        "src/main.rs",
+        "Cargo.toml"
+      ],
+      "licence_path": null,
+      "licence": "No explicit licence file/declaration found in pinned tree; no source/binary redistribution",
+      "authors": "acados authors",
+      "paper_citation": "External acados template renderer v0.2.0",
+      "local_destination": "Ignored external build-tool binary only",
+      "classification": "Official release downloaded locally; no code/binary copied into public repository",
+      "input_output_conventions": "Build-time JSON/template rendering",
+      "modifications": "None; official Linux amd64 SHA256 1973ddd1b536dcd4a059a22f7259c3b0e6b6c878cbfbe7e9b962eba195f361d9",
+      "validation_status": "Release checksum verified; no redistribution licence assumed"
+    }
+  ],
+  "layout_migration": {
+    "description": "Historical source_paths and pinned commits are preserved. Current numerical controllers live in per-method packages; timing calculus moved to trajectories/timing.py; backend implementation moved to simulation/airsim_backend.py with old import wrappers. No additional upstream code copied."
+  }
+}
