@@ -1,6 +1,6 @@
 # Modular UAV controller case study
 
-The reusable case study separates numerical algorithms, trajectories, experimental conditions and measured evaluation. The original 51-run M3 dataset and earlier circular/figure-eight videos remain unchanged. This extension introduces seven reference configurations and an additional independent 70-run protocol; its measured publication is linked from the README once the matrix completes.
+The reusable case study separates numerical algorithms, trajectories, experimental conditions and measured evaluation. The original 51-run M3 dataset and earlier circular/figure-eight videos remain unchanged. This extension introduces seven reference configurations and an additional independent 70-run protocol; its [completed measured results](modular_results.md) retain passes, failures and the aggressive MPC repeatability limitation.
 
 ## Project map
 
@@ -56,7 +56,7 @@ Each configuration adds 1 s initial and 1 s final hold. Phase-rate ramps have ze
 
 Copy any trajectory JSON to a custom file and pass its path to `--trajectory`. Tune `timing`, `shape`, `heading`, `evaluation`, `safety` and camera position in SI units. `analysis.screen` checks ideal static feedforward rotor coupling against the selected vehicle, including angular acceleration moments. It does not prove closed-loop feasibility or account for motor lag/obstacles.
 
-The first 8 s / 1.25 s ramp aggressive candidate demanded 1.042 motor input and was rejected before evaluation. After reference-only screening, the frozen 8.5 s / 1.75 s ramp candidate peaks near 4.02 m/s and needs at most 0.882 ideal motor input. A separate geometric-controller AirSim pilot completed successfully before freezing the matrix. The candidate was adjusted for physical authority; controller limits remain unchanged.
+The first 8 s / 1.25 s ramp aggressive candidate demanded 1.042 motor input and was rejected before evaluation. After reference-only screening, the frozen 8.5 s / 1.75 s ramp candidate peaks near 4.02 m/s and needs at most 0.882 ideal motor input. A separate geometric-controller AirSim pilot completed successfully before freezing the matrix. [Measured pilot and rejected/reference-only candidates](../results/examples/modular_preflight/README.md) retain the underlying evidence. The candidate was adjusted for physical authority; controller limits remain unchanged.
 
 Controller tuning: change a method's `config.json` for a new baseline, or supply a partial map with `--controller-overrides`. See `configs/experiments/tuning.example.json` and each method's parameter table. That example deliberately changes PID gains and disables DOB; it is not used in the published matrix. For a matched DOB ablation use only `{"dob":{"enabled":false}}`, retaining the same nominal geometric gains. Positive gain/limit/weight validation rejects invalid arrays, unknown keys and nonfinite entries.
 
@@ -78,7 +78,7 @@ export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
 
 `--controller` and `--trajectory` accept several IDs, `all`, or a trajectory JSON path. Demo uses one repeat unless specified; video publication requires one trajectory and one run per method. Record separate demo groups for additional trajectories. `--suite configs/experiments/robustness.json` selects separate wind, model-mismatch and five paired noise/delay seeds. This is an executable additional protocol; it is not automatically claimed as new measured evidence. The original M3 dataset provides the earlier disturbance/mismatch/noise comparisons.
 
-Use a new output directory. `--resume` checks resolved configuration and executable/configuration content fingerprint, skips completed passes and failures alike, and archives incomplete attempts before rerunning them. Source/config changes require a new experiment. Runtime files retain full metadata, simulator provenance, original results and failure traceback. Progress is written atomically after each run. An ignored endpoint-specific lock prevents two instances of the new CLI from commanding the same simulator concurrently.
+Use a new output directory. `--resume` checks resolved configuration and executable/configuration content fingerprint, skips completed passes and failures alike, and archives incomplete attempts before rerunning them. Source/config changes require a new experiment. Runtime files retain full metadata, simulator provenance, original results and failure traceback. Progress is written atomically after each run. A completed tracking failure is a valid experiment outcome; the batch command exits unsuccessfully for infrastructure/configuration failures, while per-run tracking acceptance remains explicit in the journal and report. An ignored endpoint-specific lock prevents two instances of the new CLI from commanding the same simulator concurrently.
 
 ## Evaluation and interpretation
 

@@ -1,0 +1,12 @@
+{
+  "archive_filename": "modular-case-study-20261021.tar.gz",
+  "sha256": "207f94a3f0cee463a51cee9875a2e351cb5642b1a1b66d663eaf5e97e61eb6d2",
+  "bytes": 274723803,
+  "storage": "Ignored local .local/artifacts; no external upload claimed",
+  "contents": [
+    "modular-case-study-20261021",
+    "modular-agile-demo-20261021",
+    "case-study-pilot"
+  ],
+  "includes": "All raw control/physics logs, frame PNGs, original results, exact protocol/config, progress and failures; pilot kept separate"
+}

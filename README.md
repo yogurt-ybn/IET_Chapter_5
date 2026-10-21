@@ -11,7 +11,13 @@ Use the [modular project guide](docs/modular_case_study.md) for the current unif
 .venv/bin/python scripts/run_case_study.py plan --output .local/case-study-plan.json
 ```
 
-The existing measured datasets below are preserved. New experiment results are published separately with their own frozen configurations and provenance.
+The new [70-run measured case study](docs/modular_results.md) has **64 tracking passes and six retained aggressive-task failures**. All 60 nominal runs pass. On the 4.02 m/s peak 3D course, geometric / DOB RMS is 15.3 / 7.8 mm; PID, near-hover LQR and linear MPC fail the 0.15 m threshold. Repeatability passes 34/35 pairs; aggressive MPC fails the predeclared check and uses substantial explicit LQR fallback.
+
+[Actual-scene comparison video](results/examples/modular_agile_demo/comparison.mp4) · [2x GIF preview](results/examples/modular_agile_demo/comparison.gif) · [all-run report](results/examples/modular_case_study/REPORT.md)
+
+![Modular case-study accuracy](results/examples/modular_case_study/figures/accuracy_matrix.png)
+
+The existing measured datasets below are preserved with their own frozen configurations and provenance.
 
 ## Status
 

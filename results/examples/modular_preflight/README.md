@@ -1,0 +1,7 @@
+# Reference preflight and separate pilot
+
+`case-study-preflight.json` is the initial reference-only screen using measured AirSim parameters. Its aggressive 8 s traversal / 1.25 s phase-rate ramps exceeded ideal static motor authority (max 1.0417) and was rejected before evaluation. Other reference configurations passed. `preflight-candidates.json` records the subsequent reference-only duration/ramp sweep with complete candidate configurations. The selected 8.5 s / 1.75 s candidate had a 4.0208 m/s peak reference speed and max ideal static motor input 0.8812. No controller gains were changed.
+
+`geometric_pilot` contains compact evidence from one separate actual AirSim run of that selected trajectory: complete interval, tracking RMS 0.015335 m, peak position error 0.024956 m. Source was the uncommitted pre-freeze framework; its metadata and config hash are retained exactly. It is not included in the final 70-run matrix or its repeatability counts. Raw log hashes are retained; raw files remain locally under ignored results/runs/case-study-pilot.
+
+This screen includes desired angular acceleration and full rotor coupling, but omits motor lag, disturbance and closed-loop tracking margins. It is not a stability or collision-feasibility certificate. All numerical preflight results use the measured vehicle parameters in vehicle_parameters.json; they are not flight measurements. Only the separate pilot is closed-loop simulator evidence.

@@ -7,14 +7,14 @@ Cascaded position/velocity and attitude/rate feedback with bounded integrals and
 | Parameter | Default | Units / meaning |
 |---|---|---|
 | `outer_period` | `0.036` | s; Position/velocity-loop period; rate loop uses measured simulation dt. |
-| `position_kp` | `[0.9, 0.9, 1.1]` | s^-1 (PID); s^-2 (geometric); NWU x/y/z position gains; increase only after velocity/attitude loops are stable. |
+| `position_kp` | `[0.9, 0.9, 1.1]` | s^-1; NWU x/y/z position gains; increase only after velocity/attitude loops are stable. |
 | `velocity_kp` | `[2.5, 2.5, 3.0]` | s^-1; NWU velocity error to acceleration gain. |
 | `velocity_ki` | `[0.12, 0.12, 0.2]` | s^-2; Velocity integral gain; watch actuator/acceleration clipping. |
 | `velocity_limit` | `2.0` | m/s per axis; PID target-velocity component clipping. |
 | `velocity_integral_limit` | `1.0` | m; Bound on integrated velocity error per component. |
 | `acceleration_limit` | `2.5` | m/s^2 per axis; PID requested acceleration component limit. |
-| `attitude_kp` | `[7.0, 7.0, 5.0]` | s^-1 (PID); N m (geometric); FLU attitude gains; PID produces rate target, geometric produces moment. |
-| `rate_kp` | `[18.0, 18.0, 12.0]` | s^-1 (PID); N m s (geometric); FLU rate feedback; PID scales angular acceleration by inertia. |
+| `attitude_kp` | `[7.0, 7.0, 5.0]` | s^-1; FLU attitude gains; PID produces rate target, geometric produces moment. |
+| `rate_kp` | `[18.0, 18.0, 12.0]` | s^-1; FLU rate feedback; PID scales angular acceleration by inertia. |
 | `rate_ki` | `[0.3, 0.3, 0.3]` | s^-2; FLU rate integral gain before inertia scaling. |
 | `rate_limit` | `2.0` | rad/s per axis; PID body-rate target clipping. |
 | `rate_integral_limit` | `0.5` | rad; Bound on integrated body-rate error per component. |

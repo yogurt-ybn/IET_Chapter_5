@@ -9,10 +9,10 @@ Bounded force-only disturbance observer around the exact geometric nominal contr
 | `enabled` | `true` | boolean; False disables force compensation with identical nominal gains. |
 | `bandwidth_rad_s` | `5.0` | rad/s; Force residual filter bandwidth; higher values amplify noise/lag. |
 | `force_bound_N` | `2.0` | N per axis; Clips the NWU force estimate; no torque estimation. |
-| `nominal.position_kp` | `[4.0, 4.0, 5.0]` | s^-1 (PID); s^-2 (geometric); NWU x/y/z position gains; increase only after velocity/attitude loops are stable. |
-| `nominal.velocity_kp` | `[3.0, 3.0, 3.5]` | s^-1; NWU velocity error to acceleration gain. |
-| `nominal.attitude_kp` | `[0.6, 0.7, 0.35]` | s^-1 (PID); N m (geometric); FLU attitude gains; PID produces rate target, geometric produces moment. |
-| `nominal.rate_kp` | `[0.12, 0.14, 0.1]` | s^-1 (PID); N m s (geometric); FLU rate feedback; PID scales angular acceleration by inertia. |
+| `nominal.position_kp` | `[4.0, 4.0, 5.0]` | N/m; NWU x/y/z position error to inertial force gains; increase only after velocity/attitude loops are stable. |
+| `nominal.velocity_kp` | `[3.0, 3.0, 3.5]` | N s/m; NWU velocity error to inertial force gain. |
+| `nominal.attitude_kp` | `[0.6, 0.7, 0.35]` | N m/rad; FLU attitude gains; PID produces rate target, geometric produces moment. |
+| `nominal.rate_kp` | `[0.12, 0.14, 0.1]` | N m s/rad; FLU rate feedback; PID scales angular acceleration by inertia. |
 
 Tune on a separate nominal task, then freeze overrides before evaluation. Keep shared vehicle/allocation/feedback settings identical across controllers. Use the unified CLI with `--controller-overrides configs/experiments/tuning.example.json`; it rejects unknown keys and wrong vector lengths. Do not edit configurations between repeats.
 

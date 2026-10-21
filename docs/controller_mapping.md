@@ -7,11 +7,11 @@ against a typeset manuscript in this task; section mappings below do not invent 
 | Chapter concept | Implementation | Input/output and adaptation |
 | --- | --- | --- |
 | §5.2 rigid-body model | `frames.py`, `types.py`, `allocation.py` | SI, NWU/FLU, positive upward scalar thrust and body moments |
-| §5.3 cascaded PID | `controllers/pid.py` | Position P -> bounded velocity, velocity PI + reference acceleration -> inertial force, SO(3) attitude P -> body rate, filtered rate PI -> physical moments |
-| §5.3 near-hover state feedback | `controllers/lqr.py` | Full 12-state discrete aircraft model, altitude and yaw included; extends the illustrative planar pitch model |
-| §5.3 SE(3) geometric tracking | `controllers/geometric.py`, `controllers/common.py` | Standard Lee/Leok/McClamroch moment law and FDCL direction derivatives, coupled yaw, upward thrust adaptation |
-| §5.3.4 observer compensation | `controllers/dob.py` | Identical geometric nominal gains, bounded force-only momentum residual, off/on ablation |
-| §5.3 constrained MPC | `controllers/mpc.py` | Real OSQP receding-horizon QP with coupled physical rotor feasibility |
+| §5.3 cascaded PID | `controllers/pid/controller.py` | Position P -> bounded velocity, velocity PI + reference acceleration -> inertial force, SO(3) attitude P -> body rate, filtered rate PI -> physical moments |
+| §5.3 near-hover state feedback | `controllers/lqr/controller.py` | Full 12-state discrete aircraft model, altitude and yaw included; extends the illustrative planar pitch model |
+| §5.3 SE(3) geometric tracking | `controllers/geometric/controller.py`, `controllers/common.py` | Standard Lee/Leok/McClamroch moment law and FDCL direction derivatives, coupled yaw, upward thrust adaptation |
+| §5.3.4 observer compensation | `controllers/dob/controller.py` | Identical geometric nominal gains, bounded force-only momentum residual, off/on ablation |
+| §5.3 constrained MPC | `controllers/mpc/controller.py` | Real OSQP receding-horizon QP with coupled physical rotor feasibility |
 
 Every controller implements `reset(state,reference,parameters)` and
 `update(state,reference,dt) -> (WrenchCommand,diagnostics)`. None issues simulator flight
@@ -105,3 +105,5 @@ derivatives; reference construction and crossing annotations share this law. Fra
 provenance now includes instantaneous truth velocity, while independent common-grid
 physics velocities provide traversal speed metrics. See [retiming and measured speed
 comparison](figure_eight_cruise.md). No controller gain/limit or allocation change is used.
+
+Current package layout and tunable per-method configurations are documented in [modular_case_study.md](modular_case_study.md). Historical acceptance documents retain their original file paths and commit references.

@@ -5,7 +5,21 @@ Branch: `feat/ch5-airsim-controllers`. Review: https://github.com/yogurt-ybn/IET
 case-study text and capture tooling are anchored at `a878670`, followed by the verified
 media/handoff commit. Use Git HEAD for the final delivery revision.
 
-## Current demo: faster figure-eight with sustained cruise
+## Current delivery: modular 70-run case study
+
+Use `scripts/run_case_study.py` (list / plan / run / demo / publish) and [modular_case_study.md](modular_case_study.md). All five methods now own `controller.py`, `config.json` and a tuning README in separate folders. A typed common simulation interface isolates AirSim RPC; legacy imports still work. Seven analytic trajectory configurations include hover, transfer, circle, figure eight, helix, nominal 3D and aggressive 3D. Numerical controller ASTs match the pre-refactor implementations exactly, apart from imports; defaults match the historical snapshot.
+
+Frozen numerical/runtime/configuration source: `25f9c7a6926d746c3742e60233772f6b486bfd5d`. The 70-run matrix completes all intervals: **64 tracking passes, six aggressive tracking failures**, no collision/safety/bridge abort, rotor saturation or evaluated task-limit violations. All 60 nominal runs pass. On the 4.02 m/s peak aggressive 3D task, geometric / force-DOB traversal RMS is 15.3 / 7.8 mm; PID / LQR / linear-MPC policy fails the 0.15 m threshold. MPC uses explicit LQR fallback for 208/206 of 292 QP updates. **34/35 repeat pairs pass**; aggressive MPC's 38.045 mm delta exceeds the declared 20 mm tolerance. Preserve this failure; do not describe the stress MPC as deterministic or as successful pure-QP tracking.
+
+Current demo: `results/examples/modular_agile_demo/comparison.mp4` (1x) / GIF (2x). Five separate capture runs produce 440 checked actual AirSim frames, matching image/physics timestamps and one fixed camera. MP4 fully decodes to 106 frames at 1440x920, 10 fps. Capture results are 2 passes / 3 retained failures and are separate from the 70-run timing matrix. All raw records remain untouched; final postprocessing improves text contrast, the reference inset and censored-run plotting. `analysis_provenance.json` records postprocessor source independently of the numerical freeze.
+
+Final offline suite: **42 passed, one integration skipped** after adding the all-aborted publication regression. Before stopping the owned simulator, the selected read-only AirSim integration suite also passed (42 tests at that point, before the last plot-only regression). Ruff, whitespace, wheel build, controller JSON/trajectory resources from the zip-installed wheel, exact frozen per-run configuration checks and plot regeneration passed. The original AirSim source/binary/full diff hashes are unchanged; only the chapter-owned simulator was stopped, leaving the user's original process running.
+
+Raw archive: `modular-case-study-20261021.tar.gz`, 274,723,803 bytes, SHA256 `207f94a3f0cee463a51cee9875a2e351cb5642b1a1b66d663eaf5e97e61eb6d2`, retained under ignored `.local/artifacts`. It includes the 70-run matrix, five separate captures and the separate pre-freeze geometric pilot. Compact examples, all-run NPZ/configuration/results, PDF/SVG/PNG figures, video and failure records are public; no external raw upload is claimed. See [measured interpretation](modular_results.md) and `results/examples/modular_case_study/REPORT.md`. The rejected physically infeasible reference candidate and successful pilot are retained under `results/examples/modular_preflight`.
+
+The original 51-run matrix, disturbance/mismatch/noise evidence and all earlier demos below remain preserved. The new robustness JSON defines an additional runnable protocol; it was not rerun as part of the new 70 nominal/aggressive cases. Physical flight, real-time operation and prescribed external-wrench injection remain unvalidated.
+
+## Earlier faster figure-eight with sustained cruise
 
 The primary demo is `results/examples/figure_eight_cruise/comparison.mp4`: 14 s traversal,
 18 s total, same 4×2 m shape/gains/limits. The former whole-manoeuvre smoothstep is replaced
