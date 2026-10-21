@@ -122,7 +122,7 @@ def plot(rows, data, output):
     plt.rcParams.update({'font.family': font, 'font.size': 9, 'axes.grid': True, 'grid.alpha': .2,
                          'svg.fonttype': 'none', 'pdf.fonttype': 42})
     def save(fig, name):
-        fig.tight_layout()
+        fig.tight_layout(w_pad=3.)
         for ext in ('png', 'pdf', 'svg'):
             fig.savefig(output/f'{name}.{ext}', dpi=160)
         plt.close(fig)

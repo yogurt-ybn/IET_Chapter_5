@@ -115,7 +115,7 @@ def plot(output):
     ax.bar(x-.18, [rows[n]['controller_call_s']['p95']*1000 for n in names], .36, label='Python + reference + solver + diagnostics')
     ax.bar(x+.18, [rows[n]['solver_internal_s']['p95']*1000 for n in names], .36, label='C solver internal')
     ax.set(xticks=x, xticklabels=[n.replace('_', '\n') for n in names], ylabel='p95 computation time (ms)',
-           title='Identical rigid-body OCP / measured-state replay; not equal convergence tolerances')
+           title='Identical rigid-body OCP / measured-state replay; one-step RTI versus converged SQP')
     ax.legend(fontsize=8)
     fig.tight_layout()
     for ext in ('png', 'svg', 'pdf'):
