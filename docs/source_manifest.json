@@ -230,6 +230,25 @@
       "input_output_conventions": "Build-time JSON/template rendering",
       "modifications": "None; official Linux amd64 SHA256 1973ddd1b536dcd4a059a22f7259c3b0e6b6c878cbfbe7e9b962eba195f361d9",
       "validation_status": "Release checksum verified; no redistribution licence assumed"
+    },
+    {
+      "component": "Learning force-GP methodological reference",
+      "upstream_url": "https://github.com/uzh-rpg/data_driven_mpc",
+      "pinned_commit": "a6be5d301e66d91a823ef68a29c79ccc5829f1b9",
+      "licence": "GPL-3.0-or-later (reference source only)",
+      "source_paths": [
+        "README.md",
+        "LICENSE",
+        "setup.py",
+        "ros_gp_mpc/src/model_fitting/gp.py",
+        "ros_gp_mpc/src/model_fitting/gp_common.py",
+        "ros_gp_mpc/src/quad_mpc/quad_3d_optimizer.py"
+      ],
+      "local_destination": "src/iet_ch5/learning/",
+      "classification": "Original standard RBF GP implementation; no upstream source copied. Flight labels/frames/actuation adapted to the existing AirSim platform.",
+      "paper_citation": "Torrente, Kaufmann, Foehn, Scaramuzza, Data-Driven MPC for Quadrotors, IEEE RA-L (2021)",
+      "additional_provenance": "docs/learning/upstream_manifest.json",
+      "validation_status": "Prediction validation completed; paired AirSim evaluation recorded separately"
     }
   ],
   "layout_migration": {

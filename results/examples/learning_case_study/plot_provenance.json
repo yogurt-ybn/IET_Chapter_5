@@ -1,0 +1,11 @@
+{
+  "renderer": "src/iet_ch5/learning/publication.py",
+  "renderer_sha256": "f89e96a83e563bcc6d6e894f33306c1bdf0ecaeb4888c855e15718e210a3a77e",
+  "role": "postprocessing only; simulation freeze is 8e9b216",
+  "png_replay": "all 9 figures byte-identical from compact public NPZ data; no simulator required",
+  "formats": [
+    "PNG",
+    "SVG",
+    "PDF"
+  ]
+}

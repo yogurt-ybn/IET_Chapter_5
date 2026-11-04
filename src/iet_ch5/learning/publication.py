@@ -14,6 +14,9 @@ from .workflow import matched_pair_configuration
 def publish(source, dataset, models, validation, output):
     source, output = Path(source), Path(output)
     protocol = json.loads((source/'protocol.json').read_text())
+    if (protocol['models_manifest_sha256'] != sha256(Path(models)/'manifest.json')
+            or protocol['validation_report_sha256'] != sha256(Path(validation)/'REPORT.json')):
+        raise ValueError('Publication inputs differ from the frozen comparison')
     output.mkdir(parents=True, exist_ok=False)
     shutil.copy2(source/'protocol.json', output/'protocol.json')
     rows, raw_files = [], {}
@@ -58,6 +61,7 @@ def publish(source, dataset, models, validation, output):
     atomic_json(output/'summary.json',rows)
     atomic_json(output/'raw_log_inventory.json',raw_files)
     atomic_json(output/'analysis_provenance.json',{'software':revision(),
+        'role':'postprocessing only; numerical source/configuration freeze retained in protocol.json',
         'dataset_manifest_sha256':sha256(Path(dataset)/'manifest.json'),
         'models_manifest_sha256':sha256(Path(models)/'manifest.json'),
         'validation_report_sha256':sha256(Path(validation)/'REPORT.json'),
@@ -70,10 +74,11 @@ def publish(source, dataset, models, validation, output):
                 for other in group[1:]:
                     a = dict(np.load(output/'runs'/group[0]['run_id']/'metrics_samples.npz'))
                     b = dict(np.load(output/'runs'/other['run_id']/'metrics_samples.npz'))
-                    grid = a['t']
+                    grid = a['t'][a['t'] <= min(a['t'][-1], b['t'][-1])]
+                    pa = np.column_stack([np.interp(grid,a['t'],a['truth_p'][:,i]) for i in range(3)])
                     pb = np.column_stack([np.interp(grid,b['t'],b['truth_p'][:,i]) for i in range(3)])
                     complete = all(r['metrics']['complete_common_interval'] for r in (group[0],other))
-                    delta = float(np.max(np.linalg.norm(a['truth_p']-pb,axis=1)))
+                    delta = float(np.max(np.linalg.norm(pa-pb,axis=1)))
                     repeats.append({'condition':condition,'trajectory':trajectory,'variant':variant,
                         'repeat':other['repeat'],'max_position_delta_m':delta,
                         'passed':bool(complete and delta <= protocol['suite']['repeatability_max_position_delta_m'])})
@@ -85,7 +90,8 @@ def publish(source, dataset, models, validation, output):
         '|---|---|---:|---|---|---:|---:|---:|---:|---:|']
     for r in rows:
         m=r['metrics']
-        lines.append(f"| {r['condition']} | {r['trajectory']} | {r['repeat']} | {r['variant']} | {r['status']} | {m['tracking_rms_m']*1000:.3f} | {m['position_max_m']*1000:.3f} | {m['fallback_count']} | {m['constraint_violation_duration_s']:.4f} | {r['update_p95_ms']:.3f} |")
+        rms = f"{m['tracking_rms_m']*1000:.3f}" if m.get('tracking_rms_m') is not None else 'censored'
+        lines.append(f"| {r['condition']} | {r['trajectory']} | {r['repeat']} | {r['variant']} | {r['status']} | {rms} | {m['position_max_m']*1000:.3f} | {m['fallback_count']} | {m['constraint_violation_duration_s']:.4f} | {r['update_p95_ms']:.3f} |")
     lines+=['',f"Repeatability: {sum(r['passed'] for r in repeats)}/{len(repeats)} within the predeclared 20 mm maximum trajectory-difference limit.",'',
         'Every attempted closed-loop run and failed outcome is retained. Traversal windows come from the unchanged trajectory presets; full-duration peak and constraint statistics include initial/final holds. Two repeats check reproducibility, not statistical superiority. Paused stepping, computation spikes and native-build preparation preclude a real-time claim. Learned force is a model-discrepancy estimate, not measured wind. Nominal and mass-bias models are trained separately; neither is presented as an online adaptive or universal model. Raw logs remain in the identified local archive; compact truth/configuration/timing arrays are committed.']
     (output/'REPORT.md').write_text('\n'.join(lines)+'\n')
@@ -105,7 +111,7 @@ def plot(source, output):
     rows = json.loads((source/'summary.json').read_text())
     colors = {'off':'#D55E00','on':'#0072B2'}
     def save(fig,name):
-        fig.tight_layout()
+        fig.tight_layout(w_pad=4.)
         for ext in ('png','svg','pdf'):
             fig.savefig(output/(name+'.'+ext),dpi=160)
         plt.close(fig)
@@ -128,6 +134,10 @@ def plot(source, output):
             axes[0].legend(fontsize=7)
             axes[1].set(xlabel='North (m)',ylabel='West (m)',aspect='equal',title='Top-down path')
             axes[2].set(xlabel='Simulation time (s)',ylabel='Position error (mm)',title='All repeats, including holds')
+            meta=json.loads((source/'runs'/group[0]['run_id']/'metadata.json').read_text())
+            config=meta['config']['task_config']
+            a=config['transfer_onset']
+            axes[2].axvspan(a,a+config['transfer_duration'],color='gray',alpha=.12,label='Traversal')
             axes[2].legend(fontsize=7)
             save(fig,condition+'_'+trajectory+'_tracking')
             fig,axes=plt.subplots(2,2,figsize=(11,6))
@@ -153,7 +163,7 @@ def plot(source, output):
     for variant,color in colors.items():
         group=[r for r in rows if r['variant']==variant]
         index=np.arange(len(group))+(0 if variant=='off' else .35)
-        axes[0].bar(index,[r['metrics']['tracking_rms_m']*1000 for r in group],width=.35,color=color,label='GP '+variant)
+        axes[0].bar(index,[r['metrics']['tracking_rms_m']*1000 if r['metrics'].get('tracking_rms_m') is not None else np.nan for r in group],width=.35,color=color,label='GP '+variant)
         axes[1].bar(index,[r['update_p95_ms'] for r in group],width=.35,color=color,label='GP '+variant)
     labels=[r['condition']+'\n'+r['trajectory']+'\nr'+str(r['repeat']) for r in group]
     for ax in axes:

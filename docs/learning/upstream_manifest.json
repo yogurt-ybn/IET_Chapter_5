@@ -1,0 +1,248 @@
+{
+  "schema": "iet-ch5/learning-upstream-audit-v1",
+  "date": "2026-11-04",
+  "components": [
+    {
+      "component": "data_driven_mpc",
+      "upstream_url": "https://github.com/uzh-rpg/data_driven_mpc",
+      "pinned_commit": "a6be5d301e66d91a823ef68a29c79ccc5829f1b9",
+      "licence_observation": "GPL-3.0-or-later",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "README.md": "d9a3c408157ed18a14b980e7aacc41ce140b627bbb76f023114e4e5fb3a58797",
+        "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+        "setup.py": "6e1a73264f7ee135778feb4e7f0e6cebdd83fb9a233477a62f5467f415eaa420",
+        "ros_gp_mpc/src/model_fitting/gp.py": "60b6da45aeb5f6cbc2bc6e9fe1f24bafe0e8788f733106f9d665f4bc5ca68a81",
+        "ros_gp_mpc/src/model_fitting/gp_common.py": "48fac8260c38667d22a4dcc4bbe5dcf06ff1b115893089fe4b2852eb89578f47",
+        "ros_gp_mpc/src/quad_mpc/quad_3d_optimizer.py": "00c8bba84040d9660856e20185564247a7205cad24ea924a74849d35e98d51a8"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "methodological reference for original AirSim GP implementation"
+    },
+    {
+      "component": "neural_mpc",
+      "upstream_url": "https://github.com/TUM-AAS/neural-mpc",
+      "pinned_commit": "5f15661c2d1a3b6072911d8993214c50a68e11eb",
+      "licence_observation": "GPL-3.0",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        ".gitmodules": "0e99a503854a0c7cd86e2284e6bdfbedc4fa3fd3adb9864fd306e3fd3366c9b5",
+        "ros_dd_mpc/src/model_fitting/mlp_quad_res_fitting.py": "6161158d57866b2635315f3da23e9a521b90168638a0133fe334aa3c1f765563",
+        "requirements.txt": "7341e2eafd7451f17930f9badc43bea842004ee20c9c9839d5704becdc002b59",
+        "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+        "README.md": "d9ae51601055da91ef759079cdc6a017dc5bccadb9a877e2f61d6db9ec093a37",
+        "ros_dd_mpc/src/quad_mpc/quad_3d_optimizer.py": "f8f0da3c442ce1baeba16a4c8b1876e7126d9792b447041a1386334a3c8b47ac"
+      },
+      "submodules": [
+        {
+          "path": "ml-casadi",
+          "commit": "d381639b462b242a3b327d6fb8249ac3af6427dc"
+        }
+      ],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "l4casadi",
+      "upstream_url": "https://github.com/Tim-Salzmann/l4casadi",
+      "pinned_commit": "9fe2894533e05009bcbfa7706966745c5236fa4c",
+      "licence_observation": "MIT",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "pyproject.toml": "bb7c70f27c25dfc9d02d639c9e1d421a1f8eecdb1b34ea8840ecd076c83433d3",
+        "l4casadi/realtime/realtime_l4casadi.py": "adbf21bcccc88b896fb111399d881236ebed7393000b3ff1ff9a8642016822cf",
+        "setup.py": "2c6f9ae7fc0be89c707d4f8508553e405f6d2f61ea21c60668e14ce87abf8ffd",
+        "LICENSE": "71fa0774fc9ed3f2a34c0141c4a50890f3442306cb08164ef382b9cfdc40c20b",
+        "README.md": "aad9471f0e434fe7233a559b8ad292b9fb292d28fba2fe5662a94887b2763e4e"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "koopman",
+      "upstream_url": "https://github.com/sriram-2502/KoopmanMPC_Quadrotor",
+      "pinned_commit": "f1212f1688f7e26c01315874fc377f84777eeeb3",
+      "licence_observation": "MIT",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "mpc/casadi_MPC.m": "3decfdfcbaa59b45c46257c67fcaad96117fe3c04c2074374570a05ae260368b",
+        "dynamics/dynamics_SRB.m": "9001bb7ddc0a258796ff8f3a92a107e378372f3d4fc1141fe7482bfdd2bb4344",
+        "edmd/get_EDMD.m": "e8026b59bd77378cebdce6356acbe93190a22774b7c4eb5c00def6f870d97570",
+        "LICENSE": "d095982bb20b1a96e900af45d24c9c70bd4bfc2b311bbef24d6464dcbba97236",
+        "README.md": "0a24508abe738cde681eb3f12c924ac79cb7ff345b79c228348e2a29735eb901"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "pybullet_drones",
+      "upstream_url": "https://github.com/learnsyslab/gym-pybullet-drones",
+      "pinned_commit": "bc5000cb52b0770c381b09db34fdc08c27858be8",
+      "licence_observation": "MIT",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "gym_pybullet_drones/control/CTBRControl.py": "0567e8ebfdb3d8c4f72c970c545e3f480f9715402184d4debabbed720268c934",
+        "gym_pybullet_drones/envs/BaseRLAviary.py": "9e9d6df1d457b8f84a43ddfbb9e22fc916b73dc2edf32ff1e680836deadfcd80",
+        "pyproject.toml": "cdd874294af1b2ca561b580aca428c2c0e622a15f5cc9d865ef1add81c11227a",
+        "LICENSE": "d49cdc3020dfe0615515277ff96e2f5ca471750248a7505c9bb288be84af4591",
+        "README.md": "c1a1f572980ba41c5cfebf03fdf030d592678b853ca1355c6eca7b95ce6fe70e"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "learning_to_fly",
+      "upstream_url": "https://github.com/arplaboratory/learning-to-fly",
+      "pinned_commit": "d07592d5c5dea3c90954d2be6f04cfa68581ebe8",
+      "licence_observation": "MIT; subcomponents separate",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "src/config/parameters.h": "fc9f08b839859b2f5a277ddbb0b58abd38cd8139bfc6139619dd6f42bd724a9f",
+        ".gitmodules": "c42991c21f6eb65774d0dbaf3a635021b6a01f2f3373becfd9d89f8f21484964",
+        "include/learning_to_fly/simulator/multirotor.h": "5494df3a71fa0d709ef66fb2d581f25a20811a381bbad26d341740284b69f0e7",
+        "README.MD": "c7cb2b611c321aa2c2d7b6125084ac3bc5b8ccbb78016f18ede26f235f90416f",
+        "include/learning_to_fly/simulator/parameters/dynamics/crazy_flie.h": "af0a48f5d0020d12533a98aa83a3c16805c99012bde54343fd4a45f84aeff993",
+        "include/learning_to_fly/simulator/operations_generic.h": "fac1dcd41c16242f52ff60efae5c5b75f85111a4b3a14e62cc93c77e58cce57c",
+        "LICENSE": "db3593689188650094a812d361677fd074f972f6e4cb60c5705e640f7abf7ee1"
+      },
+      "submodules": [
+        {
+          "path": "controller",
+          "commit": "d52b11a03caa1dadaf6b6bf02f328719b5bdd215"
+        },
+        {
+          "path": "external/rl_tools",
+          "commit": "3a612e29582aa7b509bd4df8a04fb3a9dd2b2721"
+        },
+        {
+          "path": "media",
+          "commit": "ae72456e879137b840b9dfde366253886c3ec131"
+        },
+        {
+          "path": "test/lib/googletest",
+          "commit": "b10fad38c4026a29ea6561ab15fc4818170d1c10"
+        }
+      ],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "datt",
+      "upstream_url": "https://github.com/KevinHuang8/DATT",
+      "pinned_commit": "42ddfc8ccf1afe416c50b8e6d37864d70ce18af0",
+      "licence_observation": "No explicit top-level licence found",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "learning/base_env.py": "dbfa5ca3868a16c65b18dad29cf44187668adc421bd04912962e73e680b24ec5",
+        "learning/tasks/trajectory_fbff.py": "6c379bd1120de6d6c831bc0e2a70eb3c7ff22d41b8c2ac68469f7d5ff4446b32",
+        "requirements.txt": "a2b6e2412be59282ca2d63da6d082e9c46bc77d400763b12b031e5cb3fd4716d",
+        "controllers/datt_controller.py": "07454d150853bbec7d794d12f70216d11e2760903f434aa3b00bdf14a701b00e",
+        "README.md": "cdbebc0cdfe2f94200874685b1bf8be6e4a8eb9f2f8ee657792e11347bcb003d"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "crazyswarm_datt",
+      "upstream_url": "https://github.com/Rwik2000/crazyswarm_DATT",
+      "pinned_commit": "8e2bbf95039c49ba3f97ddf55c0895370c13677d",
+      "licence_observation": "MIT; firmware dependencies separately licensed",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "ros_ws/src/crazyswarm/scripts/run_DATT/Controllers/hover_ppo_controller.py": "b3f58977cfd38048195c9a94644c8a810da8a581247013ea454ed9bf61c79cc1",
+        ".gitmodules": "faea8128f47acccdf8baced319df78772bc05c8ca00aff3b331ce50c8784af66",
+        "LICENSE": "e66f2997bfc20794c9e0d6d58e902699398a7e6a13f31e932a69b8f87efa33eb",
+        "README.md": "ae031916608fc401d025000346d6c05b5bfa0bfe52cc622cdfa89f6cf951b887"
+      },
+      "submodules": [
+        {
+          "path": "crazyflie-clients-python",
+          "commit": "eee4ae1ff742ac40934e2ebe5d3bf9e5da576d25"
+        },
+        {
+          "path": "crazyflie-firmware",
+          "commit": "e384ff425fb8609720b5c5207c16b66a570c4ebe"
+        },
+        {
+          "path": "crazyradio-firmware",
+          "commit": "573092599f7aac4949eb3d086aa00fbdf3e430f2"
+        }
+      ],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "neural_fly",
+      "upstream_url": "https://github.com/aerorobotics/neural-fly",
+      "pinned_commit": "0ed50246b1f1db194e8f0726749351636d3501bf",
+      "licence_observation": "No OSI licence found; README use restriction",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "training-and-validation.ipynb": "4d1d46ab3c7bd89c3b567df18858b5c9da0d009cff46acdc7a216ab20df2521a",
+        "mlmodel.py": "cc927bfcb2568b441e1d64860b6b20591e5854788e8126d42f512eb58931146a",
+        "README.md": "c4162a7d58a14fe7cf299bbc4f0947da9262feb3568f39356f4d890aeaba401f"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "safe_control_gym",
+      "upstream_url": "https://github.com/learnsyslab/safe-control-gym",
+      "pinned_commit": "6b5391d014f36fdfa0f9d22d92c77387e5274308",
+      "licence_observation": "MIT",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "safe_control_gym/controllers/mpc/gp_mpc.py": "3d734a4760593bb3605bd735efc28a48899ee08ea50cf44840b406b756b29b0d",
+        "pyproject.toml": "f7baadce676fc080a9546b6685c2dd9a05ac3a986a85c51c7c1c0dbbfca72024",
+        "setup.py": "bec82b879967058b01a555fdce85feaa6f081f90b89cb68d096285b271f69ff6",
+        "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+        "LICENSE": "2b394b5a18c67697a141ee6bea2dcb89aa0e3f10a585b3d4482c73b0f07d7831",
+        "README.md": "6b7394464c1ccbd1f3f43f705be278c9c707716e5ee93c5d44b89a7732b5ccf8"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "learning_on_the_fly",
+      "upstream_url": "https://github.com/uzh-rpg/learning_on_the_fly",
+      "pinned_commit": "cba6e5370773ace8a08107f02810eecabf16c793",
+      "licence_observation": "GPL-3.0",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "lotf/objects/quadrotor_obj.py": "499373d1508e9840e2551a734c027a177ff01013dad752c2badafe627c6f99f2",
+        "lotf/utils/residual_dynamics.py": "bd635b391b95b35cf7287790306e75e0da3c4b3552ddb1c8e6a16c87d6635022",
+        "lotf/envs/traj_tracking_state_env.py": "91a0301b50f5645eeeda504dfb6ec1f4ccb505078058230360d677e19c08df08",
+        "setup.py": "07383ba8405afb3e66d9cc0bad555c098f37cefdae37b408570ef3d0bb3aee47",
+        "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+        "README.md": "4ba9f7cffc384ae53a2e7df563c25012b8208edd02be0b5d57b58ab7c62ccbc5"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    },
+    {
+      "component": "airsim_rl",
+      "upstream_url": "https://github.com/microsoft/AirSim",
+      "pinned_commit": "1ca93f6f77e4e8a39b2b241c1fe2764da4d7dd41",
+      "licence_observation": "MIT",
+      "inspection": "fixed-commit source and licence/interface review; no upstream run or pretrained model deployment",
+      "inspected_file_sha256": {
+        "docs/reinforcement_learning.md": "70ca6fce18a41b5604d3879fed198a85c39ea157dd6da1c0899b7683d275ed51",
+        "PythonClient/reinforcement_learning/airgym/envs/drone_env.py": "a9be252048d310d057a151cfdf09c9e9630de2e197aaa545ac0b9c99ce6614b5",
+        "LICENSE": "46f9d0d995602aefb4b806149dd6cf03482d6f605aa21e8a97222c5df33bec0b",
+        "README.md": "3b892c61f2130c77a445b593528255ed75a8f7db52840b402aa6ebc52049f5e0"
+      },
+      "submodules": [],
+      "copied_source_files": [],
+      "usage": "adaptation assessment only"
+    }
+  ],
+  "weights_and_data": "not downloaded; separate terms need inspection before future use"
+}

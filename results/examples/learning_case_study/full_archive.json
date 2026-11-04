@@ -1,0 +1,13 @@
+{
+  "archive_name": "learning-case-study-8e9b216.tar.gz",
+  "bytes": 63043200,
+  "sha256": "0bcb3670dfe9e555b3375b685f7934df6f6210b9399a08517d203228ed822cfd",
+  "storage": "ignored local archive; no external upload claimed",
+  "actual_flights": {
+    "baseline": 2,
+    "collection_training_and_validation": 10,
+    "paired_closed_loop_evaluation": 16
+  },
+  "contents": "complete raw control/physics logs, metadata/results/protocols, frozen models and experiment configs; no Unreal installation or manuscript",
+  "numerical_freeze": "8e9b2161496b93f7e09c28e6aa8032563750df65"
+}

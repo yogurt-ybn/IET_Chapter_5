@@ -58,3 +58,18 @@ checksum-verified and downloaded only into the ignored local build. Its pinned
 source tree has no explicit licence file/declaration; no redistribution permission
 is assumed and no renderer source/binary is included in this repository. See the
 machine-readable manifest for exact component source pins, classifications and tests.
+
+The learning-control extension inspects **Data-Driven MPC for Quadrotors**, Torrente,
+Kaufmann, Foehn and Scaramuzza (2021), at
+`a6be5d301e66d91a823ef68a29c79ccc5829f1b9`, under GPL-3.0-or-later.
+Its body-frame residual fitting and NMPC workflow are methodological references.
+`src/iet_ch5/learning/` implements standard RBF GP posterior equations and AirSim
+flight alignment in original project code; no GPL source, ROS stack, upstream
+weights or datasets are copied or redistributed. This statement does not relicense
+upstream code or the user's original work. The new frozen GP weights are fitted
+from this project's actual AirSim flights and retain dataset/source hashes.
+See `docs/learning/UPSTREAM_ASSESSMENT.md` and `upstream_manifest.json` for all
+12 supplied source pins, inspected files, input/output semantics and dependencies.
+DATT remains a read-only reference with no explicit root licence found. Neural-Fly
+also remains read-only: its pinned README imposes usage restrictions on code/data.
+No successful upstream reproduction or adaptation of those other controllers is claimed.

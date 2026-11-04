@@ -1,11 +1,24 @@
 # Implementation handoff
 
-Branch: `feat/ch5-airsim-controllers`. Review: https://github.com/yogurt-ybn/IET_Chapter_5/pull/2
-(draft, not merged). The numerical benchmark source is `2e6d9ed`; publication analysis,
-case-study text and capture tooling are anchored at `a878670`, followed by the verified
-media/handoff commit. Use Git HEAD for the final delivery revision.
+Current branch: `feat/ch5-learning-residual-nmpc`. Review: https://github.com/yogurt-ybn/IET_Chapter_5/pull/3 (draft, not merged), extending the conventional-controller work in PR #2. The current numerical freeze and measured outcomes are below; earlier delivery revisions remain recorded in the historical sections.
 
-## Current delivery: rigid-body NMPC with acados
+## Current delivery: learned-force residual NMPC case study
+
+Branch: `feat/ch5-learning-residual-nmpc`. Review: https://github.com/yogurt-ybn/IET_Chapter_5/pull/3 (draft; builds on PR #2, not merged). Read `docs/learning/REQUIREMENTS.md`, `GP_NMPC.md`, `CASE_STUDY.md` and `UPSTREAM_ASSESSMENT.md` in that directory.
+
+Numerical/model/configuration freeze: `8e9b2161496b93f7e09c28e6aa8032563750df65`, source/config SHA256 `3087ad01437947f488fcafdeb528ef41f522d0323028354e56474771426eebd6`. Later publication changes concern figure spacing/traversal markers, immutable input checks and censored-result handling only. Do not count them as new numerical flight evaluations.
+
+L0–L3 evidence: two unchanged-NMPC baseline flights; 10 new acquisition flights (six train, four independent prediction validation); two separately frozen 64-support force GPs; 16 matched off/on AirSim flights. All 16 tracking runs and all eight repeatability checks pass, with zero fallback/saturation/task constraint violation. All 7,504 optimization calls return accepted status 0. Every pair is checked for equal initial state, physical/model parameters, reference and controller settings except `residual.enabled`.
+
+With controller mass +10%, figure-eight mean RMS is 23.732 → 0.785 mm and agile-course mean RMS is 25.384 → 4.769 mm. Nominal figure-eight RMS degrades 0.475 → 0.548 mm; nominal agile performance is essentially unchanged. Complete-update p95 increases from 3.34–4.96 ms to 18.57–21.58 ms, with on-model maxima up to 69.5 ms. Paused simulation is not real-time validation. Separate mass-bias/nominal models do not establish online adaptation or cross-condition generalization.
+
+Public artefacts: `models/learning/`, `results/examples/learning_baseline/`, `learning_dataset/`, `learning_prediction/` and `learning_case_study/`. All nine final comparison PNGs regenerate byte-identically without Unreal. Python plots plus PNG/SVG/PDF are supplied. The full 28-flight raw archive remains local, 63,043,200 bytes, SHA256 `0bcb3670dfe9e555b3375b685f7934df6f6210b9399a08517d203228ed822cfd`; its public receipt is `results/examples/learning_case_study/full_archive.json`. No external raw upload is claimed.
+
+Validation: 52 tests passed with the explicitly enabled native acados and read-only AirSim checks, including new force-label/frame, applied-vs-commanded input, GP held-out fitting, checksum, symbolic derivative and pair-invariance tests. Ruff/whitespace and documentation-link checks pass. The original AirSim source/binary/diff hashes remain unchanged. The dedicated learning simulator is stopped after evaluation; do not reuse stale process IDs from earlier handoffs.
+
+Other supplied algorithms are source/interface/licence assessments only. No RL training, pretrained-policy deployment, neural residual, Koopman port, new wind test or hardware flight is claimed. Neural-Fly has restrictive README use terms; DATT has no explicit root licence found. Preserve those boundaries before importing code/data.
+
+## Previous delivery: rigid-body NMPC with acados
 
 Numerical/model/runtime/configuration freeze: `99515454ff0c69bce66f4a8f9ca6af5989057d25`. The original `mpc` remains the near-hover OSQP baseline; `nmpc` is a separate genuine acados 17-state quaternion rigid-body/motor-lag OCP using the same wrench/motor allocator. No hard speed/tilt state box is retained in NMPC. Native acados v0.5.4, HPIPM/BLASFEO source pins, licences and library/build hashes are recorded. See [model/install/tuning](rigid_body_nmpc.md) and [measured interpretation](rigid_body_nmpc_results.md).
 

@@ -1,6 +1,14 @@
 # IET Chapter 5: UAV Control Systems
 
-A reproducible AirSim case study for conventional quadrotor control: **one simulation interface, six controller implementations, configurable trajectories and measured performance evaluation**. Each controller computes physical thrust and body moments through the same verified motor adapter.
+A reproducible AirSim case study for conventional quadrotor control: **one simulation interface, six controller implementations, configurable trajectories and measured performance evaluation**. Each controller computes physical thrust and body moments through the same verified motor adapter. A frozen learned-force extension provides a matched NMPC case study for Section 5.4.6.
+
+## Learning-control case study: the same NMPC, GP residual off/on
+
+The [Section 5.4.6 case study](docs/learning/CASE_STUDY.md) is complete: **16 paired-evaluation AirSim flights, all passing, zero fallback**. With the controller mass biased by +10%, mean RMS drops from **23.73 to 0.785 mm** on the figure eight and **25.38 to 4.77 mm** on the agile spatial course. With accurate nominal parameters, learning offers no consistent benefit: ordinary figure-eight RMS increases from 0.475 to 0.548 mm. GP optimization updates also cost more: p95 18.6–21.6 ms versus 3.3–5.0 ms. Paused simulation does not establish real-time operation.
+
+[Model, data split and runnable workflow](docs/learning/GP_NMPC.md) · [All paired results](results/examples/learning_case_study/REPORT.md) · [Assessment of 12 upstream algorithms](docs/learning/UPSTREAM_ASSESSMENT.md)
+
+![Matched GP-NMPC accuracy and computation](results/examples/learning_case_study/figures/accuracy_and_timing.png)
 
 ## Watch the controllers track an agile 3D trajectory
 
@@ -45,6 +53,7 @@ src/iet_ch5/
   controllers/             pid/, lqr/, geometric/, dob/, mpc/, nmpc/
   trajectories/            Analytic references, time laws and JSON presets
   experiments/             Configuration, execution, publication and video
+  learning/                Aligned flight data, frozen force GP and paired evaluation
   evaluation/              Independent physics-truth metrics
   allocation.py            Shared physical thrust/moment-to-motor adapter
   runner.py                Common control loop and logging
