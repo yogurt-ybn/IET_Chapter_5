@@ -1,0 +1,34 @@
+{
+  "schema": "iet-ch5/experiment-v1",
+  "name": "learning_data_collection",
+  "controllers": [
+    "nmpc"
+  ],
+  "trajectories": [
+    "transfer",
+    "circle",
+    "helix",
+    "figure_eight",
+    "spatial_course"
+  ],
+  "repeats": 1,
+  "conditions": [
+    {
+      "id": "nominal",
+      "kind": "nominal",
+      "seeds": [
+        0
+      ]
+    },
+    {
+      "id": "mass_bias",
+      "kind": "mismatch",
+      "mass_factor": 1.1,
+      "inertia_factor": 1.0,
+      "seeds": [
+        0
+      ]
+    }
+  ],
+  "repeatability_max_position_delta_m": 0.02
+}

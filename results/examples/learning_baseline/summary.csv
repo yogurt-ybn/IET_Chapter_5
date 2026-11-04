@@ -1,0 +1,3 @@
+run_id,controller,trajectory,tier,condition,seed,repeat,status,complete_common_interval,tracking_rms_m,position_max_m,velocity_rms_m_s,heading_rms_rad,constraint_violation_duration_s,fallback_count,failure
+000-nmpc-transfer-nominal-s0-r0,nmpc,transfer,nominal,nominal,0,0,passed,True,0.00012327166827217785,0.00016366934824870103,7.15989082526335e-05,0.00023273250945592743,0.0,0,
+001-nmpc-agile_course-nominal-s0-r0,nmpc,agile_course,aggressive,nominal,0,0,passed,True,0.003836491133653835,0.00809504418630356,0.005382896680637455,0.07379094094531927,0.0,0,
