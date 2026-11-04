@@ -1,0 +1,191 @@
+[
+  {
+    "trajectory": "agile_course",
+    "tier": "aggressive",
+    "duration_s": 10.0,
+    "traversal_s": 8.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 4.020765941241204,
+    "reference_peak_axis_speed_m_s": [
+      2.7925192418404774,
+      2.911458567130354,
+      1.117010721276371
+    ],
+    "reference_peak_acceleration_m_s2": 7.007567720852704,
+    "reference_peak_tilt_rad": 0.7007991092082957,
+    "reference_peak_heading_rate_rad_s": 0.46542113386515455,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 3.7721608565562454,
+    "reference_peak_abs_moment_Nm": [
+      0.13616010121900388,
+      0.07561516247629746,
+      0.0776572082764233
+    ],
+    "feedforward_rotor_input_min": 0.2220587340062583,
+    "feedforward_rotor_input_max": 1.0417131951615248,
+    "physical_feedforward_feasible": false
+  },
+  {
+    "trajectory": "circle",
+    "tier": "nominal",
+    "duration_s": 10.0,
+    "traversal_s": 8.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 0.9666438934122441,
+    "reference_peak_axis_speed_m_s": [
+      0.966632603028513,
+      0.966643893412244,
+      0.0
+    ],
+    "reference_peak_acceleration_m_s2": 1.6042425249959407,
+    "reference_peak_tilt_rad": 0.1621509598769036,
+    "reference_peak_heading_rate_rad_s": 0.0,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 0.5246925928334664,
+    "reference_peak_abs_moment_Nm": [
+      0.01701702931806262,
+      0.010677849318188487,
+      0.0033229698788132013
+    ],
+    "feedforward_rotor_input_min": 0.5809701368438389,
+    "feedforward_rotor_input_max": 0.6220821059905923,
+    "physical_feedforward_feasible": true
+  },
+  {
+    "trajectory": "figure_eight",
+    "tier": "nominal",
+    "duration_s": 12.0,
+    "traversal_s": 10.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 1.5167080456370876,
+    "reference_peak_axis_speed_m_s": [
+      1.1087974071493387,
+      1.0348775800060495,
+      0.0
+    ],
+    "reference_peak_acceleration_m_s2": 1.6654589287211026,
+    "reference_peak_tilt_rad": 0.16822448464906833,
+    "reference_peak_heading_rate_rad_s": 0.0,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 0.7041639743209509,
+    "reference_peak_abs_moment_Nm": [
+      0.02116489755847255,
+      0.009388276004014625,
+      0.0039479595582411564
+    ],
+    "feedforward_rotor_input_min": 0.5763987521885767,
+    "feedforward_rotor_input_max": 0.6255319002560615,
+    "physical_feedforward_feasible": true
+  },
+  {
+    "trajectory": "helix",
+    "tier": "nominal",
+    "duration_s": 12.0,
+    "traversal_s": 10.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 0.6756006504483414,
+    "reference_peak_axis_speed_m_s": [
+      0.6652784442896033,
+      0.6652784442896033,
+      0.11764705882352941
+    ],
+    "reference_peak_acceleration_m_s2": 1.115204825805445,
+    "reference_peak_tilt_rad": 0.11375849001103755,
+    "reference_peak_heading_rate_rad_s": 0.0,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 0.3358663749217981,
+    "reference_peak_abs_moment_Nm": [
+      0.011721989341408744,
+      0.00544164051663368,
+      0.0011708459406926431
+    ],
+    "feedforward_rotor_input_min": 0.5773486896081254,
+    "feedforward_rotor_input_max": 0.6163441709790973,
+    "physical_feedforward_feasible": true
+  },
+  {
+    "trajectory": "hover",
+    "tier": "nominal",
+    "duration_s": 8.0,
+    "traversal_s": 6.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 0.0,
+    "reference_peak_axis_speed_m_s": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "reference_peak_acceleration_m_s2": 0.0,
+    "reference_peak_tilt_rad": 0.0,
+    "reference_peak_heading_rate_rad_s": 0.0,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 0.0,
+    "reference_peak_abs_moment_Nm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "feedforward_rotor_input_min": 0.5937001708512356,
+    "feedforward_rotor_input_max": 0.5937001708512356,
+    "physical_feedforward_feasible": true
+  },
+  {
+    "trajectory": "spatial_course",
+    "tier": "nominal",
+    "duration_s": 14.0,
+    "traversal_s": 12.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 1.377994171313439,
+    "reference_peak_axis_speed_m_s": [
+      0.9424731451392612,
+      1.0053096491487339,
+      0.43982297150257105
+    ],
+    "reference_peak_acceleration_m_s2": 1.424512846056439,
+    "reference_peak_tilt_rad": 0.14203273705720307,
+    "reference_peak_heading_rate_rad_s": 0.15707963267948966,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 0.436985346025706,
+    "reference_peak_abs_moment_Nm": [
+      0.010182357426778848,
+      0.0030382572473788244,
+      0.002515380708229519
+    ],
+    "feedforward_rotor_input_min": 0.5540141593622733,
+    "feedforward_rotor_input_max": 0.6435772214038378,
+    "physical_feedforward_feasible": true
+  },
+  {
+    "trajectory": "transfer",
+    "tier": "nominal",
+    "duration_s": 8.0,
+    "traversal_s": 6.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 0.5410332521947877,
+    "reference_peak_axis_speed_m_s": [
+      0.41015625,
+      0.287109375,
+      0.205078125
+    ],
+    "reference_peak_acceleration_m_s2": 0.34340177529110183,
+    "reference_peak_tilt_rad": 0.0328282256214587,
+    "reference_peak_heading_rate_rad_s": 0.0,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 0.04539557940596746,
+    "reference_peak_abs_moment_Nm": [
+      0.0002363173797140538,
+      0.00040367729174590187,
+      1.5102919695256311e-05
+    ],
+    "feedforward_rotor_input_min": 0.5859590212812223,
+    "feedforward_rotor_input_max": 0.602168910968465,
+    "physical_feedforward_feasible": true
+  }
+]

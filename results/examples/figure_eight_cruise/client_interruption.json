@@ -1,0 +1,1 @@
+{"observed_exit_code":143,"interrupted_run":"lqr-interrupted-client","observation":"Capture client stopped before final result; simulator remained running","cause":"SIGTERM indicated by shell exit code; sender/cause unverified","handling":"Partial record retained; complete LQR restarted from common reset with unchanged configuration"}

@@ -1,0 +1,3 @@
+# Pre-freeze NMPC development checks
+
+These three genuine AirSim runs check nominal transfer, spatial tracking, and a separate faster development trajectory. All completed and passed with zero fallback. Default gains/cost weights were not retuned from the final evaluation task. Their source states/configurations are retained exactly; later changes added solver diagnostics, binary checks, integration tests and publication support before freezing the 42-run matrix. They are development/integration evidence and are excluded from final evaluation/repeat counts. Raw logs remain locally in ignored results/runs; per-file hashes are retained here.

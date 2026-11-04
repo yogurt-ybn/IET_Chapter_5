@@ -1,0 +1,31 @@
+{
+  "design_dt": 0.036,
+  "Q": [
+    8,
+    8,
+    12,
+    4,
+    4,
+    5,
+    12,
+    12,
+    8,
+    0.3,
+    0.3,
+    0.3
+  ],
+  "W": [
+    0.5,
+    50,
+    50,
+    80
+  ],
+  "horizon": 30,
+  "speed_limit": 2.0,
+  "tilt_limit_rad": 0.3,
+  "eps_abs": 1e-05,
+  "eps_rel": 1e-05,
+  "max_iter": 2000,
+  "solver_time_limit_s": 0.008,
+  "constraint_acceptance_tolerance": 0.0002
+}

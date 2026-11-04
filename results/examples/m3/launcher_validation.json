@@ -1,0 +1,24 @@
+{
+  "launch_command": "scripts/launch_simulator.py --local-config .local/environment.json",
+  "capability_command": "scripts/check_environment.py --local-config .local/environment.json --output .local/launcher-capabilities.json",
+  "capabilities": {
+    "ping": true,
+    "getServerVersion": true,
+    "getMinRequiredClientVersion": true,
+    "listVehicles": true,
+    "simIsPaused": true,
+    "isApiControlEnabled": true,
+    "getMultirotorState": true,
+    "getDynamicsParameters": true,
+    "getRotorStates": true,
+    "simGetGroundTruthKinematics": true,
+    "simGetGroundTruthEnvironment": true,
+    "getDynamicsStateBatch": true
+  },
+  "server_version": 1,
+  "plugin_sha256": "88c360b81842ab5547eecebbe5a1816e89bb254e8ebff94e2b479bbfd7b17030",
+  "tests": "22 passed including explicit read-only AirSim integration",
+  "separate_frozen_source_checkout_tests": "19 passed,1 integration skipped without local configuration,CPython3.10.12",
+  "original_airsim_diff_unchanged": true,
+  "original_simulator_preserved": true
+}

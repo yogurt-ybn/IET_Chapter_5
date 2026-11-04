@@ -1,0 +1,6 @@
+{
+  "prescribed_force_moment_pulse": "unavailable: installed RPC has no verified arbitrary external-wrench injection",
+  "unpaused_real_time": "not evaluated; no real-time feasibility claim",
+  "physical_flight": "outside scope",
+  "external_large_archive_upload": "not uploaded; complete run directories retained locally and rerunnable"
+}

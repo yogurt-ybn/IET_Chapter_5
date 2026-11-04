@@ -1,0 +1,17 @@
+{
+  "run": "tune-geometric-01",
+  "controller": "geometric",
+  "capture": "AirSim camera 0 Scene, paused immediately after run; no synthetic imagery",
+  "image_timestamp_ns": 1792464863929239552,
+  "camera_position_ned": {
+    "x_val": 1.0600048303604126,
+    "y_val": -0.4000028073787689,
+    "z_val": -2.299949884414673
+  },
+  "camera_orientation_ned_frd": {
+    "w_val": 1.0,
+    "x_val": 3.0283288765531324e-07,
+    "y_val": 4.1723248500602494e-07,
+    "z_val": 2.2300591928647862e-10
+  }
+}

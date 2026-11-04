@@ -1,0 +1,12 @@
+{
+  "runs": [
+    "results/examples/m3/runs/00-pid-hover_transfer-s0-r0",
+    "results/examples/m3/runs/10-lqr-hover_transfer-s0-r0",
+    "results/examples/m3/runs/20-geometric-hover_transfer-s0-r0",
+    "results/examples/m3/runs/30-dob-hover_transfer-s0-r0",
+    "results/examples/m3/runs/40-mpc-hover_transfer-s0-r0"
+  ],
+  "font": "DejaVu Serif",
+  "source": "scripts/plot_results.py",
+  "evidence": "actual AirSim logs"
+}

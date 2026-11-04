@@ -1,0 +1,10 @@
+{
+  "log.jsonl": {
+    "bytes": 2792132,
+    "sha256": "84e374ece51be86073aa6375bba9d8e92f6caa728a115cff20fff39a33ebf61a"
+  },
+  "physics.jsonl": {
+    "bytes": 4099714,
+    "sha256": "7600b5abe29f91d1876c8b70892a3dc70d774c2c22b09be4b70931209d0da321"
+  }
+}

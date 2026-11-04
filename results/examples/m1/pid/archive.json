@@ -1,0 +1,7 @@
+{
+  "source_run": "tune-pid-01",
+  "sample_selection": "all control samples; lossless gzip",
+  "log_sha256": "be2c7fbf53d309466f31b65004e8bbf210f474f5e091537591aba62c10980550",
+  "physics_samples_location": "ignored results/runs/tune-pid-01/physics.jsonl",
+  "purpose": "M1 development acceptance; not the frozen final benchmark"
+}

@@ -1,0 +1,6 @@
+{
+  "log_sha256": "033338ac3a62ec324709df0fc7d6a24c64bf36d308c50ba569c2cd49ae226e78",
+  "sample_selection": "all control-cadence samples; lossless gzip",
+  "source_run": "30-dob-hover_transfer-s0-r0",
+  "complete_raw_directory": "results/runs/frozen-m3-20261020/30-dob-hover_transfer-s0-r0"
+}

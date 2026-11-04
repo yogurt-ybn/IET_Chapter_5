@@ -1,0 +1,137 @@
+[
+  {
+    "run": "pid",
+    "controller": "pid",
+    "status": "passed",
+    "valid_samples": 1001,
+    "duration_s": 11.997255936,
+    "position_rms_m": 0.013418685377829047,
+    "position_max_m": 0.03485569788742469,
+    "axis_rms_m": [
+      0.009080547560567953,
+      0.006066563429361532,
+      0.007797536882051906
+    ],
+    "initial_hover_rms_m": 0.018741276581546167,
+    "transfer_rms_m": 0.017882444305930043,
+    "steady_hold_rms_m": 0.002412397465902627,
+    "transfer_settle_s": 0.009128192000000368,
+    "saturation_duration_s": 0.0,
+    "saturation_fraction": 0.0,
+    "allocation_residual_max": 1.8082664801449685e-15,
+    "controller_s": {
+      "median": 0.00023159303236752748,
+      "p95": 0.0005316570168361068,
+      "max": 0.0016301909927278757
+    },
+    "allocation_s": {
+      "median": 0.00010289199417456985,
+      "p95": 0.0001915530301630497,
+      "max": 0.0007261789869517088
+    },
+    "rpc_step_s": {
+      "median": 0.016855120949912816,
+      "p95": 0.019611237046774477,
+      "max": 0.02326799597358331
+    },
+    "wall_loop_s": {
+      "median": 0.017860363994259387,
+      "p95": 0.020749001996591687,
+      "max": 0.024290989036671817
+    },
+    "wall_deadline_misses": 1001,
+    "fallback_count": 0,
+    "collision_samples": 0,
+    "recovery_s": 0.009192192000000432
+  },
+  {
+    "run": "lqr",
+    "controller": "lqr",
+    "status": "passed",
+    "valid_samples": 1001,
+    "duration_s": 11.994255872,
+    "position_rms_m": 0.005685079643980181,
+    "position_max_m": 0.021584510803222656,
+    "axis_rms_m": [
+      0.0004760860896245212,
+      0.0003169112200793446,
+      0.005656239021845848
+    ],
+    "initial_hover_rms_m": 0.013719150027954097,
+    "transfer_rms_m": 0.0016390185473977438,
+    "steady_hold_rms_m": 0.00012177081603127454,
+    "transfer_settle_s": 0.006128128000000288,
+    "saturation_duration_s": 0.0,
+    "saturation_fraction": 0.0,
+    "allocation_residual_max": 1.803316007146365e-15,
+    "controller_s": {
+      "median": 0.000451526022516191,
+      "p95": 0.000978563039097935,
+      "max": 0.005150098004378378
+    },
+    "allocation_s": {
+      "median": 5.297100869938731e-05,
+      "p95": 0.00011025101412087679,
+      "max": 0.0015963409678079188
+    },
+    "rpc_step_s": {
+      "median": 0.016769640031270683,
+      "p95": 0.01971691905055195,
+      "max": 0.04347181000048295
+    },
+    "wall_loop_s": {
+      "median": 0.01796683599241078,
+      "p95": 0.021150796965230256,
+      "max": 0.044392983021680266
+    },
+    "wall_deadline_misses": 1001,
+    "fallback_count": 0,
+    "collision_samples": 0,
+    "recovery_s": 0.006192128000000352
+  },
+  {
+    "run": "geometric",
+    "controller": "geometric",
+    "status": "passed",
+    "valid_samples": 1003,
+    "duration_s": 11.997255936,
+    "position_rms_m": 0.006146856609732698,
+    "position_max_m": 0.02462601661682129,
+    "axis_rms_m": [
+      0.00011104675510769181,
+      7.947615968252294e-05,
+      0.00614533956253328
+    ],
+    "initial_hover_rms_m": 0.015072149994954645,
+    "transfer_rms_m": 0.0003641366603780872,
+    "steady_hold_rms_m": 6.873463435238232e-05,
+    "transfer_settle_s": 0.006128128000000288,
+    "saturation_duration_s": 0.0,
+    "saturation_fraction": 0.0,
+    "allocation_residual_max": 1.8110268548213423e-15,
+    "controller_s": {
+      "median": 0.0005705080111511052,
+      "p95": 0.0012354499835055318,
+      "max": 0.006329793017357588
+    },
+    "allocation_s": {
+      "median": 0.00010096095502376556,
+      "p95": 0.00020952310296706853,
+      "max": 0.0013349970104172826
+    },
+    "rpc_step_s": {
+      "median": 0.016643449023831636,
+      "p95": 0.01965902301017195,
+      "max": 0.023848013021051884
+    },
+    "wall_loop_s": {
+      "median": 0.017970736022107303,
+      "p95": 0.021316718036541716,
+      "max": 0.030523881025146693
+    },
+    "wall_deadline_misses": 1003,
+    "fallback_count": 0,
+    "collision_samples": 0,
+    "recovery_s": 0.006192128000000352
+  }
+]

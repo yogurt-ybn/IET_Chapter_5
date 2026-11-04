@@ -1,0 +1,13 @@
+{
+  "schema": "iet-ch5/experiment-v1",
+  "name": "robustness",
+  "controllers": ["pid", "lqr", "geometric", "dob", "mpc"],
+  "trajectories": ["figure_eight"],
+  "repeats": 1,
+  "conditions": [
+    {"id": "wind", "kind": "wind", "onset_fraction": 0.4, "duration_s": 1.5, "velocity_nwu_m_s": [8.0, -4.0, 0.0], "seeds": [0]},
+    {"id": "mismatch", "kind": "mismatch", "mass_factor": 1.1, "inertia_factor": 1.15, "seeds": [0]},
+    {"id": "noise_delay", "kind": "noise_delay", "seeds": [0, 1, 2, 3, 4]}
+  ],
+  "repeatability_max_position_delta_m": 0.02
+}

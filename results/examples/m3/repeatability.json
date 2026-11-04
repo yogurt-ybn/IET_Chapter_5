@@ -1,0 +1,77 @@
+[
+  {
+    "controller": "pid",
+    "runs": [
+      "00-pid-hover_transfer-s0-r0",
+      "01-pid-hover_transfer-s0-r1"
+    ],
+    "resampling_dt_s": 0.012,
+    "max_paired_position_delta_m": 8.49031018577355e-06,
+    "rms_metric_delta_m": 1.5301901848414207e-06,
+    "declared_tolerances": {
+      "max_position_delta_m": 0.02,
+      "rms_metric_delta_m": 0.002
+    },
+    "passed": true
+  },
+  {
+    "controller": "lqr",
+    "runs": [
+      "10-lqr-hover_transfer-s0-r0",
+      "11-lqr-hover_transfer-s0-r1"
+    ],
+    "resampling_dt_s": 0.012,
+    "max_paired_position_delta_m": 1.1299889144866332e-05,
+    "rms_metric_delta_m": 2.5888766100681544e-07,
+    "declared_tolerances": {
+      "max_position_delta_m": 0.02,
+      "rms_metric_delta_m": 0.002
+    },
+    "passed": true
+  },
+  {
+    "controller": "geometric",
+    "runs": [
+      "20-geometric-hover_transfer-s0-r0",
+      "21-geometric-hover_transfer-s0-r1"
+    ],
+    "resampling_dt_s": 0.012,
+    "max_paired_position_delta_m": 3.5953566724358072e-06,
+    "rms_metric_delta_m": 1.8964467845682554e-07,
+    "declared_tolerances": {
+      "max_position_delta_m": 0.02,
+      "rms_metric_delta_m": 0.002
+    },
+    "passed": true
+  },
+  {
+    "controller": "dob",
+    "runs": [
+      "30-dob-hover_transfer-s0-r0",
+      "31-dob-hover_transfer-s0-r1"
+    ],
+    "resampling_dt_s": 0.012,
+    "max_paired_position_delta_m": 8.43282827915265e-06,
+    "rms_metric_delta_m": 8.838328245598832e-09,
+    "declared_tolerances": {
+      "max_position_delta_m": 0.02,
+      "rms_metric_delta_m": 0.002
+    },
+    "passed": true
+  },
+  {
+    "controller": "mpc",
+    "runs": [
+      "40-mpc-hover_transfer-s0-r0",
+      "41-mpc-hover_transfer-s0-r1"
+    ],
+    "resampling_dt_s": 0.012,
+    "max_paired_position_delta_m": 4.600539435951754e-06,
+    "rms_metric_delta_m": 7.929678319442551e-08,
+    "declared_tolerances": {
+      "max_position_delta_m": 0.02,
+      "rms_metric_delta_m": 0.002
+    },
+    "passed": true
+  }
+]

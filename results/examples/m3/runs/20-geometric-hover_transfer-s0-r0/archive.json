@@ -1,0 +1,6 @@
+{
+  "log_sha256": "2e20706f4a4260ccc9690fa674074443384f34c25acfcbcd49e21c5541beba01",
+  "sample_selection": "all control-cadence samples; lossless gzip",
+  "source_run": "20-geometric-hover_transfer-s0-r0",
+  "complete_raw_directory": "results/runs/frozen-m3-20261020/20-geometric-hover_transfer-s0-r0"
+}

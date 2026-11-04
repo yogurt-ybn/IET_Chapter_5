@@ -1,0 +1,6 @@
+{
+  "source_run": "dev-mpc-01",
+  "log_sha256": "ae9e0e2be8f0222e089e8829007d5a5ef5b3152a7451687ec273e92f2e42afd3",
+  "sample_selection": "all control samples, lossless gzip",
+  "purpose": "M2 development, not final matrix"
+}

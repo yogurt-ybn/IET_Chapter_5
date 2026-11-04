@@ -1,0 +1,10 @@
+{
+  "runs": [
+    "results/examples/m1/pid",
+    "results/examples/m1/lqr",
+    "results/examples/m1/geometric"
+  ],
+  "font": "DejaVu Serif",
+  "source": "scripts/plot_results.py",
+  "evidence": "actual AirSim logs"
+}

@@ -1,0 +1,286 @@
+[
+  {
+    "trajectory": "agile_course",
+    "tier": "aggressive",
+    "duration_s": 10.0,
+    "traversal_s": 8.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 4.175438922888096,
+    "reference_peak_axis_speed_m_s": [
+      2.8998978090855387,
+      3.023488124583465,
+      1.1599726720946928
+    ],
+    "reference_peak_acceleration_m_s2": 7.556540478031599,
+    "reference_peak_tilt_rad": 0.746733127404278,
+    "reference_peak_heading_rate_rad_s": 0.483321946706122,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 3.221936879790345,
+    "reference_peak_abs_moment_Nm": [
+      0.0977895733166801,
+      0.06595744364574667,
+      0.06903273636119604
+    ],
+    "feedforward_rotor_input_min": 0.29579771100463864,
+    "feedforward_rotor_input_max": 0.9750391001221612,
+    "physical_feedforward_feasible": true,
+    "candidate_config": {
+      "schema": "iet-ch5/trajectory-v1",
+      "id": "agile_course",
+      "family": "spatial_lissajous",
+      "tier": "aggressive",
+      "description": "Fast 3D multi-harmonic course with rapid turn/climb/yaw coupling",
+      "initial_position": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "timing": {
+        "onset_s": 1.0,
+        "duration_s": 8,
+        "ramp_s": 1.5,
+        "final_hold_s": 1.0
+      },
+      "shape": {
+        "half_width_m": 3.0,
+        "half_height_m": 1.5,
+        "vertical_amplitude_m": 0.6,
+        "third_harmonic_y_m": 0.2,
+        "third_harmonic_z_m": 0.2
+      },
+      "heading": {
+        "offset_rad": 0.0,
+        "oscillation_rad": 0.5
+      },
+      "evaluation": {
+        "position_rms_limit_m": 0.15,
+        "speed_limit_m_s": 5.0,
+        "tilt_limit_rad": 0.85
+      },
+      "safety": {
+        "max_position_error_m": 3.5,
+        "speed_limit_m_s": 7.0,
+        "tilt_limit_rad": 1.1
+      },
+      "camera_position_nwu_m": [
+        -3.0,
+        7.0,
+        11.0
+      ]
+    }
+  },
+  {
+    "trajectory": "agile_course",
+    "tier": "aggressive",
+    "duration_s": 10.5,
+    "traversal_s": 8.5,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 3.8772394549746405,
+    "reference_peak_axis_speed_m_s": [
+      2.6927831096493677,
+      2.8074917997444526,
+      1.0771174812307862
+    ],
+    "reference_peak_acceleration_m_s2": 6.515876622444901,
+    "reference_peak_tilt_rad": 0.6576867674756879,
+    "reference_peak_heading_rate_rad_s": 0.4487989505128276,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 2.7574426735641784,
+    "reference_peak_abs_moment_Nm": [
+      0.08582191051166693,
+      0.04566389572053586,
+      0.046115108819934615
+    ],
+    "feedforward_rotor_input_min": 0.38564347803670784,
+    "feedforward_rotor_input_max": 0.878889559615738,
+    "physical_feedforward_feasible": true,
+    "candidate_config": {
+      "schema": "iet-ch5/trajectory-v1",
+      "id": "agile_course",
+      "family": "spatial_lissajous",
+      "tier": "aggressive",
+      "description": "Fast 3D multi-harmonic course with rapid turn/climb/yaw coupling",
+      "initial_position": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "timing": {
+        "onset_s": 1.0,
+        "duration_s": 8.5,
+        "ramp_s": 1.5,
+        "final_hold_s": 1.0
+      },
+      "shape": {
+        "half_width_m": 3.0,
+        "half_height_m": 1.5,
+        "vertical_amplitude_m": 0.6,
+        "third_harmonic_y_m": 0.2,
+        "third_harmonic_z_m": 0.2
+      },
+      "heading": {
+        "offset_rad": 0.0,
+        "oscillation_rad": 0.5
+      },
+      "evaluation": {
+        "position_rms_limit_m": 0.15,
+        "speed_limit_m_s": 5.0,
+        "tilt_limit_rad": 0.85
+      },
+      "safety": {
+        "max_position_error_m": 3.5,
+        "speed_limit_m_s": 7.0,
+        "tilt_limit_rad": 1.1
+      },
+      "camera_position_nwu_m": [
+        -3.0,
+        7.0,
+        11.0
+      ]
+    }
+  },
+  {
+    "trajectory": "agile_course",
+    "tier": "aggressive",
+    "duration_s": 11.0,
+    "traversal_s": 9.0,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 3.6187464765586426,
+    "reference_peak_axis_speed_m_s": [
+      2.513261720371363,
+      2.6202798427859606,
+      1.0053096491487339
+    ],
+    "reference_peak_acceleration_m_s2": 5.676112964040655,
+    "reference_peak_tilt_rad": 0.5804210927258886,
+    "reference_peak_heading_rate_rad_s": 0.41887902047863906,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 2.4537410002798237,
+    "reference_peak_abs_moment_Nm": [
+      0.07647878359290877,
+      0.032736760870887935,
+      0.03135377932324174
+    ],
+    "feedforward_rotor_input_min": 0.4318317712035762,
+    "feedforward_rotor_input_max": 0.8220769012349339,
+    "physical_feedforward_feasible": true,
+    "candidate_config": {
+      "schema": "iet-ch5/trajectory-v1",
+      "id": "agile_course",
+      "family": "spatial_lissajous",
+      "tier": "aggressive",
+      "description": "Fast 3D multi-harmonic course with rapid turn/climb/yaw coupling",
+      "initial_position": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "timing": {
+        "onset_s": 1.0,
+        "duration_s": 9,
+        "ramp_s": 1.5,
+        "final_hold_s": 1.0
+      },
+      "shape": {
+        "half_width_m": 3.0,
+        "half_height_m": 1.5,
+        "vertical_amplitude_m": 0.6,
+        "third_harmonic_y_m": 0.2,
+        "third_harmonic_z_m": 0.2
+      },
+      "heading": {
+        "offset_rad": 0.0,
+        "oscillation_rad": 0.5
+      },
+      "evaluation": {
+        "position_rms_limit_m": 0.15,
+        "speed_limit_m_s": 5.0,
+        "tilt_limit_rad": 0.85
+      },
+      "safety": {
+        "max_position_error_m": 3.5,
+        "speed_limit_m_s": 7.0,
+        "tilt_limit_rad": 1.1
+      },
+      "camera_position_nwu_m": [
+        -3.0,
+        7.0,
+        11.0
+      ]
+    }
+  },
+  {
+    "trajectory": "agile_course",
+    "tier": "aggressive",
+    "duration_s": 10.5,
+    "traversal_s": 8.5,
+    "screen_samples": 801,
+    "reference_peak_speed_m_s": 4.020805332415472,
+    "reference_peak_axis_speed_m_s": [
+      2.7925225499304593,
+      2.9115063695543775,
+      1.117010721276371
+    ],
+    "reference_peak_acceleration_m_s2": 6.998215073264449,
+    "reference_peak_tilt_rad": 0.6990313701826193,
+    "reference_peak_heading_rate_rad_s": 0.46542113386515455,
+    "physical_parameters_available": true,
+    "scope": "Reference feedforward static rotor coupling; no motor lag, closed-loop or obstacle guarantee",
+    "reference_peak_body_rate_rad_s": 2.5636221043367478,
+    "reference_peak_abs_moment_Nm": [
+      0.06523174445973864,
+      0.04177683330474136,
+      0.04305349124100855
+    ],
+    "feedforward_rotor_input_min": 0.407191600214756,
+    "feedforward_rotor_input_max": 0.8812084408576498,
+    "physical_feedforward_feasible": true,
+    "candidate_config": {
+      "schema": "iet-ch5/trajectory-v1",
+      "id": "agile_course",
+      "family": "spatial_lissajous",
+      "tier": "aggressive",
+      "description": "Fast 3D multi-harmonic course with rapid turn/climb/yaw coupling",
+      "initial_position": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "timing": {
+        "onset_s": 1.0,
+        "duration_s": 8.5,
+        "ramp_s": 1.75,
+        "final_hold_s": 1.0
+      },
+      "shape": {
+        "half_width_m": 3.0,
+        "half_height_m": 1.5,
+        "vertical_amplitude_m": 0.6,
+        "third_harmonic_y_m": 0.2,
+        "third_harmonic_z_m": 0.2
+      },
+      "heading": {
+        "offset_rad": 0.0,
+        "oscillation_rad": 0.5
+      },
+      "evaluation": {
+        "position_rms_limit_m": 0.15,
+        "speed_limit_m_s": 5.0,
+        "tilt_limit_rad": 0.85
+      },
+      "safety": {
+        "max_position_error_m": 3.5,
+        "speed_limit_m_s": 7.0,
+        "tilt_limit_rad": 1.1
+      },
+      "camera_position_nwu_m": [
+        -3.0,
+        7.0,
+        11.0
+      ]
+    }
+  }
+]

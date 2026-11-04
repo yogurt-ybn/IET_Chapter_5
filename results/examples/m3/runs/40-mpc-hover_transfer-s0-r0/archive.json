@@ -1,0 +1,6 @@
+{
+  "log_sha256": "f64a0abcca4d77d2c0831fcd72dd57fcea81fd25fa8ced4e7587d36bf98f8274",
+  "sample_selection": "all control-cadence samples; lossless gzip",
+  "source_run": "40-mpc-hover_transfer-s0-r0",
+  "complete_raw_directory": "results/runs/frozen-m3-20261020/40-mpc-hover_transfer-s0-r0"
+}

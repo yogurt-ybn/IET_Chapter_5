@@ -1,0 +1,6 @@
+{
+  "log_sha256": "4a1b1b0b84b37773f7be487da75a73083f378e3cfcae976827e3a1a85e71020c",
+  "sample_selection": "all control-cadence samples; lossless gzip",
+  "source_run": "33-dob-disturbance-s0-r0",
+  "complete_raw_directory": "results/runs/frozen-m3-20261020/33-dob-disturbance-s0-r0"
+}

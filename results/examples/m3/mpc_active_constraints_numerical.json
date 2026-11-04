@@ -1,0 +1,21 @@
+{
+  "solver": {
+    "qp_solved_this_update": true,
+    "solver_status": "solved",
+    "solver_status_value": 1,
+    "solver_iterations": 1125,
+    "solver_time_s": 0.02027932,
+    "mpc_total_s": 0.023102645005565137,
+    "fallback": false,
+    "prediction_violation": 1.560839213921028e-05,
+    "preview_horizon": 30,
+    "prediction_dt": 0.036
+  },
+  "max_abs_predicted_pitch_rad": 0.2121320419931305,
+  "pitch_box_bound_rad": 0.21213203435596423,
+  "max_abs_predicted_vx_m_s": 1.154716146771391,
+  "speed_component_bound_m_s": 1.1547005383792517,
+  "min_rotor_input": 0.09956438649598837,
+  "max_rotor_input": 1.0000009363216458,
+  "scope": "Numerical QP diagnostic for a deliberately unreachable 10m instantaneous target, not a simulator experiment"
+}

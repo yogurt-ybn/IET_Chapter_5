@@ -1,0 +1,9 @@
+{
+  "status": "abandoned evaluation attempt, retained for audit",
+  "reason": "motor RPC registration race exposed by strict telemetry check; six completed runs, one subsequent partial run interrupted; never used in final matrix aggregates",
+  "source_commit": "50ad6120f8c5bcf95a09df89921646a9901b84e8",
+  "replacement": "new frozen matrix only after acknowledged-goal bridge validation",
+  "partial_runs": [
+    "06-pid-noise_delay-s1-r0"
+  ]
+}

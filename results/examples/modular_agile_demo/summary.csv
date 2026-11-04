@@ -1,0 +1,6 @@
+run_id,controller,trajectory,tier,condition,seed,repeat,status,complete_common_interval,tracking_rms_m,position_max_m,velocity_rms_m_s,heading_rms_rad,constraint_violation_duration_s,fallback_count,failure
+000-pid-agile_course-nominal-s0-r0,pid,agile_course,aggressive,nominal,0,0,tracking_failed,True,1.1159363630731727,2.1693704224858963,1.0208467700768507,0.02339031936518119,0.0,0,Tracking acceptance tolerance not met
+001-lqr-agile_course-nominal-s0-r0,lqr,agile_course,aggressive,nominal,0,0,tracking_failed,True,0.3150338357802371,0.5265246389213015,0.4470052824506779,0.0442018258266843,0.0,0,Tracking acceptance tolerance not met
+002-geometric-agile_course-nominal-s0-r0,geometric,agile_course,aggressive,nominal,0,0,passed,True,0.015296784213520952,0.02497520732822818,0.015627326088044787,0.07376701716849397,0.0,0,
+003-dob-agile_course-nominal-s0-r0,dob,agile_course,aggressive,nominal,0,0,passed,True,0.007777054549028382,0.012106416653314358,0.013838258390148754,0.07421310032137626,0.0,0,
+004-mpc-agile_course-nominal-s0-r0,mpc,agile_course,aggressive,nominal,0,0,tracking_failed,True,0.3326484240372863,0.5435257879244507,0.4778205891367442,0.04820226804814531,0.0,642,Tracking acceptance tolerance not met

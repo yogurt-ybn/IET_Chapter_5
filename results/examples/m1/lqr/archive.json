@@ -1,0 +1,7 @@
+{
+  "source_run": "tune-lqr-01",
+  "sample_selection": "all control samples; lossless gzip",
+  "log_sha256": "ccca3758fdb1f7f445fa5400c39c9ca932a9477614043b8cfcbc9ea652995890",
+  "physics_samples_location": "ignored results/runs/tune-lqr-01/physics.jsonl",
+  "purpose": "M1 development acceptance; not the frozen final benchmark"
+}

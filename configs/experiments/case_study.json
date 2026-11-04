@@ -1,0 +1,9 @@
+{
+  "schema": "iet-ch5/experiment-v1",
+  "name": "controller_case_study",
+  "controllers": ["pid", "lqr", "geometric", "dob", "mpc"],
+  "trajectories": ["hover", "transfer", "circle", "figure_eight", "helix", "spatial_course", "agile_course"],
+  "repeats": 2,
+  "conditions": [{"id": "nominal", "kind": "nominal", "seeds": [0]}],
+  "repeatability_max_position_delta_m": 0.02
+}

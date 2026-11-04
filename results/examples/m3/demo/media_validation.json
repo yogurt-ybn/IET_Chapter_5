@@ -1,0 +1,40 @@
+{
+  "decoded_frames": 100,
+  "duration_s": 20.0,
+  "resolution": [
+    640,
+    480
+  ],
+  "frame_rate_fps": 5,
+  "synthetic_images": false,
+  "selected_frames": [
+    {
+      "filename": "00000.png",
+      "run_id": "demo-geometric-circle",
+      "controller": "geometric",
+      "simulation_t": 0.0,
+      "image_timestamp_ns": 1792465914527651840,
+      "published_filename": "scene_000.png",
+      "sha256": "4456cb8772018ff259153b07bbc0335604f7ee1b4b6022ece56d9ecac5c016d3"
+    },
+    {
+      "filename": "00040.png",
+      "run_id": "demo-geometric-circle",
+      "controller": "geometric",
+      "simulation_t": 8.007170816,
+      "image_timestamp_ns": 1792465922534822656,
+      "published_filename": "scene_040.png",
+      "sha256": "d3bd429adffb5db41770c67d83e718c9428405d82f1ff1ee3b3addfdf2ea4587"
+    },
+    {
+      "filename": "00070.png",
+      "run_id": "demo-geometric-circle",
+      "controller": "geometric",
+      "simulation_t": 14.001298688,
+      "image_timestamp_ns": 1792465928528950528,
+      "published_filename": "scene_070.png",
+      "sha256": "ac4688f3ddd879c717278dc3cb493ba7c99109b5770a2f2b46ea233b3615103b"
+    }
+  ],
+  "software_source_commit": "a87867036a4f7395438517d2dad8c007a5498910"
+}
