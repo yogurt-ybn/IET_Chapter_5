@@ -44,7 +44,19 @@ def create_solver(config, parameters, x0):
     cache.mkdir(parents=True, exist_ok=True)
     N = config['horizon']
     ocp = AcadosOcp()
-    ocp.model = symbolic_model(parameters, 'ch5_rigid_'+key)
+    residual = None
+    residual_config = config.get('residual', {})
+    if residual_config.get('enabled'):
+        from ...learning.gp import ForceGP
+        residual = ForceGP.load(residual_config['model_path'], residual_config['model_sha256'])
+        if abs(residual.document['context']['nominal_mass_kg']-parameters.mass) > 1e-9:
+            raise ValueError('Residual model was trained for a different nominal controller mass')
+        # A changed GP implementation must never reuse stale generated dynamics.
+        fingerprint.update(Path(__file__).parents[2].joinpath('learning/gp.py').read_bytes())
+        key = fingerprint.hexdigest()[:16]
+        cache = Path(os.environ.get('IET_CH5_ACADOS_CACHE', '.local/acados-generated')).resolve()/key
+        cache.mkdir(parents=True, exist_ok=True)
+    ocp.model = symbolic_model(parameters, 'ch5_rigid_'+key, residual)
     ocp.code_export_directory = str(cache/'c_generated_code')
     ocp.parameter_values = x0
     state_weights = np.r_[config['position_weight'], config['velocity_weight'], config['attitude_weight'],
@@ -83,5 +95,8 @@ def create_solver(config, parameters, x0):
                   'horizon_s': opts.tf, 'state_order': 'p,v,q_wxyz,body_omega,applied_wrench',
                   'constraints': 'coupled motor input [0,1]; no hard speed/tilt state caps',
                   'stability_claim': 'none; finite horizon least-squares terminal cost'}
+    provenance['learned_force_residual'] = {'enabled': residual is not None,
+        'model_sha256': residual_config.get('model_sha256'),
+        'semantics': 'frozen body force posterior mean inside translation dynamics; no chance constraints'}
     (cache/'build_receipt.json').write_text(dump(provenance)+'\n')
     return solver, provenance

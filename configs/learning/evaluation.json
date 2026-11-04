@@ -1,0 +1,12 @@
+{
+  "schema": "iet-ch5/experiment-v1",
+  "name": "matched_gp_force_residual",
+  "controllers": ["nmpc"],
+  "trajectories": ["figure_eight", "agile_course"],
+  "repeats": 2,
+  "conditions": [
+    {"id": "nominal", "kind": "nominal", "seeds": [0]},
+    {"id": "mass_bias", "kind": "mismatch", "mass_factor": 1.1, "inertia_factor": 1.0, "seeds": [0]}
+  ],
+  "repeatability_max_position_delta_m": 0.02
+}

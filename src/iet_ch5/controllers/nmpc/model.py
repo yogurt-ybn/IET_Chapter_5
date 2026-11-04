@@ -25,18 +25,21 @@ def state_vector(state, applied):
     return np.r_[state.p, state.v, quaternion_from_rotation(state.R), state.omega, applied]
 
 
-def dynamics(x, command, parameters):
+def dynamics(x, command, parameters, residual=None):
     """Independent NumPy RHS for model checks and numerical replay, not AirSim truth."""
     p = parameters
     q, omega, applied = x[6:10], x[10:13], x[13:17]
     acceleration = applied[0]/p.mass*rotation_from_quaternion(q)[:, 2]-np.array([0., 0., p.gravity])
+    if residual is not None:
+        R = rotation_from_quaternion(q)
+        acceleration += R@residual.predict(np.r_[R.T@x[3:6], applied[0]])[0]/p.mass
     qdot = .5*np.r_[-q[1:]@omega, q[0]*omega+np.cross(q[1:], omega)]
     domega = np.linalg.solve(p.J, applied[1:]-np.cross(omega, p.J@omega))
     return np.r_[x[3:6], acceleration, qdot, domega,
                  (np.asarray(command)-applied)/p.motor_time_constant]
 
 
-def symbolic_model(parameters, name):
+def symbolic_model(parameters, name, residual=None):
     import casadi as ca
     from acados_template import AcadosModel
     p = parameters
@@ -50,7 +53,11 @@ def symbolic_model(parameters, name):
     q, omega, applied = x[6:10], x[10:13], x[13:17]
     R, Rd = rotation(q), rotation(reference[6:10])
     qdot = .5*ca.vertcat(-ca.dot(q[1:], omega), q[0]*omega+ca.cross(q[1:], omega))
-    rhs = ca.vertcat(x[3:6], applied[0]/p.mass*R[:, 2]-ca.vertcat(0, 0, p.gravity),
+    acceleration = applied[0]/p.mass*R[:, 2]-ca.vertcat(0, 0, p.gravity)
+    if residual is not None:
+        features = ca.vertcat(R.T@x[3:6], applied[0])
+        acceleration += R@residual.symbolic(features)/p.mass
+    rhs = ca.vertcat(x[3:6], acceleration,
                      qdot, ca.solve(ca.DM(p.J), applied[1:]-ca.cross(omega, ca.DM(p.J)@omega)),
                      (u-applied)/p.motor_time_constant)
     qn, qr = q/ca.sqrt(ca.dot(q, q)+1e-16), reference[6:10]

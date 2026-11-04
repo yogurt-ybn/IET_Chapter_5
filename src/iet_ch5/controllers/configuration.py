@@ -47,6 +47,8 @@ def load_controller_configs(path=None, overrides=None):
             if key not in ("enabled", "warm_start"):
                 raise ValueError(f"Expected numeric parameter: {key}")
         elif isinstance(value, str):
+            if key in ('model_path', 'model_sha256'):
+                return
             if key != 'solver_type' or value not in ('SQP_RTI', 'SQP'):
                 raise ValueError(f'Invalid solver enumeration: {key}={value}')
         elif not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
@@ -56,4 +58,10 @@ def load_controller_configs(path=None, overrides=None):
     validate(defaults)
     if defaults['nmpc']['condensing_stages'] > defaults['nmpc']['horizon']:
         raise ValueError('condensing_stages must not exceed horizon')
+    residual = defaults['nmpc']['residual']
+    if not all(isinstance(residual[k], str) for k in ('model_path', 'model_sha256')):
+        raise ValueError('Residual model path and checksum must be strings')
+    if residual['enabled'] and (not residual['model_path'] or len(residual['model_sha256']) != 64
+            or any(c not in '0123456789abcdef' for c in residual['model_sha256'])):
+        raise ValueError('Enabled residual requires a model path and SHA256')
     return defaults
