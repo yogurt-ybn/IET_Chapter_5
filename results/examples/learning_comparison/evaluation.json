@@ -1,0 +1,466 @@
+[
+  {
+    "run": "agile_course-ars_policy-r0",
+    "status": "failed",
+    "failure": "Tracking acceptance tolerance not met",
+    "metrics": {
+      "valid_samples": 875,
+      "duration_s": 10.488223744,
+      "position_rms_m": 0.14304292669910768,
+      "position_max_m": 0.31087082976163083,
+      "axis_rms_m": [
+        0.08642116817709786,
+        0.10780552356038196,
+        0.03702201587466559
+      ],
+      "loop_rms_m": 0.15901980873900334,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.024000512000000196,
+      "saturation_fraction": 0.0022883295194508196,
+      "allocation_residual_max": 0.013870465953007545,
+      "allocation_residual_axis_max": [
+        0.013869572336028924,
+        8.068592816950354e-05,
+        8.068592816942027e-05,
+        0.00010848286128933154
+      ],
+      "controller_s": {
+        "median": 8.066091686487198e-05,
+        "p95": 0.0001188039546832442,
+        "max": 0.00019892188720405102
+      },
+      "allocation_s": {
+        "median": 1.536100171506405e-05,
+        "p95": 2.4343165569007395e-05,
+        "max": 0.009380385978147388
+      },
+      "rpc_step_s": {
+        "median": 0.014569781022146344,
+        "p95": 0.014696891070343554,
+        "max": 0.0155375930480659
+      },
+      "wall_loop_s": {
+        "median": 0.014897414017468691,
+        "p95": 0.014998527173884214,
+        "max": 0.02394431596621871
+      },
+      "wall_deadline_misses": 875,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.1932831085929691,
+      "rate_rms_rad_s": 0.718711125555439,
+      "mean_normalized_squared_motor_command": 0.40678971575757067,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "af8c8053468970c842d82c12c34c170090e6b4360ebbae5f1acaf92a076213c1",
+    "physics_sha256": "5b641b71b7feb90852dbab1caa213f5526aa198cba8844b6d6eb7fe499cd82be"
+  },
+  {
+    "run": "agile_course-ars_policy-r1",
+    "status": "failed",
+    "failure": "Tracking acceptance tolerance not met",
+    "metrics": {
+      "valid_samples": 875,
+      "duration_s": 10.488223744,
+      "position_rms_m": 0.14304292669910768,
+      "position_max_m": 0.31087082976163083,
+      "axis_rms_m": [
+        0.08642116817709786,
+        0.10780552356038196,
+        0.03702201587466559
+      ],
+      "loop_rms_m": 0.15901980873900334,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.024000512000000196,
+      "saturation_fraction": 0.0022883295194508196,
+      "allocation_residual_max": 0.013870465953007545,
+      "allocation_residual_axis_max": [
+        0.013869572336028924,
+        8.068592816950354e-05,
+        8.068592816942027e-05,
+        0.00010848286128933154
+      ],
+      "controller_s": {
+        "median": 8.362112566828728e-05,
+        "p95": 0.00015889501664787531,
+        "max": 0.0008988401386886835
+      },
+      "allocation_s": {
+        "median": 1.5851110219955444e-05,
+        "p95": 2.9906956478953357e-05,
+        "max": 0.0009829520713537931
+      },
+      "rpc_step_s": {
+        "median": 0.014562110882252455,
+        "p95": 0.014686742215417325,
+        "max": 0.01525713806040585
+      },
+      "wall_loop_s": {
+        "median": 0.014896683860570192,
+        "p95": 0.015009968937374652,
+        "max": 0.01765532814897597
+      },
+      "wall_deadline_misses": 875,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.1932831085929691,
+      "rate_rms_rad_s": 0.718711125555439,
+      "mean_normalized_squared_motor_command": 0.40678971575757067,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "ce70c55c041ca646ede63a3aa5b640f206141c58e41c1bcfddb107868303aac5",
+    "physics_sha256": "6bb5e328c00d1d147ff45b69e293e9fe9e9f9c46fd91ba1e03d8a0d21e9f78df"
+  },
+  {
+    "run": "agile_course-dmdc_mpc-r0",
+    "status": "failed",
+    "failure": "Tracking acceptance tolerance not met",
+    "metrics": {
+      "valid_samples": 875,
+      "duration_s": 10.488223744,
+      "position_rms_m": 0.13969605107202865,
+      "position_max_m": 0.27308790820575574,
+      "axis_rms_m": [
+        0.09664071577922048,
+        0.09141010139191351,
+        0.04265855251082553
+      ],
+      "loop_rms_m": 0.15527328053763614,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8411491105916324e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.0184188481996443e-16,
+        4.562322741819003e-16,
+        2.688821387764051e-17
+      ],
+      "controller_s": {
+        "median": 0.0001183010172098875,
+        "p95": 0.00017207292839884757,
+        "max": 0.00039821513928472996
+      },
+      "allocation_s": {
+        "median": 1.5059951692819595e-05,
+        "p95": 2.234452404081821e-05,
+        "max": 6.515090353786945e-05
+      },
+      "rpc_step_s": {
+        "median": 0.014530319953337312,
+        "p95": 0.014640880841761827,
+        "max": 0.014858274953439832
+      },
+      "wall_loop_s": {
+        "median": 0.014894725056365132,
+        "p95": 0.014982028817757963,
+        "max": 0.024071490159258246
+      },
+      "wall_deadline_misses": 875,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.1715377192537913,
+      "rate_rms_rad_s": 0.5063253114353831,
+      "mean_normalized_squared_motor_command": 0.40283246883500035,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "c1ea497422d9ea059610a1e79c96eead8023bb700e768b7ee1b2911c175317ee",
+    "physics_sha256": "4965a20b41d4d22a4bea4aa4cbea93249cbd3b05e970428d17fce4b2d7fbf1d7"
+  },
+  {
+    "run": "agile_course-dmdc_mpc-r1",
+    "status": "failed",
+    "failure": "Tracking acceptance tolerance not met",
+    "metrics": {
+      "valid_samples": 875,
+      "duration_s": 10.488223744,
+      "position_rms_m": 0.13969605107202865,
+      "position_max_m": 0.27308790820575574,
+      "axis_rms_m": [
+        0.09664071577922048,
+        0.09141010139191351,
+        0.04265855251082553
+      ],
+      "loop_rms_m": 0.15527328053763614,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8411491105916324e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.0184188481996443e-16,
+        4.562322741819003e-16,
+        2.688821387764051e-17
+      ],
+      "controller_s": {
+        "median": 0.0001183010172098875,
+        "p95": 0.0001750142313539981,
+        "max": 0.00040150503627955914
+      },
+      "allocation_s": {
+        "median": 1.5219906345009804e-05,
+        "p95": 2.2863666526973247e-05,
+        "max": 5.357014015316963e-05
+      },
+      "rpc_step_s": {
+        "median": 0.014524070080369711,
+        "p95": 0.014655720349401236,
+        "max": 0.03691912698559463
+      },
+      "wall_loop_s": {
+        "median": 0.014895605156198144,
+        "p95": 0.015008137002587319,
+        "max": 0.037313152104616165
+      },
+      "wall_deadline_misses": 875,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.1715377192537913,
+      "rate_rms_rad_s": 0.5063253114353831,
+      "mean_normalized_squared_motor_command": 0.40283246883500035,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "c8ffec22f79efc649161a0a43b07f1a38223b144a43baee129ec9100303e432f",
+    "physics_sha256": "a40e0c85787a59e13d61723d67d7acd5f0465c6d83954ddbe61e93f8ebc5ec47"
+  },
+  {
+    "run": "figure_eight-ars_policy-r0",
+    "status": "passed",
+    "failure": null,
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.008825228260756024,
+      "position_max_m": 0.027772615401708004,
+      "axis_rms_m": [
+        0.002293971418723277,
+        0.007786762585526976,
+        0.003462466955967197
+      ],
+      "loop_rms_m": 0.009553754151704553,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8195750766283663e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.0878077872387166e-16,
+        4.592680402648597e-16,
+        2.733544727379078e-17
+      ],
+      "controller_s": {
+        "median": 8.240097668021917e-05,
+        "p95": 0.00013423140626400704,
+        "max": 0.0002914140932261944
+      },
+      "allocation_s": {
+        "median": 1.5575089491903782e-05,
+        "p95": 2.4065910838544363e-05,
+        "max": 9.113084524869919e-05
+      },
+      "rpc_step_s": {
+        "median": 0.014575987006537616,
+        "p95": 0.01469551941845566,
+        "max": 0.01488887588493526
+      },
+      "wall_loop_s": {
+        "median": 0.014898625435307622,
+        "p95": 0.015003482985775918,
+        "max": 0.01526802103035152
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.024327973255468874,
+      "rate_rms_rad_s": 0.16733059451880647,
+      "mean_normalized_squared_motor_command": 0.35755339232991296,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "db66a885aa2c176586b8f44836a7c3450d9b0847103cab818ed314bd3169f135",
+    "physics_sha256": "56a2ecfa25d6e686774d6d0668eaa7f66a2ea6c255209b4549872fa98527ab31"
+  },
+  {
+    "run": "figure_eight-ars_policy-r1",
+    "status": "passed",
+    "failure": null,
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.008825228260756024,
+      "position_max_m": 0.027772615401708004,
+      "axis_rms_m": [
+        0.002293971418723277,
+        0.007786762585526976,
+        0.003462466955967197
+      ],
+      "loop_rms_m": 0.009553754151704553,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8195750766283663e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.0878077872387166e-16,
+        4.592680402648597e-16,
+        2.733544727379078e-17
+      ],
+      "controller_s": {
+        "median": 8.123612497001886e-05,
+        "p95": 0.00012637211475521323,
+        "max": 0.0002752342261373997
+      },
+      "allocation_s": {
+        "median": 1.5554949641227722e-05,
+        "p95": 2.4574575945734974e-05,
+        "max": 6.309105083346367e-05
+      },
+      "rpc_step_s": {
+        "median": 0.014583425945602357,
+        "p95": 0.014704219554550946,
+        "max": 0.01484402408823371
+      },
+      "wall_loop_s": {
+        "median": 0.014899050467647612,
+        "p95": 0.014998561434913427,
+        "max": 0.015268140006810427
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.024327973255468874,
+      "rate_rms_rad_s": 0.16733059451880647,
+      "mean_normalized_squared_motor_command": 0.35755339232991296,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "2945f8e34de8c87647e74f704051529a277aaf43c96d94ae2b7ceb5d8bf05d9d",
+    "physics_sha256": "8a8aea1f3a863ad96763db14d3e0c6090cdae3dcba9c2beeab1739f14a151537"
+  },
+  {
+    "run": "figure_eight-dmdc_mpc-r0",
+    "status": "passed",
+    "failure": null,
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.003613534466714773,
+      "position_max_m": 0.007282433703257643,
+      "axis_rms_m": [
+        0.001516912380974071,
+        0.0010227681083274569,
+        0.0031161761129903215
+      ],
+      "loop_rms_m": 0.003945854000450411,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8222926823680806e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.0054084221298183e-16,
+        4.154662724964453e-16,
+        2.5416070615312536e-17
+      ],
+      "controller_s": {
+        "median": 0.0001217816025018692,
+        "p95": 0.00018705269321799277,
+        "max": 0.0016093200538307428
+      },
+      "allocation_s": {
+        "median": 1.533550675958395e-05,
+        "p95": 2.3532588966190814e-05,
+        "max": 6.841099821031094e-05
+      },
+      "rpc_step_s": {
+        "median": 0.014533681911416352,
+        "p95": 0.014645778958220034,
+        "max": 0.015066209016367793
+      },
+      "wall_loop_s": {
+        "median": 0.01489650656003505,
+        "p95": 0.014998880436178297,
+        "max": 0.017038493184372783
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.003109788076144416,
+      "rate_rms_rad_s": 0.014275197065962433,
+      "mean_normalized_squared_motor_command": 0.35710765550116413,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "756664ba56776879ac70b7760e88a768189b992c903dee7539548f2db9875869",
+    "physics_sha256": "84eecbb6de321abb400bd86e9936532443a085e44dfe04cd20bff08c4ac3f64a"
+  },
+  {
+    "run": "figure_eight-dmdc_mpc-r1",
+    "status": "passed",
+    "failure": null,
+    "metrics": {
+      "valid_samples": 1000,
+      "duration_s": 11.988255744,
+      "position_rms_m": 0.003613534466714773,
+      "position_max_m": 0.007282433703257643,
+      "axis_rms_m": [
+        0.001516912380974071,
+        0.0010227681083274569,
+        0.0031161761129903215
+      ],
+      "loop_rms_m": 0.003945854000450411,
+      "transfer_settle_s": null,
+      "saturation_duration_s": 0.0,
+      "saturation_fraction": 0.0,
+      "allocation_residual_max": 1.8222926823680806e-15,
+      "allocation_residual_axis_max": [
+        1.7763568394002505e-15,
+        3.0054084221298183e-16,
+        4.154662724964453e-16,
+        2.5416070615312536e-17
+      ],
+      "controller_s": {
+        "median": 0.0001176060177385807,
+        "p95": 0.00016963802045211196,
+        "max": 0.0010226729791611433
+      },
+      "allocation_s": {
+        "median": 1.4920486137270927e-05,
+        "p95": 2.248053206130862e-05,
+        "max": 6.211083382368088e-05
+      },
+      "rpc_step_s": {
+        "median": 0.014540545991621912,
+        "p95": 0.014656017569359392,
+        "max": 0.016294472152367234
+      },
+      "wall_loop_s": {
+        "median": 0.014896575943566859,
+        "p95": 0.01499713194789365,
+        "max": 0.016909731086343527
+      },
+      "wall_deadline_misses": 1000,
+      "fallback_count": 0,
+      "collision_samples": 0,
+      "recovery_s": null,
+      "attitude_rms_rad": 0.003109788076144416,
+      "rate_rms_rad_s": 0.014275197065962433,
+      "mean_normalized_squared_motor_command": 0.35710765550116413,
+      "constraint_violation_samples": 0,
+      "constraint_violation_duration_s": 0.0
+    },
+    "log_sha256": "daf8c5803dd7866f0881968352384d1b72eb7e769ffe82f1af622ac574769a1e",
+    "physics_sha256": "b67e4fb14a8d4ac9d38a614aaef4c5d9bca0605d10f2b6563cf4f614ed0339e2"
+  }
+]

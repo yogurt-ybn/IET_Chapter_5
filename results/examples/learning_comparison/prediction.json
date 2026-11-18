@@ -1,0 +1,22 @@
+{
+  "figure_eight": {
+    "1": {
+      "windows": 1000,
+      "endpoint_position_rms_m": 4.676730044309081e-06
+    },
+    "60": {
+      "windows": 16,
+      "endpoint_position_rms_m": 0.019867513572224903
+    }
+  },
+  "agile_course": {
+    "1": {
+      "windows": 875,
+      "endpoint_position_rms_m": 9.258597460525661e-05
+    },
+    "60": {
+      "windows": 14,
+      "endpoint_position_rms_m": 0.3133626853800214
+    }
+  }
+}

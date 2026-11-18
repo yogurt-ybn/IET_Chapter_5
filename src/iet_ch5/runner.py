@@ -19,13 +19,14 @@ from .types import RunResult, WrenchCommand
 
 
 def run(local_config, controllers_config, task_config, controller_id, task_name, output,
-        *, seed=0, capture=False, scene_capture=None, backend: SimulationBackend | None = None):
+        *, seed=0, capture=False, scene_capture=None, backend: SimulationBackend | None = None,
+        controller_factory=make_controller):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     c = local_config
     backend = backend or create_backend(c, exclusive=True)
     allocator = Allocator(backend.parameters)
-    controller = make_controller(controller_id, controllers_config[controller_id])
+    controller = controller_factory(controller_id, controllers_config[controller_id])
     task = Task(task_name, task_config)
     config = {"controller_id": controller_id, "controllers": controllers_config,
               "task": task_name, "task_config": task_config, "seed": seed, "capture": capture,

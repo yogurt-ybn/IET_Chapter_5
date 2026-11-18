@@ -1,0 +1,58 @@
+{
+  "run_id": "figure_eight",
+  "controller": "initial_policy",
+  "status": "passed",
+  "metrics": {
+    "valid_samples": 1000,
+    "duration_s": 11.988255744,
+    "position_rms_m": 0.04467623225967215,
+    "position_max_m": 0.06935737973583044,
+    "axis_rms_m": [
+      0.006185123525718178,
+      0.02170169470355881,
+      0.03855835088389161
+    ],
+    "loop_rms_m": 0.046870077310480304,
+    "transfer_settle_s": null,
+    "saturation_duration_s": 0.0,
+    "saturation_fraction": 0.0,
+    "allocation_residual_max": 1.8175667615684084e-15,
+    "allocation_residual_axis_max": [
+      1.7763568394002505e-15,
+      3.1561125241053034e-16,
+      3.959506333917062e-16,
+      2.4597836788264882e-17
+    ],
+    "controller_s": {
+      "median": 8.390599396079779e-05,
+      "p95": 0.00013554211473092436,
+      "max": 0.0007863598875701427
+    },
+    "allocation_s": {
+      "median": 1.5685451216995716e-05,
+      "p95": 2.443999983370304e-05,
+      "max": 7.363106124103069e-05
+    },
+    "rpc_step_s": {
+      "median": 0.014574524946510792,
+      "p95": 0.014690793515183032,
+      "max": 0.015232778154313564
+    },
+    "wall_loop_s": {
+      "median": 0.01489878841675818,
+      "p95": 0.014999970572534948,
+      "max": 0.01886463211849332
+    },
+    "wall_deadline_misses": 1000,
+    "fallback_count": 0,
+    "collision_samples": 0,
+    "recovery_s": null,
+    "attitude_rms_rad": 0.018059475855676906,
+    "rate_rms_rad_s": 0.08797231716744491,
+    "mean_normalized_squared_motor_command": 0.35790621020286734,
+    "constraint_violation_samples": 0,
+    "constraint_violation_duration_s": 0.0
+  },
+  "failure": null,
+  "log_sha256": "921f61bcac545a53f2831110f4494547b95a7508b4a17cf59db72018fca79d42"
+}

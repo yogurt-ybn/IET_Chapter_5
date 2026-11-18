@@ -1,0 +1,58 @@
+{
+  "run_id": "agile_course",
+  "controller": "initial_policy",
+  "status": "failed",
+  "metrics": {
+    "valid_samples": 875,
+    "duration_s": 10.488223744,
+    "position_rms_m": 0.8788706584328733,
+    "position_max_m": 1.3716651829178057,
+    "axis_rms_m": [
+      0.36062271004370366,
+      0.3144866842455106,
+      0.7371994443074624
+    ],
+    "loop_rms_m": 0.9309956990619628,
+    "transfer_settle_s": null,
+    "saturation_duration_s": 0.0,
+    "saturation_fraction": 0.0,
+    "allocation_residual_max": 1.8597926617338785e-15,
+    "allocation_residual_axis_max": [
+      1.7763568394002505e-15,
+      3.122502256758253e-16,
+      5.204170427930421e-16,
+      2.6454533008646308e-17
+    ],
+    "controller_s": {
+      "median": 8.251098915934563e-05,
+      "p95": 0.00013484102673828598,
+      "max": 0.0002486330922693014
+    },
+    "allocation_s": {
+      "median": 1.5530036762356758e-05,
+      "p95": 2.5170436128973957e-05,
+      "max": 6.576091982424259e-05
+    },
+    "rpc_step_s": {
+      "median": 0.014568980084732175,
+      "p95": 0.014694727025926113,
+      "max": 0.014819312142208219
+    },
+    "wall_loop_s": {
+      "median": 0.014900624053552747,
+      "p95": 0.0150041219079867,
+      "max": 0.015216016909107566
+    },
+    "wall_deadline_misses": 875,
+    "fallback_count": 0,
+    "collision_samples": 0,
+    "recovery_s": null,
+    "attitude_rms_rad": 0.23657220677976415,
+    "rate_rms_rad_s": 0.655539000123455,
+    "mean_normalized_squared_motor_command": 0.45982866773870495,
+    "constraint_violation_samples": 51,
+    "constraint_violation_duration_s": 0.6120130560000001
+  },
+  "failure": "Tracking acceptance tolerance not met",
+  "log_sha256": "e7e6ef62a8deafa0adb1102ed71a44e50693b0217871a08956a998df6eea80b3"
+}
