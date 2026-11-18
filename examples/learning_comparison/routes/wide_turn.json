@@ -1,0 +1,44 @@
+{
+  "schema": "iet-ch5/trajectory-v1",
+  "id": "wide_turn",
+  "family": "spatial_lissajous",
+  "tier": "aggressive",
+  "description": "Coupled translation and varying heading: wide_turn",
+  "initial_position": [
+    0.0,
+    0.0,
+    3.0
+  ],
+  "timing": {
+    "onset_s": 1.0,
+    "duration_s": 8.7,
+    "ramp_s": 1.75,
+    "final_hold_s": 1.0
+  },
+  "shape": {
+    "half_width_m": 3.4,
+    "half_height_m": 1.6,
+    "vertical_amplitude_m": 0.6,
+    "third_harmonic_y_m": 0.1,
+    "third_harmonic_z_m": 0.12
+  },
+  "heading": {
+    "offset_rad": 0.0,
+    "oscillation_rad": 0.6
+  },
+  "evaluation": {
+    "position_rms_limit_m": 0.15,
+    "speed_limit_m_s": 5.0,
+    "tilt_limit_rad": 0.85
+  },
+  "safety": {
+    "max_position_error_m": 3.5,
+    "speed_limit_m_s": 7.0,
+    "tilt_limit_rad": 1.1
+  },
+  "camera_position_nwu_m": [
+    -3.0,
+    7.0,
+    11.0
+  ]
+}

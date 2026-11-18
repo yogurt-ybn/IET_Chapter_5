@@ -1,0 +1,52 @@
+{
+  "circle": {
+    "log.jsonl": "95829e9e8975087d3d39f912f1d228e46cd83b23ab1703b906e7ff4ddfd5642e",
+    "physics.jsonl": "041ceda69055c5c917aa5fe960c2ca5272cef43484521be13438c3f07a3c3d01",
+    "metadata.json": "63a478047a1d0807032cfef0e2335c8ebe188cfca9377e88f8eb862bf87dff1e"
+  },
+  "helix": {
+    "log.jsonl": "74ca187f4560c62429fb2cbcf33a5e9d3f5c048f3508c2a7d2956881510807a0",
+    "physics.jsonl": "172753bda63bbf360a54b9a262f99a13d126276307bda937f0a4e05234bc2385",
+    "metadata.json": "f4bf74890707b209d48734dfb257f09bc5e85fffcd178dfc58194aba7b618c32"
+  },
+  "transfer": {
+    "log.jsonl": "c34e0a5ccaf61cda240ee446bd6cd9d671d8c61dc27c96f7eef4e40f472b9177",
+    "physics.jsonl": "63df5099a14e42c44526ec6f6fe8e073e44ba7bfdc324888f69aca3ae41521a9",
+    "metadata.json": "212c82610d05372545cbce338c06c5dc63f0bf596e50433a2c6f4bcac7202fc9"
+  },
+  "wide_turn": {
+    "log.jsonl": "eb769a97abf28f5ef56c408de2d8fd4051536e9997ebc94dafd6bc01d103504e",
+    "physics.jsonl": "9918428973886a940dc13f134ac674f2aadf4aa34345d73c14f984672e8cfd39",
+    "metadata.json": "16d35ea1dffa20d8275d7da738a452486ab2c917fc03d1887405fcba6c886e9e"
+  },
+  "reverse_turn": {
+    "log.jsonl": "f228957b928924ae6f9688b16fcce91ec63fbe96f6d66ffa7d78db8c0ce1c279",
+    "physics.jsonl": "3d28d41f7cb42159965ce9921a24d522a35e615b4a2add4b1b1fb4dcda8acfe9",
+    "metadata.json": "395a62274e1baafb67ed67cfee1d5d07d0757a6f74730790488011ae4fb89199"
+  },
+  "climb_turn": {
+    "log.jsonl": "51ce29f21dfd7e74bcee884711ba278fe0c9f71f287e61a62c35af86ab21f602",
+    "physics.jsonl": "5a06c35d256978709b74ad9c9303ea8a61e24229f3bd7316750c0d9994e0ccdf",
+    "metadata.json": "5f2b6a9f3231939549cf9192b4b8628f75a27a084b182ffb2d9f0c8c8420960e"
+  },
+  "descending": {
+    "log.jsonl": "925c0ef9064ae9aef095854290d20e4b69c2d1c7c746e580b4388bf526add3b0",
+    "physics.jsonl": "0bf72e32a99bcb25118e676fa7b89b979e408acc7ab04e3c82f3c4fa05c92720",
+    "metadata.json": "c371cde0558a55a2d7062a504e0023d417da84306bc4926bbaf6300497203b68"
+  },
+  "fast_eight": {
+    "log.jsonl": "a89c61196d93ae73579e0b39c98edbdfe611a56c5b8168272fda2c103a821b65",
+    "physics.jsonl": "2dc00442c0584d9b5ed7183bc9468819208f58ccf78353ccc21b1d51b272cb18",
+    "metadata.json": "9965cc44f6b1c33fb34b41d03279d425717ee8363e7f1bd197b4f535a2e3940a"
+  },
+  "yaw_eight": {
+    "log.jsonl": "93d7d69a8105925e9b89c6e3ebbc03569aae012f286ef83e4e72bb9f85751511",
+    "physics.jsonl": "78012a369eb8d84dc1623e7bfc439146bd42b9700d1a2c0029a9ed2c302ddba8",
+    "metadata.json": "26d1eddf17ecb00f2a4581ba2a131fe3931c7ec4e38079bee8587d30277f363c"
+  },
+  "validation_turn": {
+    "log.jsonl": "b026d75e8df6c7d1613e66cafe1b7e265f505bb1a584d3550bfc7866d30dd719",
+    "physics.jsonl": "2f3d76cf59be6be73c3f4a69d5b8c62d4f4b4f64f162b8ea9437cf7b24aac39c",
+    "metadata.json": "412b2e7d96732d6d00debcefb1412756325e70afdd0213d37a84859358bdb947"
+  }
+}
