@@ -6,6 +6,10 @@ The chapter uses AirSim to show how conventional and learning-based quadrotor co
 
 The model-learning example fits a predictor to nine flights and uses it inside MPC. The policy-learning example uses augmented random search (ARS) to tune 12 feedback gains in a tracking policy with geometric feedforward. The frozen controllers then fly two courses in AirSim, including a held-out course from the same trajectory family.
 
+![Synchronised replay of nominal NMPC, GP residual NMPC, learned dynamics MPC and an ARS policy on the same agile course](results/examples/learning_retrained/learning_comparison.gif)
+
+The animation replays time-stamped AirSim position logs at approximately real time. Each upper panel shows the reference path in grey and the measured horizontal track in colour. The lower panel shows the three-dimensional tracking error, including altitude. All four flights use the nominal vehicle configuration. The ARS panel shows the first of three training seeds.
+
 ![Measured speed and tilt during training and testing, alongside prediction error on a separate validation flight](results/examples/learning_retrained/coverage.png)
 
 The added flights reached 4.63 m/s and 42° of tilt. Over the MPC horizon of 0.864 s, the refitted linear model had a 34.4 cm endpoint position RMS error on the validation flight. A nonlinear predictor fitted to the same data reduced that error to 1.53 cm.
@@ -24,7 +28,7 @@ The [GP residual experiment](docs/learning/CASE_STUDY.md) comprises **16 paired-
 
 ![Matched GP-NMPC accuracy and computation](results/examples/learning_case_study/figures/accuracy_and_timing.png)
 
-## Watch the controllers track an agile 3D trajectory
+## Watch the conventional controllers track an agile 3D trajectory
 
 [![Six controllers tracking the same agile 3D figure-eight trajectory in AirSim](results/examples/rigid_body_demo/comparison.gif)](results/examples/rigid_body_demo/comparison.mp4)
 
