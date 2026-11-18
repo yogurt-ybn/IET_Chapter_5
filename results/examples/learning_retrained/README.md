@@ -55,6 +55,7 @@ python "$d/wide_train.py" "$out"
 python "$d/wide_evaluate.py" .local/environment.json "$out" "$raw/evaluation"
 python "$d/wide_report.py" "$raw" "$out"
 python "$d/wide_transfer.py" "$raw/evaluation" "$out"
+python "$d/coverage_plot.py" "$raw" "$out"
 ~~~
 
 To rerun policy training alone without Unreal, copy vehicle.json and nonlinear.npz into a fresh directory and run wide_train.py with that directory. A second training execution regenerated the same policy arrays and reward histories for all three published seeds.

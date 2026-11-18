@@ -1,10 +1,24 @@
 # IET Chapter 5: UAV Control Systems
 
-A reproducible AirSim case study for conventional quadrotor control: **one simulation interface, six controller implementations, configurable trajectories and measured performance evaluation**. Each controller computes physical thrust and body moments through the same verified motor adapter. A frozen learned-force extension provides a matched NMPC case study for Section 5.4.6.
+The chapter uses AirSim to show how conventional and learning-based quadrotor controllers turn a reference trajectory into thrust and body moments. A shared motor allocator applies the commands, and the simulator logs the resulting motion.
 
-## Learning-control case study: the same NMPC, GP residual off/on
+## Section 5.4.6 · Learning a flight model or a tracking policy
 
-The [Section 5.4.6 case study](docs/learning/CASE_STUDY.md) is complete: **16 paired-evaluation AirSim flights, all passing, zero fallback**. With the controller mass biased by +10%, mean RMS drops from **23.73 to 0.785 mm** on the figure eight and **25.38 to 4.77 mm** on the agile spatial course. With accurate nominal parameters, learning offers no consistent benefit: ordinary figure-eight RMS increases from 0.475 to 0.548 mm. GP optimization updates also cost more: p95 18.6–21.6 ms versus 3.3–5.0 ms. Paused simulation does not establish real-time operation.
+The model-learning example fits a predictor to nine flights and uses it inside MPC. The policy-learning example uses augmented random search (ARS) to tune 12 feedback gains in a tracking policy with geometric feedforward. The frozen controllers then fly two courses in AirSim, including a held-out course from the same trajectory family.
+
+![Measured speed and tilt during training and testing, alongside prediction error on a separate validation flight](results/examples/learning_retrained/coverage.png)
+
+The added flights reached 4.63 m/s and 42° of tilt. Over the MPC horizon of 0.864 s, the refitted linear model had a 34.4 cm endpoint position RMS error on the validation flight. A nonlinear predictor fitted to the same data reduced that error to 1.53 cm.
+
+![AirSim position error over time for the model-based and policy controllers on both courses](results/examples/learning_retrained/tracking.png)
+
+On the held-out course, the refitted linear predictor triggered the tilt limit at 5.23 s. With the nonlinear predictor, the same preview MPC completed the course with 6.00 mm traversal position RMS error. The policy started at 32.46 mm before gain training and reached 6.62–6.67 mm across three training seeds. Each frozen policy flew once per course.
+
+[Experiment report and reproduction commands](results/examples/learning_retrained/README.md) · [Training and controller code](examples/learning_comparison/) · [All 20 flight outcomes](results/examples/learning_retrained/tracking.json)
+
+### Learning a force residual inside NMPC
+
+The [GP residual experiment](docs/learning/CASE_STUDY.md) comprises **16 paired-evaluation AirSim flights, all passing, zero fallback**. With the controller mass biased by +10%, mean RMS drops from **23.73 to 0.785 mm** on the figure eight and **25.38 to 4.77 mm** on the agile spatial course. With accurate nominal parameters, learning offers no consistent benefit: ordinary figure-eight RMS increases from 0.475 to 0.548 mm. GP optimization updates also cost more: p95 18.6–21.6 ms versus 3.3–5.0 ms. Paused simulation does not establish real-time operation.
 
 [Model, data split and runnable workflow](docs/learning/GP_NMPC.md) · [All paired results](results/examples/learning_case_study/REPORT.md) · [Assessment of 12 upstream algorithms](docs/learning/UPSTREAM_ASSESSMENT.md)
 
